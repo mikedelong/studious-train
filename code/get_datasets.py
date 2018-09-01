@@ -15,6 +15,10 @@ boston_feature_names = boston_bunch.feature_names
 boston_description = boston_bunch.DESCR
 
 cancer_bunch = load_breast_cancer(return_X_y=return_X_y)
+cancer_data = cancer_bunch['data']
+cancer_target = cancer_bunch['target']
+cancer_feature_names = cancer_bunch['feature_names']
+cancer_description = cancer_bunch['DESCR']
 (diabetes_data, diabetes_target) = load_diabetes()
 (digits_data, digits_target) = load_digits()
 (iris_data, iris_target) = load_iris()

@@ -19,12 +19,20 @@ cancer_data = cancer_bunch['data']
 cancer_target = cancer_bunch['target']
 cancer_feature_names = cancer_bunch['feature_names']
 cancer_description = cancer_bunch['DESCR']
+
 diabetes_bunch = load_diabetes(return_X_y=return_X_y)
 diabetes_data = diabetes_bunch['data']
 diabetes_target = diabetes_bunch['target']
 diabetes_feature_names = diabetes_bunch['feature_names']
 diabetes_description = diabetes_bunch['DESCR']
-(digits_data, digits_target) = load_digits()
-(iris_data, iris_target) = load_iris()
+
+digits_bunch = load_digits(return_X_y=return_X_y)
+digits_data = digits_bunch['data']
+digits_target = digits_bunch['target']
+digits_target_names = digits_bunch['target_names']
+digits_images = digits_bunch['images']
+digits_description = digits_bunch['DESCR']
+
+(iris_data, iris_target) = load_iris(return_X_y=return_X_y)
 (linnerud_data, linnerud_target) = load_linnerud()
 (wine_data, wine_target) = load_wine()

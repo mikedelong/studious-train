@@ -39,5 +39,5 @@ iris_target = iris_bunch['target']
 iris_target_names = iris_bunch['target_names']
 iris_feature_names = iris_bunch['feature_names']
 iris_description = iris_bunch['DESCR']
-(linnerud_data, linnerud_target) = load_linnerud(return_X_y=return_X_y)
-(wine_data, wine_target) = load_wine(return_X_y=return_X_y)
+linnerud_bunch = load_linnerud(return_X_y=return_X_y)
+wine_bunch = load_wine(return_X_y=return_X_y)

@@ -33,6 +33,11 @@ digits_target_names = digits_bunch['target_names']
 digits_images = digits_bunch['images']
 digits_description = digits_bunch['DESCR']
 
-(iris_data, iris_target) = load_iris(return_X_y=return_X_y)
-(linnerud_data, linnerud_target) = load_linnerud()
-(wine_data, wine_target) = load_wine()
+iris_bunch = load_iris(return_X_y=return_X_y)
+iris_data = iris_bunch['data']
+iris_target = iris_bunch['target']
+iris_target_names = iris_bunch['target_names']
+iris_feature_names = iris_bunch['feature_names']
+iris_description = iris_bunch['DESCR']
+(linnerud_data, linnerud_target) = load_linnerud(return_X_y=return_X_y)
+(wine_data, wine_target) = load_wine(return_X_y=return_X_y)

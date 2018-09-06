@@ -1,6 +1,7 @@
 import logging
 from time import time
 
+from sklearn.datasets import fetch_20newsgroups
 from sklearn.datasets import fetch_olivetti_faces
 from sklearn.datasets import load_boston
 from sklearn.datasets import load_breast_cancer
@@ -69,6 +70,13 @@ if __name__ == '__main__':
     linnerud_target = linnerud_bunch['target']
     linnerud_target_names = linnerud_bunch['target_names']
     linnerud_description = linnerud_bunch['DESCR']
+
+    newsgroups_bunch = fetch_20newsgroups(data_home=data_folder)
+    newsgroups_data = newsgroups_bunch['data']
+    newsgroups_target_names = newsgroups_bunch['target_names']
+    newsgroups_description = newsgroups_bunch['description']
+    newsgroups_target = newsgroups_bunch['target']
+    newsgroups_filenames = newsgroups_bunch['filenames']
 
     olivetti_faces = fetch_olivetti_faces(data_home=data_folder)
     olivetti_faces_data = olivetti_faces['data']

@@ -1,6 +1,7 @@
 import logging
 from time import time
 
+from sklearn.datasets import fetch_olivetti_faces
 from sklearn.datasets import load_boston
 from sklearn.datasets import load_breast_cancer
 from sklearn.datasets import load_diabetes
@@ -23,6 +24,7 @@ if __name__ == '__main__':
     console_handler.setLevel(logging.INFO)
     logger.addHandler(console_handler)
 
+    data_folder = '../data/'
     output_folder = '../output/'
 
     logger.info('started')
@@ -67,6 +69,12 @@ if __name__ == '__main__':
     linnerud_target = linnerud_bunch['target']
     linnerud_target_names = linnerud_bunch['target_names']
     linnerud_description = linnerud_bunch['DESCR']
+
+    olivetti_faces = fetch_olivetti_faces(data_home=data_folder)
+    olivetti_faces_data = olivetti_faces['data']
+    olivetti_faces_images = olivetti_faces['images']
+    olivetti_faces_target = olivetti_faces['target']
+    olivetti_faces_description = olivetti_faces['DESCR']
 
     sample_images_bunch = load_sample_images()
     sample_images = sample_images_bunch['images']

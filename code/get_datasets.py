@@ -7,6 +7,7 @@ from sklearn.datasets import load_diabetes
 from sklearn.datasets import load_digits
 from sklearn.datasets import load_iris
 from sklearn.datasets import load_linnerud
+from sklearn.datasets import load_sample_images
 from sklearn.datasets import load_wine
 
 if __name__ == '__main__':
@@ -66,6 +67,11 @@ if __name__ == '__main__':
     linnerud_target = linnerud_bunch['target']
     linnerud_target_names = linnerud_bunch['target_names']
     linnerud_description = linnerud_bunch['DESCR']
+
+    sample_images_bunch = load_sample_images()
+    sample_images = sample_images_bunch['images']
+    sample_images_filenames = sample_images_bunch['filenames']
+    sample_images_description = sample_images_bunch['DESCR']
 
     wine_bunch = load_wine(return_X_y=return_X_y)
     wine_data = wine_bunch['data']

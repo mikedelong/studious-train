@@ -66,7 +66,13 @@ if __name__ == '__main__':
     linnerud_target = linnerud_bunch['target']
     linnerud_target_names = linnerud_bunch['target_names']
     linnerud_description = linnerud_bunch['DESCR']
+
     wine_bunch = load_wine(return_X_y=return_X_y)
+    wine_data = wine_bunch['data']
+    wine_target = wine_bunch['target']
+    wine_target_names = wine_bunch['target_names']
+    wine_feature_names = wine_bunch['feature_names']
+    wine_description = wine_bunch['DESCR']
 
     logger.info('done')
 

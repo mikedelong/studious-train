@@ -25,15 +25,16 @@ if __name__ == '__main__':
     console_handler.setLevel(logging.INFO)
     logger.addHandler(console_handler)
 
-    data_folder = '../data/'
-    output_folder = '../output/'
-
     logger.info('started')
 
+    data_folder = '../data/'
+    output_folder = '../output/'
     return_X_y = False
 
+    logger.debug('loading boston data')
     boston_bunch = load_boston(return_X_y=return_X_y)
     boston_data = boston_bunch.data
+    logger.info('boston data is %d x %d' % boston_data.shape)
     boston_target = boston_bunch.target
     boston_feature_names = boston_bunch.feature_names
     boston_description = boston_bunch.DESCR

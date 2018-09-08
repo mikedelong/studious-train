@@ -27,7 +27,6 @@ if __name__ == '__main__':
 
     model = DecisionTreeRegressor()
 
-    test_size = 0.10
     for test_size in [0.7, 0.8, 0.9]:
         accuracies = list()
         scores = list()

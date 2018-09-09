@@ -1,5 +1,7 @@
 import logging
 from time import time
+from warnings import catch_warnings
+from warnings import filterwarnings
 
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.datasets import fetch_lfw_people
@@ -69,7 +71,9 @@ if __name__ == '__main__':
     min_faces_per_person = 0
     lfw_resize = None
     logger.info('downloading LFW people')
-    lfw_people = fetch_lfw_people(min_faces_per_person=min_faces_per_person, resize=lfw_resize)
+    with catch_warnings():
+        filterwarnings("ignore", category=DeprecationWarning)
+        lfw_people = fetch_lfw_people(min_faces_per_person=min_faces_per_person, resize=lfw_resize)
     lfw_people_data = lfw_people['data']
     lfw_people_images = lfw_people['images']
     lfw_people_target = lfw_people['target']

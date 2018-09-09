@@ -1,3 +1,4 @@
+# http://scikit-learn.org/stable/datasets/index.html
 import logging
 from time import time
 from warnings import catch_warnings
@@ -6,6 +7,7 @@ from warnings import filterwarnings
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.datasets import fetch_lfw_people
 from sklearn.datasets import fetch_olivetti_faces
+from sklearn.datasets import fetch_rcv1
 from sklearn.datasets import load_boston
 from sklearn.datasets import load_breast_cancer
 from sklearn.datasets import load_diabetes
@@ -103,6 +105,15 @@ if __name__ == '__main__':
     olivetti_faces_images = olivetti_faces['images']
     olivetti_faces_target = olivetti_faces['target']
     olivetti_faces_description = olivetti_faces['DESCR']
+
+    random_state = 1
+    logger.info('loading Reuters Corpus Volume I data')
+    rcv1_bunch = fetch_rcv1(subset='all', download_if_missing=True, random_state=random_state)
+    rcv1_data = rcv1_bunch['data']
+    rcv1_target = rcv1_bunch['target']
+    rcv1_sample_id = rcv1_bunch['sample_id']
+    rcv1_target_names = rcv1_bunch['target_names']
+    rcv1_description = rcv1_bunch['DESCR']
 
     logger.info('loading sample images data')
     with catch_warnings():

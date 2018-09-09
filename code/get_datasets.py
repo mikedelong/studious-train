@@ -2,6 +2,7 @@ import logging
 from time import time
 
 from sklearn.datasets import fetch_20newsgroups
+from sklearn.datasets import fetch_lfw_people
 from sklearn.datasets import fetch_olivetti_faces
 from sklearn.datasets import load_boston
 from sklearn.datasets import load_breast_cancer
@@ -64,6 +65,17 @@ if __name__ == '__main__':
     iris_target_names = iris_bunch['target_names']
     iris_feature_names = iris_bunch['feature_names']
     iris_description = iris_bunch['DESCR']
+
+    min_faces_per_person = 0
+    lfw_resize = None
+    logger.info('downloading LFW people')
+    lfw_people = fetch_lfw_people(min_faces_per_person=min_faces_per_person, resize=lfw_resize)
+    lfw_people_data = lfw_people['data']
+    lfw_people_images = lfw_people['images']
+    lfw_people_target = lfw_people['target']
+    lfw_people_target_names = lfw_people['target_names']
+    lfw_people_description = lfw_people['DESCR']
+    logger.info(lfw_people_data.shape)
 
     linnerud_bunch = load_linnerud(return_X_y=return_X_y)
     linnerud_data = linnerud_bunch['data']

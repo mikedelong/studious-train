@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
     min_faces_per_person = 0
     lfw_resize = None
-    logger.info('downloading LFW people')
+    logger.info('loading LFW people')
     with catch_warnings():
         filterwarnings("ignore", category=DeprecationWarning)
         lfw_people = fetch_lfw_people(min_faces_per_person=min_faces_per_person, resize=lfw_resize)
@@ -79,8 +79,9 @@ if __name__ == '__main__':
     lfw_people_target = lfw_people['target']
     lfw_people_target_names = lfw_people['target_names']
     lfw_people_description = lfw_people['DESCR']
-    logger.info(lfw_people_data.shape)
+    logger.info('the LFW data is %d x %d' % lfw_people_data.shape)
 
+    logger.info('loading Linnerud data')
     linnerud_bunch = load_linnerud(return_X_y=return_X_y)
     linnerud_data = linnerud_bunch['data']
     linnerud_feature_names = linnerud_bunch['feature_names']
@@ -88,6 +89,7 @@ if __name__ == '__main__':
     linnerud_target_names = linnerud_bunch['target_names']
     linnerud_description = linnerud_bunch['DESCR']
 
+    logger.info('loading newsgroups data')
     newsgroups_bunch = fetch_20newsgroups(data_home=data_folder)
     newsgroups_data = newsgroups_bunch['data']
     newsgroups_target_names = newsgroups_bunch['target_names']
@@ -95,17 +97,22 @@ if __name__ == '__main__':
     newsgroups_target = newsgroups_bunch['target']
     newsgroups_filenames = newsgroups_bunch['filenames']
 
+    logger.info('loading Olivetti faces data')
     olivetti_faces = fetch_olivetti_faces(data_home=data_folder)
     olivetti_faces_data = olivetti_faces['data']
     olivetti_faces_images = olivetti_faces['images']
     olivetti_faces_target = olivetti_faces['target']
     olivetti_faces_description = olivetti_faces['DESCR']
 
-    sample_images_bunch = load_sample_images()
+    logger.info('loading sample images data')
+    with catch_warnings():
+        filterwarnings("ignore", category=DeprecationWarning)
+        sample_images_bunch = load_sample_images()
     sample_images = sample_images_bunch['images']
     sample_images_filenames = sample_images_bunch['filenames']
     sample_images_description = sample_images_bunch['DESCR']
 
+    logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)
     wine_data = wine_bunch['data']
     wine_target = wine_bunch['target']

@@ -5,7 +5,9 @@ from warnings import catch_warnings
 from warnings import filterwarnings
 
 from sklearn.datasets import fetch_20newsgroups
+from sklearn.datasets import fetch_kddcup99
 from sklearn.datasets import fetch_lfw_people
+from sklearn.datasets import fetch_mldata
 from sklearn.datasets import fetch_olivetti_faces
 from sklearn.datasets import fetch_rcv1
 from sklearn.datasets import load_boston
@@ -35,6 +37,11 @@ if __name__ == '__main__':
     data_folder = '../data/'
     output_folder = '../output/'
     return_X_y = False
+
+    book_evaluation_bunch = fetch_mldata('book-evaluation-complete')
+    book_data = book_evaluation_bunch['data']
+    book_column_names = book_evaluation_bunch['COL_NAMES']
+    book_description = book_evaluation_bunch['DESCR']
 
     logger.debug('loading boston data')
     boston_bunch = load_boston(return_X_y=return_X_y)
@@ -70,11 +77,17 @@ if __name__ == '__main__':
     iris_feature_names = iris_bunch['feature_names']
     iris_description = iris_bunch['DESCR']
 
+    random_state = 1
+    kdd_bunch = fetch_kddcup99(random_state=random_state)
+    kdd_data = kdd_bunch['data']
+    kdd_target = kdd_bunch['target']
+    logger.info('KDD data is %d x %d' % kdd_data.shape)
+
     min_faces_per_person = 0
     lfw_resize = None
     logger.info('loading LFW people')
     with catch_warnings():
-        filterwarnings("ignore", category=DeprecationWarning)
+        filterwarnings('ignore', category=DeprecationWarning)
         lfw_people = fetch_lfw_people(min_faces_per_person=min_faces_per_person, resize=lfw_resize)
     lfw_people_data = lfw_people['data']
     lfw_people_images = lfw_people['images']
@@ -106,7 +119,6 @@ if __name__ == '__main__':
     olivetti_faces_target = olivetti_faces['target']
     olivetti_faces_description = olivetti_faces['DESCR']
 
-    random_state = 1
     logger.info('loading Reuters Corpus Volume I data')
     rcv1_bunch = fetch_rcv1(subset='all', download_if_missing=True, random_state=random_state)
     rcv1_data = rcv1_bunch['data']
@@ -117,7 +129,7 @@ if __name__ == '__main__':
 
     logger.info('loading sample images data')
     with catch_warnings():
-        filterwarnings("ignore", category=DeprecationWarning)
+        filterwarnings('ignore', category=DeprecationWarning)
         sample_images_bunch = load_sample_images()
     sample_images = sample_images_bunch['images']
     sample_images_filenames = sample_images_bunch['filenames']

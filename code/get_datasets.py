@@ -1,6 +1,7 @@
 # http://scikit-learn.org/stable/datasets/index.html
 import logging
 from time import time
+from urllib.error import HTTPError
 from warnings import catch_warnings
 from warnings import filterwarnings
 
@@ -73,6 +74,11 @@ if __name__ == '__main__':
     digits_target_names = digits_bunch['target_names']
     digits_images = digits_bunch['images']
     digits_description = digits_bunch['DESCR']
+
+    try:
+        fish_killer_bunch = fetch_mldata('fish_killer')
+    except HTTPError as httpError:
+        logger.warning(httpError)
 
     iris_bunch = load_iris(return_X_y=return_X_y)
     iris_data = iris_bunch['data']

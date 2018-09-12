@@ -79,18 +79,33 @@ if __name__ == '__main__':
 
     try:
         fish_killer_bunch = fetch_mldata('fish_killer')
+        fish_killer_column_names = fish_killer_bunch['COL_NAMES']
+        fish_killer_data = fish_killer_bunch['data']
+        fish_killer_description = fish_killer_bunch['DESCR']
+        fish_killer_int2 = fish_killer_bunch['int2']
+        fish_killer_target = fish_killer_bunch['target']
+    except HTTPError as httpError:
+        logger.warning(httpError)
+
+    try:
+        industry_portfolio_bunch = fetch_mldata('industry-portfolio')
+        industry_portfolio_column_names = industry_portfolio_bunch['COL_NAMES']
+        industry_portfolio_data = industry_portfolio_bunch['data']
+        logger.info('industry portfolio data is %d x %d' % industry_portfolio_data.shape)
+        industry_portfolio_description = industry_portfolio_bunch['DESCR']
     except HTTPError as httpError:
         logger.warning(httpError)
 
     iris_bunch = load_iris(return_X_y=return_X_y)
     iris_data = iris_bunch['data']
+    logger.info('iris data is %d x %d' % iris_data.shape)
     iris_target = iris_bunch['target']
     iris_target_names = iris_bunch['target_names']
     iris_feature_names = iris_bunch['feature_names']
     iris_description = iris_bunch['DESCR']
 
     random_state = 1
-    kdd_bunch = fetch_kddcup99(random_state=random_state)
+    kdd_bunch = fetch_kddcup99(random_state=random_state, download_if_missing=True)
     kdd_data = kdd_bunch['data']
     kdd_target = kdd_bunch['target']
     logger.info('KDD data is %d x %d' % kdd_data.shape)

@@ -54,7 +54,9 @@ if __name__ == '__main__':
     logger.info('boston data is %d x %d' % boston_data.shape)
     boston_target = boston_bunch.target
     boston_feature_names = boston_bunch.feature_names
+    logger.info('boston feature names: %s' % boston_feature_names)
     boston_description = boston_bunch.DESCR
+    logger.debug('boston description: %s' % boston_description)
 
     cancer_bunch = load_breast_cancer(return_X_y=return_X_y)
     cancer_data = cancer_bunch['data']

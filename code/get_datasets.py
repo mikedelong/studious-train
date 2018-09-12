@@ -80,6 +80,7 @@ if __name__ == '__main__':
     try:
         fish_killer_bunch = fetch_mldata('fish_killer')
         fish_killer_column_names = fish_killer_bunch['COL_NAMES']
+        logger.info('fish killer column names: %s' % fish_killer_column_names)
         fish_killer_data = fish_killer_bunch['data']
         fish_killer_description = fish_killer_bunch['DESCR']
         fish_killer_int2 = fish_killer_bunch['int2']
@@ -138,6 +139,16 @@ if __name__ == '__main__':
     newsgroups_description = newsgroups_bunch['description']
     newsgroups_target = newsgroups_bunch['target']
     newsgroups_filenames = newsgroups_bunch['filenames']
+
+    try:
+        nile_water_level_bunch = fetch_mldata('nile-water-level')
+        nile_water_level_data = nile_water_level_bunch['data']
+        logger.info('nile water level data is %d x %d' % nile_water_level_data.shape)
+        nile_water_level_description = nile_water_level_bunch['DESCR']
+        nile_water_level_column_names = nile_water_level_bunch['COL_NAMES']
+        logger.info('nile water level column names: %s' % nile_water_level_column_names)
+    except HTTPError as httpError:
+        logger.warning(httpError)
 
     logger.info('loading Olivetti faces data')
     olivetti_faces = fetch_olivetti_faces(data_home=data_folder)

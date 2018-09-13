@@ -48,7 +48,7 @@ if __name__ == '__main__':
     book_description = book_evaluation_bunch['DESCR']
     logger.info('book evaluation description: %s' % book_description)
 
-    logger.debug('loading boston data')
+    logger.info('loading boston data')
     boston_bunch = load_boston(return_X_y=return_X_y)
     boston_data = boston_bunch.data
     logger.info('boston data is %d x %d' % boston_data.shape)
@@ -60,15 +60,22 @@ if __name__ == '__main__':
 
     cancer_bunch = load_breast_cancer(return_X_y=return_X_y)
     cancer_data = cancer_bunch['data']
+    logger.info('cancer data is %d x %d' % cancer_data.shape)
     cancer_target = cancer_bunch['target']
     cancer_feature_names = cancer_bunch['feature_names']
+    logger.info('cancer feature names are %s' % cancer_feature_names)
     cancer_description = cancer_bunch['DESCR']
+    logger.debug('cancer description: %s' % cancer_description)
 
+    logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)
     diabetes_data = diabetes_bunch['data']
+    logger.info('diabetes data is %d x %d' % diabetes_data.shape)
     diabetes_target = diabetes_bunch['target']
     diabetes_feature_names = diabetes_bunch['feature_names']
+    logger.info('diabetes feature names are %s' % diabetes_feature_names)
     diabetes_description = diabetes_bunch['DESCR']
+    logger.debug('diabetes description: %s' % diabetes_description)
 
     digits_bunch = load_digits(return_X_y=return_X_y)
     digits_data = digits_bunch['data']

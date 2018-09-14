@@ -198,9 +198,12 @@ if __name__ == '__main__':
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)
     wine_data = wine_bunch['data']
+    logger.info('wine data is %d x %d' % wine_data.shape)
     wine_target = wine_bunch['target']
     wine_target_names = wine_bunch['target_names']
+    logger.info('wine target names: %s' % wine_target_names)
     wine_feature_names = wine_bunch['feature_names']
+    logger.info('wine feature names: %s' % wine_feature_names)
     wine_description = wine_bunch['DESCR']
 
     logger.info('done')

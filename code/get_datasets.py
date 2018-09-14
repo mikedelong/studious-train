@@ -88,6 +88,7 @@ if __name__ == '__main__':
     digits_description = digits_bunch['DESCR']
     logger.debug('digits description: %s' % digits_description)
 
+    logger.info('loading fish killer data')
     try:
         fish_killer_bunch = fetch_mldata('fish_killer')
         fish_killer_column_names = fish_killer_bunch['COL_NAMES']
@@ -183,6 +184,16 @@ if __name__ == '__main__':
     sample_images = sample_images_bunch['images']
     sample_images_filenames = sample_images_bunch['filenames']
     sample_images_description = sample_images_bunch['DESCR']
+
+    logger.info('loading well log data')
+    try:
+        well_log_bunch = fetch_mldata('well-log')
+        well_log_column_names = well_log_bunch['COL_NAMES']
+        logger.info('well log column names: %s' % well_log_column_names)
+        well_log_data = well_log_bunch['data']
+        logger.info('well log data is %d x %d' % well_log_data.shape)
+    except HTTPError as httpError:
+        logger.warning(httpError)
 
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)

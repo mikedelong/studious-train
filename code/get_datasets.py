@@ -40,7 +40,7 @@ if __name__ == '__main__':
     return_X_y = False
 
     logger.info('loading book evaluation data')
-    book_evaluation_bunch = fetch_mldata('book-evaluation-complete')
+    book_evaluation_bunch = fetch_mldata('book-evaluation-complete', data_home=data_folder)
     book_data = book_evaluation_bunch['data']
     logger.info('data is %d x %d' % book_data.shape)
     book_column_names = book_evaluation_bunch['COL_NAMES']
@@ -90,7 +90,7 @@ if __name__ == '__main__':
 
     logger.info('loading fish killer data')
     try:
-        fish_killer_bunch = fetch_mldata('fish_killer')
+        fish_killer_bunch = fetch_mldata('fish_killer', data_home=data_folder)
         fish_killer_column_names = fish_killer_bunch['COL_NAMES']
         logger.info('fish killer column names: %s' % fish_killer_column_names)
         fish_killer_data = fish_killer_bunch['data']
@@ -101,7 +101,7 @@ if __name__ == '__main__':
         logger.warning(httpError)
 
     try:
-        industry_portfolio_bunch = fetch_mldata('industry-portfolio')
+        industry_portfolio_bunch = fetch_mldata('industry-portfolio', data_home=data_folder)
         industry_portfolio_column_names = industry_portfolio_bunch['COL_NAMES']
         industry_portfolio_data = industry_portfolio_bunch['data']
         logger.info('industry portfolio data is %d x %d' % industry_portfolio_data.shape)
@@ -153,7 +153,7 @@ if __name__ == '__main__':
     newsgroups_filenames = newsgroups_bunch['filenames']
 
     try:
-        nile_water_level_bunch = fetch_mldata('nile-water-level')
+        nile_water_level_bunch = fetch_mldata('nile-water-level', data_home=data_folder)
         nile_water_level_data = nile_water_level_bunch['data']
         logger.info('nile water level data is %d x %d' % nile_water_level_data.shape)
         nile_water_level_description = nile_water_level_bunch['DESCR']
@@ -187,7 +187,7 @@ if __name__ == '__main__':
 
     logger.info('loading well log data')
     try:
-        well_log_bunch = fetch_mldata('well-log')
+        well_log_bunch = fetch_mldata('well-log', data_home=data_folder)
         well_log_column_names = well_log_bunch['COL_NAMES']
         logger.info('well log column names: %s' % well_log_column_names)
         well_log_data = well_log_bunch['data']

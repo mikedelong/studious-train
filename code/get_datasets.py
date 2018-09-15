@@ -58,6 +58,7 @@ if __name__ == '__main__':
     boston_description = boston_bunch.DESCR
     logger.debug('boston description: %s' % boston_description)
 
+    logger.info('loading breast cancer data')
     cancer_bunch = load_breast_cancer(return_X_y=return_X_y)
     cancer_data = cancer_bunch['data']
     logger.info('cancer data is %d x %d' % cancer_data.shape)
@@ -100,15 +101,19 @@ if __name__ == '__main__':
     except HTTPError as httpError:
         logger.warning(httpError)
 
+    logger.info('loading industry portfolio data')
     try:
         industry_portfolio_bunch = fetch_mldata('industry-portfolio', data_home=data_folder)
         industry_portfolio_column_names = industry_portfolio_bunch['COL_NAMES']
+        logger.info('industry portfolio column names are %s' % industry_portfolio_column_names)
         industry_portfolio_data = industry_portfolio_bunch['data']
         logger.info('industry portfolio data is %d x %d' % industry_portfolio_data.shape)
         industry_portfolio_description = industry_portfolio_bunch['DESCR']
+        logger.debug('industry portfolio description: %s' % industry_portfolio_description)
     except HTTPError as httpError:
         logger.warning(httpError)
 
+    logger.info('loading iris data')
     iris_bunch = load_iris(return_X_y=return_X_y)
     iris_data = iris_bunch['data']
     logger.info('iris data is %d x %d' % iris_data.shape)
@@ -192,6 +197,15 @@ if __name__ == '__main__':
         logger.info('well log column names: %s' % well_log_column_names)
         well_log_data = well_log_bunch['data']
         logger.info('well log data is %d x %d' % well_log_data.shape)
+    except HTTPError as httpError:
+        logger.warning(httpError)
+
+    # this one is garbage because the data is full of NaNs
+    logger.info('loading Whistler daily snowfall data')
+    try:
+        whistler_daily_bunch = fetch_mldata('whistler-daily-snowfall', data_home=data_folder)
+        whistler_data = whistler_daily_bunch['data']
+        logger.info('Whistler daily snowfall data is %d x %d' % whistler_data.shape)
     except HTTPError as httpError:
         logger.warning(httpError)
 

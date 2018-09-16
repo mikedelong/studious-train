@@ -119,8 +119,11 @@ if __name__ == '__main__':
     logger.info('iris data is %d x %d' % iris_data.shape)
     iris_target = iris_bunch['target']
     iris_target_names = iris_bunch['target_names']
+    logger.info('iris target names: %s' % iris_target_names)
     iris_feature_names = iris_bunch['feature_names']
+    logger.info('iris feature names: %s' % iris_feature_names)
     iris_description = iris_bunch['DESCR']
+    logger.debug('iris description: %s' % iris_description)
 
     random_state = 1
     kdd_bunch = fetch_kddcup99(random_state=random_state, download_if_missing=True)

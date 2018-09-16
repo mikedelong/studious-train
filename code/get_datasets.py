@@ -126,10 +126,12 @@ if __name__ == '__main__':
     logger.debug('iris description: %s' % iris_description)
 
     random_state = 1
+    logger.info('loading KDD data')
     kdd_bunch = fetch_kddcup99(random_state=random_state, download_if_missing=True)
     kdd_data = kdd_bunch['data']
-    kdd_target = kdd_bunch['target']
     logger.info('KDD data is %d x %d' % kdd_data.shape)
+    kdd_target = kdd_bunch['target']
+    logger.info('KDD target unique values: %s' % list(set(kdd_target)))
 
     min_faces_per_person = 0
     lfw_resize = None

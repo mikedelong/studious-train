@@ -95,9 +95,11 @@ if __name__ == '__main__':
         fish_killer_column_names = fish_killer_bunch['COL_NAMES']
         logger.info('fish killer column names: %s' % fish_killer_column_names)
         fish_killer_data = fish_killer_bunch['data']
+        logger.info('fish killer data is %d x %d' % fish_killer_data.shape)
         fish_killer_description = fish_killer_bunch['DESCR']
         fish_killer_int2 = fish_killer_bunch['int2']
         fish_killer_target = fish_killer_bunch['target']
+        logger.info('fish killer target variable: %s' % fish_killer_target)
     except HTTPError as httpError:
         logger.warning(httpError)
 
@@ -140,8 +142,10 @@ if __name__ == '__main__':
         filterwarnings('ignore', category=DeprecationWarning)
         lfw_people = fetch_lfw_people(min_faces_per_person=min_faces_per_person, resize=lfw_resize)
     lfw_people_data = lfw_people['data']
+    logger.info('LFW data is %d x %d' % lfw_people_data.shape)
     lfw_people_images = lfw_people['images']
     lfw_people_target = lfw_people['target']
+    logger.info('LFW target is %s' % lfw_people_target)
     lfw_people_target_names = lfw_people['target_names']
     lfw_people_description = lfw_people['DESCR']
     logger.info('the LFW data is %d x %d' % lfw_people_data.shape)

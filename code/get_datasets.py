@@ -1,4 +1,5 @@
 # http://scikit-learn.org/stable/datasets/index.html
+# https://www.statsmodels.org/dev/datasets/index.html
 import logging
 from time import time
 from urllib.error import HTTPError
@@ -19,6 +20,12 @@ from sklearn.datasets import load_iris
 from sklearn.datasets import load_linnerud
 from sklearn.datasets import load_sample_images
 from sklearn.datasets import load_wine
+from statsmodels.datasets import anes96
+
+# from statsmodels.datasets import cancer
+# from statsmodels.datasets import ccard
+# from statsmodels.datasets import china_smoking
+
 
 if __name__ == '__main__':
     start_time = time()
@@ -38,6 +45,11 @@ if __name__ == '__main__':
     data_folder = '../data/'
     output_folder = '../output/'
     return_X_y = False
+
+    logger.info('loading ANES96 data')
+    anes96_bunch = anes96.load_pandas()
+    anes96_data = anes96_bunch['data']
+    logger.info('ANES96 data is %d x %d' % anes96_data.shape)
 
     logger.info('loading book evaluation data')
     book_evaluation_bunch = fetch_mldata('book-evaluation-complete', data_home=data_folder)

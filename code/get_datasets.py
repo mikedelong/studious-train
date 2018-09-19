@@ -46,6 +46,7 @@ if __name__ == '__main__':
     output_folder = '../output/'
     return_X_y = False
 
+    # todo save this data locally and only reload it if it isn't present
     logger.info('loading ANES96 data')
     anes96_bunch = anes96.load_pandas()
     anes96_data = anes96_bunch['data']
@@ -85,6 +86,7 @@ if __name__ == '__main__':
     cancer_description = cancer_bunch['DESCR']
     logger.debug('cancer description: %s' % cancer_description)
 
+    # todo save this data locally and only reload it if it isn't present
     logger.info('loading credit card data')
     ccard_bunch = ccard.load_pandas()
     ccard_data = ccard_bunch['data']

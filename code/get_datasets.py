@@ -59,10 +59,10 @@ if __name__ == '__main__':
     anes96_data = anes96_bunch['data']
     logger.info('ANES96 data is %d x %d' % anes96_data.shape)
     anes96_names = anes96_bunch['names']
-    anes_96_endog = anes96_bunch['endog_name']
-    logger.info('ANES96 endogengous variable is %s' % anes_96_endog)
-    anes_96_exog = anes96_bunch['exog_name']
-    logger.info('ANES96 exogengous variable is %s' % anes_96_exog)
+    anes96_endog = anes96_bunch['endog_name']
+    logger.info('ANES96 endogengous variable is %s' % anes96_endog)
+    anes96_exog = anes96_bunch['exog_name']
+    logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
     logger.info('loading book evaluation data')
     book_evaluation_bunch = fetch_mldata('book-evaluation-complete', data_home=data_folder)

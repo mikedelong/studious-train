@@ -1,6 +1,8 @@
 # http://scikit-learn.org/stable/datasets/index.html
 # https://www.statsmodels.org/dev/datasets/index.html
 import logging
+import pickle
+from os.path import exists
 from time import time
 from urllib.error import HTTPError
 from warnings import catch_warnings
@@ -26,7 +28,6 @@ from statsmodels.datasets import ccard
 
 # from statsmodels.datasets import china_smoking
 
-
 if __name__ == '__main__':
     start_time = time()
 
@@ -46,9 +47,15 @@ if __name__ == '__main__':
     output_folder = '../output/'
     return_X_y = False
 
-    # todo save this data locally and only reload it if it isn't present
     logger.info('loading ANES96 data')
-    anes96_bunch = anes96.load_pandas()
+    anes96_pickle = data_folder + 'anes96.pkl'
+    if exists(anes96_pickle):
+        with open(anes96_pickle, 'rb') as anes96_fp:
+            anes96_bunch = pickle.load(anes96_fp)
+    else:
+        anes96_bunch = anes96.load_pandas()
+        with open(anes96_pickle, 'wb') as anes96_fp:
+            pickle.dump(anes96_bunch, anes96_fp)
     anes96_data = anes96_bunch['data']
     logger.info('ANES96 data is %d x %d' % anes96_data.shape)
     anes96_names = anes96_bunch['names']

@@ -106,9 +106,9 @@ if __name__ == '__main__':
     logger.info('Credit card data is %d x %d' % ccard_data.shape)
     ccard_names = ccard_bunch['names']
     ccard_endog = ccard_bunch['endog_name']
-    logger.info('Credit card endogengous variable is %s' % ccard_endog)
+    logger.info('Credit card endogenous variable is %s' % ccard_endog)
     ccard_exog = ccard_bunch['exog_name']
-    logger.info('Credit card exogengous variable is %s' % ccard_exog)
+    logger.info('Credit card exogenous variable is %s' % ccard_exog)
 
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)

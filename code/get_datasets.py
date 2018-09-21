@@ -93,9 +93,15 @@ if __name__ == '__main__':
     cancer_description = cancer_bunch['DESCR']
     logger.debug('cancer description: %s' % cancer_description)
 
-    # todo save this data locally and only reload it if it isn't present
     logger.info('loading credit card data')
-    ccard_bunch = ccard.load_pandas()
+    ccard_pickle = data_folder + 'ccard.pkl'
+    if exists(ccard_pickle):
+        with open(ccard_pickle, 'rb') as ccard_fp:
+            ccard_bunch = pickle.load(ccard_fp)
+    else:
+        ccard_bunch = ccard.load_pandas()
+        with open(ccard_pickle, 'wb') as ccard_fp:
+            pickle.dump(ccard_bunch, ccard_fp)
     ccard_data = ccard_bunch['data']
     logger.info('Credit card data is %d x %d' % ccard_data.shape)
     ccard_names = ccard_bunch['names']

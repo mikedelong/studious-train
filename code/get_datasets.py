@@ -23,7 +23,7 @@ from sklearn.datasets import load_linnerud
 from sklearn.datasets import load_sample_images
 from sklearn.datasets import load_wine
 from statsmodels.datasets import anes96
-# from statsmodels.datasets import cancer
+from statsmodels.datasets import cancer
 from statsmodels.datasets import ccard
 
 # from statsmodels.datasets import china_smoking
@@ -84,14 +84,32 @@ if __name__ == '__main__':
     logger.debug('boston description: %s' % boston_description)
 
     logger.info('loading breast cancer data')
-    cancer_bunch = load_breast_cancer(return_X_y=return_X_y)
+    breast_cancer_bunch = load_breast_cancer(return_X_y=return_X_y)
+    breast_cancer_data = breast_cancer_bunch['data']
+    logger.info('cancer data is %d x %d' % breast_cancer_data.shape)
+    breast_cancer_target = breast_cancer_bunch['target']
+    breast_cancer_feature_names = breast_cancer_bunch['feature_names']
+    logger.info('cancer feature names are %s' % breast_cancer_feature_names)
+    breast_cancer_description = breast_cancer_bunch['DESCR']
+    logger.debug('cancer description: %s' % breast_cancer_description)
+
+    logger.info('loading cancer data')
+    cancer_pickle = data_folder + 'cancer.pkl'
+    if exists(cancer_pickle):
+        with open(cancer_pickle, 'rb') as cancer_fp:
+            cancer_bunch = cancer.load()
+    else:
+        cancer_bunch = cancer.load_pandas()
+        with open(cancer_pickle, 'wb') as cancer_fp:
+            pickle.dump(cancer_bunch, cancer_fp)
     cancer_data = cancer_bunch['data']
-    logger.info('cancer data is %d x %d' % cancer_data.shape)
-    cancer_target = cancer_bunch['target']
-    cancer_feature_names = cancer_bunch['feature_names']
-    logger.info('cancer feature names are %s' % cancer_feature_names)
-    cancer_description = cancer_bunch['DESCR']
-    logger.debug('cancer description: %s' % cancer_description)
+    logger.info('Cancer data is %d x %d' % cancer_data.shape)
+    cancer_names = cancer_bunch['names']
+    cancer_endog = cancer_bunch['endog_name']
+    logger.info('Cancer endogenous variable is %s' % cancer_endog)
+    cancer_exog = cancer_bunch['exog_name']
+    logger.info('Cancer exogenous variable is %s' % cancer_exog)
+
 
     logger.info('loading credit card data')
     ccard_pickle = data_folder + 'ccard.pkl'

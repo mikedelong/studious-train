@@ -26,6 +26,7 @@ from statsmodels.datasets import anes96
 from statsmodels.datasets import cancer
 from statsmodels.datasets import ccard
 from statsmodels.datasets import china_smoking
+from statsmodels.datasets import co2
 
 if __name__ == '__main__':
     start_time = time()
@@ -109,7 +110,6 @@ if __name__ == '__main__':
     cancer_exog = cancer_bunch['exog_name']
     logger.info('Cancer exogenous variable is %s' % cancer_exog)
 
-
     logger.info('loading credit card data')
     ccard_pickle = data_folder + 'ccard.pkl'
     if exists(ccard_pickle):
@@ -139,6 +139,17 @@ if __name__ == '__main__':
     china_smoking_data = china_smoking_bunch['data']
     logger.info('China smoking data is %d x %d' % china_smoking_data.shape)
     china_smoking_title = china_smoking_bunch['title']
+
+    # todo flesh this out
+    logger.info('loading CO2 data')
+    co2_pickle = data_folder + 'co2.pkl'
+    if exists(co2_pickle):
+        with open(co2_pickle, 'rb') as co2_fp:
+            co2_bunch = pickle.load(co2_fp)
+    else:
+        co2_bunch = co2.load()
+        with open(co2_pickle, 'wb') as co2_fp:
+            pickle.dump(co2_bunch, co2_fp)
 
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)

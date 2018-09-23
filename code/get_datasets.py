@@ -25,8 +25,7 @@ from sklearn.datasets import load_wine
 from statsmodels.datasets import anes96
 from statsmodels.datasets import cancer
 from statsmodels.datasets import ccard
-
-# from statsmodels.datasets import china_smoking
+from statsmodels.datasets import china_smoking
 
 if __name__ == '__main__':
     start_time = time()
@@ -103,7 +102,7 @@ if __name__ == '__main__':
         with open(cancer_pickle, 'wb') as cancer_fp:
             pickle.dump(cancer_bunch, cancer_fp)
     cancer_data = cancer_bunch['data']
-    logger.info('Cancer data is %d x %d' % cancer_data.shape)
+    logger.info('Cancer data is 2 x %d' % len(cancer_data))
     cancer_names = cancer_bunch['names']
     cancer_endog = cancer_bunch['endog_name']
     logger.info('Cancer endogenous variable is %s' % cancer_endog)
@@ -127,6 +126,19 @@ if __name__ == '__main__':
     logger.info('Credit card endogenous variable is %s' % ccard_endog)
     ccard_exog = ccard_bunch['exog_name']
     logger.info('Credit card exogenous variable is %s' % ccard_exog)
+
+    logger.info('loading China smoking data')
+    china_smoking_pickle = data_folder + 'china_smoking.pkl'
+    if exists(china_smoking_pickle):
+        with open(china_smoking_pickle, 'rb') as china_smoking_fp:
+            china_smoking_bunch = pickle.load(china_smoking_fp)
+    else:
+        china_smoking_bunch = china_smoking.load_pandas()
+        with open(china_smoking_pickle, 'wb') as china_smoking_fp:
+            pickle.dump(china_smoking_bunch, china_smoking_fp)
+    china_smoking_data = china_smoking_bunch['data']
+    logger.info('China smoking data is %d x %d' % china_smoking_data.shape)
+    china_smoking_title = china_smoking_bunch['title']
 
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)

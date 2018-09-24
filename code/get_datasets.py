@@ -140,7 +140,6 @@ if __name__ == '__main__':
     logger.info('China smoking data is %d x %d' % china_smoking_data.shape)
     china_smoking_title = china_smoking_bunch['title']
 
-    # todo flesh this out
     logger.info('loading CO2 data')
     co2_pickle = data_folder + 'co2.pkl'
     if exists(co2_pickle):
@@ -150,6 +149,12 @@ if __name__ == '__main__':
         co2_bunch = co2.load()
         with open(co2_pickle, 'wb') as co2_fp:
             pickle.dump(co2_bunch, co2_fp)
+    co2_data = co2_bunch['data']
+    logger.info('CO2 data has %d rows' % len(co2_data))
+    co2_names = co2_bunch['names']
+    logger.info('CO2 names: %s' % str(co2_names))
+    co2_raw_data = co2_bunch['raw_data']
+    logger.info('CO2 raw data is %d x %d' % co2_raw_data.shape)
 
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)

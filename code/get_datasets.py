@@ -27,6 +27,7 @@ from statsmodels.datasets import cancer
 from statsmodels.datasets import ccard
 from statsmodels.datasets import china_smoking
 from statsmodels.datasets import co2
+from statsmodels.datasets import committee
 
 if __name__ == '__main__':
     start_time = time()
@@ -155,6 +156,22 @@ if __name__ == '__main__':
     logger.info('CO2 names: %s' % str(co2_names))
     co2_raw_data = co2_bunch['raw_data']
     logger.info('CO2 raw data is %d x %d' % co2_raw_data.shape)
+
+    logger.info('loading committee data')
+    committee_pickle = data_folder + 'co2.pkl'
+    if exists(committee_pickle):
+        with open(committee_pickle, 'rb') as committee_fp:
+            committee_bunch = pickle.load(committee_fp)
+    else:
+        committee_bunch = committee.load()
+        with open(committee_pickle, 'wb') as committee_fp:
+            pickle.dump(committee_bunch, committee_fp)
+    committee_data = committee_bunch['data']
+    logger.info('committee data has %d rows' % len(committee_data))
+    committee_names = committee_bunch['names']
+    logger.info('committee names: %s' % str(co2_names))
+    committee_raw_data = committee_bunch['raw_data']
+    logger.info('committee raw data is %d x %d' % committee_raw_data.shape)
 
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)

@@ -28,6 +28,7 @@ from statsmodels.datasets import ccard
 from statsmodels.datasets import china_smoking
 from statsmodels.datasets import co2
 from statsmodels.datasets import committee
+from statsmodels.datasets import copper
 
 if __name__ == '__main__':
     start_time = time()
@@ -172,6 +173,22 @@ if __name__ == '__main__':
     logger.info('committee names: %s' % str(co2_names))
     committee_raw_data = committee_bunch['raw_data']
     logger.info('committee raw data is %d x %d' % committee_raw_data.shape)
+
+    logger.info('loading copper data')
+    copper_pickle = data_folder + 'co2.pkl'
+    if exists(copper_pickle):
+        with open(copper_pickle, 'rb') as copper_fp:
+            copper_bunch = pickle.load(copper_fp)
+    else:
+        copper_bunch = copper.load()
+        with open(copper_pickle, 'wb') as copper_fp:
+            pickle.dump(copper_bunch, copper_fp)
+    copper_data = copper_bunch['data']
+    logger.info('copper data has %d rows' % len(copper_data))
+    copper_names = copper_bunch['names']
+    logger.info('copper names: %s' % str(co2_names))
+    copper_raw_data = copper_bunch['raw_data']
+    logger.info('copper raw data is %d x %d' % copper_raw_data.shape)
 
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)

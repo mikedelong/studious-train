@@ -29,6 +29,7 @@ from statsmodels.datasets import china_smoking
 from statsmodels.datasets import co2
 from statsmodels.datasets import committee
 from statsmodels.datasets import copper
+from statsmodels.datasets import cpunish
 
 if __name__ == '__main__':
     start_time = time()
@@ -159,7 +160,7 @@ if __name__ == '__main__':
     logger.info('CO2 raw data is %d x %d' % co2_raw_data.shape)
 
     logger.info('loading committee data')
-    committee_pickle = data_folder + 'co2.pkl'
+    committee_pickle = data_folder + 'committee.pkl'
     if exists(committee_pickle):
         with open(committee_pickle, 'rb') as committee_fp:
             committee_bunch = pickle.load(committee_fp)
@@ -175,7 +176,7 @@ if __name__ == '__main__':
     logger.info('committee raw data is %d x %d' % committee_raw_data.shape)
 
     logger.info('loading copper data')
-    copper_pickle = data_folder + 'co2.pkl'
+    copper_pickle = data_folder + 'copper.pkl'
     if exists(copper_pickle):
         with open(copper_pickle, 'rb') as copper_fp:
             copper_bunch = pickle.load(copper_fp)
@@ -189,6 +190,22 @@ if __name__ == '__main__':
     logger.info('copper names: %s' % str(co2_names))
     copper_raw_data = copper_bunch['raw_data']
     logger.info('copper raw data is %d x %d' % copper_raw_data.shape)
+
+    logger.info('loading capital punishment data')
+    cpunish_pickle = data_folder + 'cpunish.pkl'
+    if exists(cpunish_pickle):
+        with open(cpunish_pickle, 'rb') as cpunish_fp:
+            cpunish_bunch = pickle.load(cpunish_fp)
+    else:
+        cpunish_bunch = cpunish.load()
+        with open(cpunish_pickle, 'wb') as cpunish_fp:
+            pickle.dump(cpunish_bunch, cpunish_fp)
+    cpunish_data = cpunish_bunch['data']
+    logger.info('cpunish data has %d rows' % len(cpunish_data))
+    cpunish_names = cpunish_bunch['names']
+    logger.info('cpunish names: %s' % str(co2_names))
+    cpunish_raw_data = cpunish_bunch['raw_data']
+    logger.info('cpunish raw data is %d x %d' % cpunish_raw_data.shape)
 
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)

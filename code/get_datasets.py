@@ -31,6 +31,7 @@ from statsmodels.datasets import committee
 from statsmodels.datasets import copper
 from statsmodels.datasets import cpunish
 from statsmodels.datasets import elnino
+from statsmodels.datasets import engel
 
 if __name__ == '__main__':
     start_time = time()
@@ -208,22 +209,6 @@ if __name__ == '__main__':
     cpunish_raw_data = cpunish_bunch['raw_data']
     logger.info('cpunish raw data is %d x %d' % cpunish_raw_data.shape)
 
-    logger.info('loading capital punishment data')
-    elnino_pickle = data_folder + 'elnino.pkl'
-    if exists(elnino_pickle):
-        with open(elnino_pickle, 'rb') as elnino_fp:
-            elnino_bunch = pickle.load(elnino_fp)
-    else:
-        elnino_bunch = elnino.load()
-        with open(elnino_pickle, 'wb') as elnino_fp:
-            pickle.dump(elnino_bunch, elnino_fp)
-    elnino_data = elnino_bunch['data']
-    logger.info('elnino data has %d rows' % len(elnino_data))
-    elnino_names = elnino_bunch['names']
-    logger.info('elnino names: %s' % str(co2_names))
-    elnino_raw_data = elnino_bunch['raw_data']
-    logger.info('elnino raw data is %d x %d' % elnino_raw_data.shape)
-
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)
     diabetes_data = diabetes_bunch['data']
@@ -244,6 +229,38 @@ if __name__ == '__main__':
     digits_images = digits_bunch['images']
     digits_description = digits_bunch['DESCR']
     logger.debug('digits description: %s' % digits_description)
+
+    logger.info('loading el nino data')
+    elnino_pickle = data_folder + 'elnino.pkl'
+    if exists(elnino_pickle):
+        with open(elnino_pickle, 'rb') as elnino_fp:
+            elnino_bunch = pickle.load(elnino_fp)
+    else:
+        elnino_bunch = elnino.load()
+        with open(elnino_pickle, 'wb') as elnino_fp:
+            pickle.dump(elnino_bunch, elnino_fp)
+    elnino_data = elnino_bunch['data']
+    logger.info('elnino data has %d rows' % len(elnino_data))
+    elnino_names = elnino_bunch['names']
+    logger.info('elnino names: %s' % str(co2_names))
+    elnino_raw_data = elnino_bunch['raw_data']
+    logger.info('elnino raw data is %d x %d' % elnino_raw_data.shape)
+
+    logger.info('loading Engel food expenditure data')
+    engel_pickle = data_folder + 'engel.pkl'
+    if exists(engel_pickle):
+        with open(engel_pickle, 'rb') as engel_fp:
+            engel_bunch = pickle.load(engel_fp)
+    else:
+        engel_bunch = engel.load()
+        with open(engel_pickle, 'wb') as engel_fp:
+            pickle.dump(engel_bunch, engel_fp)
+    engel_data = engel_bunch['data']
+    logger.info('engel data has %d rows' % len(engel_data))
+    engel_names = engel_bunch['names']
+    logger.info('engel names: %s' % str(co2_names))
+    engel_raw_data = engel_bunch['raw_data']
+    logger.info('engel raw data is %d x %d' % engel_raw_data.shape)
 
     logger.info('loading fish killer data')
     try:

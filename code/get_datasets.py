@@ -33,6 +33,7 @@ from statsmodels.datasets import cpunish
 from statsmodels.datasets import elnino
 from statsmodels.datasets import engel
 from statsmodels.datasets import fair
+from statsmodels.datasets import fertility
 
 if __name__ == '__main__':
     start_time = time()
@@ -278,6 +279,20 @@ if __name__ == '__main__':
     logger.info('fair names: %s' % str(co2_names))
     fair_raw_data = fair_bunch['raw_data']
     logger.info('fair raw data is %d x %d' % fair_raw_data.shape)
+
+    logger.info('loading fertility data')
+    fertility_pickle = data_folder + 'fertility.pkl'
+    if exists(fertility_pickle):
+        with open(fertility_pickle, 'rb') as fertility_fp:
+            fertility_bunch = pickle.load(fertility_fp)
+    else:
+        fertility_bunch = fertility.load()
+        with open(fertility_pickle, 'wb') as fertility_fp:
+            pickle.dump(fertility_bunch, fertility_fp)
+    fertility_data = fertility_bunch['data']
+    logger.info('fertility data has %d rows' % len(fertility_data))
+    fertility_names = fertility_bunch['names']
+    logger.info('fertility names: %s' % str(co2_names))
 
     logger.info('loading fish killer data')
     try:

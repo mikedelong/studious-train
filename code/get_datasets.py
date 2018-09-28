@@ -32,6 +32,7 @@ from statsmodels.datasets import copper
 from statsmodels.datasets import cpunish
 from statsmodels.datasets import elnino
 from statsmodels.datasets import engel
+from statsmodels.datasets import fair
 
 if __name__ == '__main__':
     start_time = time()
@@ -261,6 +262,22 @@ if __name__ == '__main__':
     logger.info('engel names: %s' % str(co2_names))
     engel_raw_data = engel_bunch['raw_data']
     logger.info('engel raw data is %d x %d' % engel_raw_data.shape)
+
+    logger.info('loading extramarital affair data')
+    fair_pickle = data_folder + 'fair.pkl'
+    if exists(fair_pickle):
+        with open(fair_pickle, 'rb') as fair_fp:
+            fair_bunch = pickle.load(fair_fp)
+    else:
+        fair_bunch = fair.load()
+        with open(fair_pickle, 'wb') as fair_fp:
+            pickle.dump(fair_bunch, fair_fp)
+    fair_data = fair_bunch['data']
+    logger.info('fair data has %d rows' % len(fair_data))
+    fair_names = fair_bunch['names']
+    logger.info('fair names: %s' % str(co2_names))
+    fair_raw_data = fair_bunch['raw_data']
+    logger.info('fair raw data is %d x %d' % fair_raw_data.shape)
 
     logger.info('loading fish killer data')
     try:

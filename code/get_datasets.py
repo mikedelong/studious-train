@@ -35,6 +35,7 @@ from statsmodels.datasets import engel
 from statsmodels.datasets import fair
 from statsmodels.datasets import fertility
 from statsmodels.datasets import grunfeld
+from statsmodels.datasets import heart
 
 if __name__ == '__main__':
     start_time = time()
@@ -322,6 +323,20 @@ if __name__ == '__main__':
     logger.info('grunfeld data has %d rows' % len(grunfeld_data))
     grunfeld_names = grunfeld_bunch['names']
     logger.info('grunfeld names: %s' % str(grunfeld_names))
+
+    logger.info('loading Heart transplant data')
+    heart_pickle = data_folder + 'heart.pkl'
+    if exists(heart_pickle):
+        with open(heart_pickle, 'rb') as heart_fp:
+            heart_bunch = pickle.load(heart_fp)
+    else:
+        heart_bunch = heart.load()
+        with open(heart_pickle, 'wb') as heart_fp:
+            pickle.dump(heart_bunch, heart_fp)
+    heart_data = heart_bunch['data']
+    logger.info('heart data has %d rows' % len(heart_data))
+    heart_names = heart_bunch['names']
+    logger.info('heart names: %s' % str(heart_names))
 
     logger.info('loading industry portfolio data')
     try:

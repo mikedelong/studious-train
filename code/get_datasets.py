@@ -34,6 +34,7 @@ from statsmodels.datasets import elnino
 from statsmodels.datasets import engel
 from statsmodels.datasets import fair
 from statsmodels.datasets import fertility
+from statsmodels.datasets import grunfeld
 
 if __name__ == '__main__':
     start_time = time()
@@ -175,7 +176,7 @@ if __name__ == '__main__':
     committee_data = committee_bunch['data']
     logger.info('committee data has %d rows' % len(committee_data))
     committee_names = committee_bunch['names']
-    logger.info('committee names: %s' % str(co2_names))
+    logger.info('committee names: %s' % str(committee_names))
     committee_raw_data = committee_bunch['raw_data']
     logger.info('committee raw data is %d x %d' % committee_raw_data.shape)
 
@@ -191,7 +192,7 @@ if __name__ == '__main__':
     copper_data = copper_bunch['data']
     logger.info('copper data has %d rows' % len(copper_data))
     copper_names = copper_bunch['names']
-    logger.info('copper names: %s' % str(co2_names))
+    logger.info('copper names: %s' % str(copper_names))
     copper_raw_data = copper_bunch['raw_data']
     logger.info('copper raw data is %d x %d' % copper_raw_data.shape)
 
@@ -207,7 +208,7 @@ if __name__ == '__main__':
     cpunish_data = cpunish_bunch['data']
     logger.info('cpunish data has %d rows' % len(cpunish_data))
     cpunish_names = cpunish_bunch['names']
-    logger.info('cpunish names: %s' % str(co2_names))
+    logger.info('cpunish names: %s' % str(cpunish_names))
     cpunish_raw_data = cpunish_bunch['raw_data']
     logger.info('cpunish raw data is %d x %d' % cpunish_raw_data.shape)
 
@@ -244,7 +245,7 @@ if __name__ == '__main__':
     elnino_data = elnino_bunch['data']
     logger.info('elnino data has %d rows' % len(elnino_data))
     elnino_names = elnino_bunch['names']
-    logger.info('elnino names: %s' % str(co2_names))
+    logger.info('elnino names: %s' % str(elnino_names))
     elnino_raw_data = elnino_bunch['raw_data']
     logger.info('elnino raw data is %d x %d' % elnino_raw_data.shape)
 
@@ -260,7 +261,7 @@ if __name__ == '__main__':
     engel_data = engel_bunch['data']
     logger.info('engel data has %d rows' % len(engel_data))
     engel_names = engel_bunch['names']
-    logger.info('engel names: %s' % str(co2_names))
+    logger.info('engel names: %s' % str(engel_names))
     engel_raw_data = engel_bunch['raw_data']
     logger.info('engel raw data is %d x %d' % engel_raw_data.shape)
 
@@ -276,7 +277,7 @@ if __name__ == '__main__':
     fair_data = fair_bunch['data']
     logger.info('fair data has %d rows' % len(fair_data))
     fair_names = fair_bunch['names']
-    logger.info('fair names: %s' % str(co2_names))
+    logger.info('fair names: %s' % str(fair_names))
     fair_raw_data = fair_bunch['raw_data']
     logger.info('fair raw data is %d x %d' % fair_raw_data.shape)
 
@@ -292,7 +293,7 @@ if __name__ == '__main__':
     fertility_data = fertility_bunch['data']
     logger.info('fertility data has %d rows' % len(fertility_data))
     fertility_names = fertility_bunch['names']
-    logger.info('fertility names: %s' % str(co2_names))
+    logger.info('fertility names: %s' % str(fertility_names))
 
     logger.info('loading fish killer data')
     try:
@@ -304,9 +305,23 @@ if __name__ == '__main__':
         fish_killer_description = fish_killer_bunch['DESCR']
         fish_killer_int2 = fish_killer_bunch['int2']
         fish_killer_target = fish_killer_bunch['target']
-        logger.info('fish killer target variable: %s' % fish_killer_target)
+        logger.debug('fish killer target variable: %s' % fish_killer_target)
     except HTTPError as httpError:
         logger.warning(httpError)
+
+    logger.info('loading Grunfeld data')
+    grunfeld_pickle = data_folder + 'grunfeld.pkl'
+    if exists(grunfeld_pickle):
+        with open(grunfeld_pickle, 'rb') as grunfeld_fp:
+            grunfeld_bunch = pickle.load(grunfeld_fp)
+    else:
+        grunfeld_bunch = grunfeld.load()
+        with open(grunfeld_pickle, 'wb') as grunfeld_fp:
+            pickle.dump(grunfeld_bunch, grunfeld_fp)
+    grunfeld_data = grunfeld_bunch['data']
+    logger.info('grunfeld data has %d rows' % len(grunfeld_data))
+    grunfeld_names = grunfeld_bunch['names']
+    logger.info('grunfeld names: %s' % str(grunfeld_names))
 
     logger.info('loading industry portfolio data')
     try:

@@ -36,6 +36,7 @@ from statsmodels.datasets import fair
 from statsmodels.datasets import fertility
 from statsmodels.datasets import grunfeld
 from statsmodels.datasets import heart
+from statsmodels.datasets import interest_inflation
 
 if __name__ == '__main__':
     start_time = time()
@@ -349,6 +350,20 @@ if __name__ == '__main__':
         logger.debug('industry portfolio description: %s' % industry_portfolio_description)
     except HTTPError as httpError:
         logger.warning(httpError)
+
+    logger.info('loading West German interest and inflation rate data')
+    interest_inflation_pickle = data_folder + 'interest_inflation.pkl'
+    if exists(interest_inflation_pickle):
+        with open(interest_inflation_pickle, 'rb') as interest_inflation_fp:
+            interest_inflation_bunch = pickle.load(interest_inflation_fp)
+    else:
+        interest_inflation_bunch = interest_inflation.load()
+        with open(interest_inflation_pickle, 'wb') as interest_inflation_fp:
+            pickle.dump(interest_inflation_bunch, interest_inflation_fp)
+    interest_inflation_data = interest_inflation_bunch['data']
+    logger.info('interest_inflation data has %d rows ' % len(interest_inflation_data))
+    interest_inflation_names = interest_inflation_bunch['names']
+    logger.info('interest_inflation names: %s' % str(interest_inflation_names))
 
     logger.info('loading iris data')
     iris_bunch = load_iris(return_X_y=return_X_y)

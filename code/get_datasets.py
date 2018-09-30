@@ -37,6 +37,7 @@ from statsmodels.datasets import fertility
 from statsmodels.datasets import grunfeld
 from statsmodels.datasets import heart
 from statsmodels.datasets import interest_inflation
+from statsmodels.datasets import longley
 
 if __name__ == '__main__':
     start_time = time()
@@ -407,6 +408,20 @@ if __name__ == '__main__':
     linnerud_target = linnerud_bunch['target']
     linnerud_target_names = linnerud_bunch['target_names']
     linnerud_description = linnerud_bunch['DESCR']
+
+    logger.info('loading Longley macroeconomic data')
+    longley_pickle = data_folder + 'longley.pkl'
+    if exists(longley_pickle):
+        with open(longley_pickle, 'rb') as longley_fp:
+            longley_bunch = pickle.load(longley_fp)
+    else:
+        longley_bunch = longley.load()
+        with open(longley_pickle, 'wb') as longley_fp:
+            pickle.dump(longley_bunch, longley_fp)
+    longley_data = longley_bunch['data']
+    logger.info('longley data has %d rows ' % len(longley_data))
+    longley_names = longley_bunch['names']
+    logger.info('longley names: %s' % str(longley_names))
 
     logger.info('loading newsgroups data')
     newsgroups_bunch = fetch_20newsgroups(data_home=data_folder)

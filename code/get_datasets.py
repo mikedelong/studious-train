@@ -38,6 +38,7 @@ from statsmodels.datasets import grunfeld
 from statsmodels.datasets import heart
 from statsmodels.datasets import interest_inflation
 from statsmodels.datasets import longley
+from statsmodels.datasets import macrodata
 
 if __name__ == '__main__':
     start_time = time()
@@ -422,6 +423,20 @@ if __name__ == '__main__':
     logger.info('longley data has %d rows ' % len(longley_data))
     longley_names = longley_bunch['names']
     logger.info('longley names: %s' % str(longley_names))
+
+    logger.info('loading US macroeconomic data')
+    macrodata_pickle = data_folder + 'macrodata.pkl'
+    if exists(macrodata_pickle):
+        with open(macrodata_pickle, 'rb') as macrodata_fp:
+            macrodata_bunch = pickle.load(macrodata_fp)
+    else:
+        macrodata_bunch = macrodata.load()
+        with open(macrodata_pickle, 'wb') as macrodata_fp:
+            pickle.dump(macrodata_bunch, macrodata_fp)
+    macrodata_data = macrodata_bunch['data']
+    logger.info('macrodata data has %d rows ' % len(macrodata_data))
+    macrodata_names = macrodata_bunch['names']
+    logger.info('macrodata names: %s' % str(macrodata_names))
 
     logger.info('loading newsgroups data')
     newsgroups_bunch = fetch_20newsgroups(data_home=data_folder)

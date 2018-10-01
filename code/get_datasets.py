@@ -39,6 +39,7 @@ from statsmodels.datasets import heart
 from statsmodels.datasets import interest_inflation
 from statsmodels.datasets import longley
 from statsmodels.datasets import macrodata
+from statsmodels.datasets import modechoice
 
 if __name__ == '__main__':
     start_time = time()
@@ -437,6 +438,20 @@ if __name__ == '__main__':
     logger.info('macrodata data has %d rows ' % len(macrodata_data))
     macrodata_names = macrodata_bunch['names']
     logger.info('macrodata names: %s' % str(macrodata_names))
+
+    logger.info('loading travel mode choice data')
+    modechoice_pickle = data_folder + 'modechoice.pkl'
+    if exists(modechoice_pickle):
+        with open(modechoice_pickle, 'rb') as modechoice_fp:
+            modechoice_bunch = pickle.load(modechoice_fp)
+    else:
+        modechoice_bunch = modechoice.load()
+        with open(modechoice_pickle, 'wb') as modechoice_fp:
+            pickle.dump(modechoice_bunch, modechoice_fp)
+    modechoice_data = modechoice_bunch['data']
+    logger.info('modechoice data has %d rows ' % len(modechoice_data))
+    modechoice_names = modechoice_bunch['names']
+    logger.info('modechoice names: %s' % str(modechoice_names))
 
     logger.info('loading newsgroups data')
     newsgroups_bunch = fetch_20newsgroups(data_home=data_folder)

@@ -40,6 +40,7 @@ from statsmodels.datasets import interest_inflation
 from statsmodels.datasets import longley
 from statsmodels.datasets import macrodata
 from statsmodels.datasets import modechoice
+from statsmodels.datasets import nile
 
 if __name__ == '__main__':
     start_time = time()
@@ -460,6 +461,20 @@ if __name__ == '__main__':
     newsgroups_description = newsgroups_bunch['description']
     newsgroups_target = newsgroups_bunch['target']
     newsgroups_filenames = newsgroups_bunch['filenames']
+
+    logger.info('loading Nile river flows at Ashwan data')
+    nile_pickle = data_folder + 'nile.pkl'
+    if exists(nile_pickle):
+        with open(nile_pickle, 'rb') as nile_fp:
+            nile_bunch = pickle.load(nile_fp)
+    else:
+        nile_bunch = nile.load()
+        with open(nile_pickle, 'wb') as nile_fp:
+            pickle.dump(nile_bunch, nile_fp)
+    nile_data = nile_bunch['data']
+    logger.info('nile data has %d rows ' % len(nile_data))
+    nile_names = nile_bunch['names']
+    logger.info('nile names: %s' % str(nile_names))
 
     try:
         nile_water_level_bunch = fetch_mldata('nile-water-level', data_home=data_folder)

@@ -41,6 +41,7 @@ from statsmodels.datasets import longley
 from statsmodels.datasets import macrodata
 from statsmodels.datasets import modechoice
 from statsmodels.datasets import nile
+from statsmodels.datasets import randhie
 
 if __name__ == '__main__':
     start_time = time()
@@ -492,6 +493,20 @@ if __name__ == '__main__':
     olivetti_faces_images = olivetti_faces['images']
     olivetti_faces_target = olivetti_faces['target']
     olivetti_faces_description = olivetti_faces['DESCR']
+
+    logger.info('loading RAND health insurance experiment data')
+    randhie_pickle = data_folder + 'randhie.pkl'
+    if exists(randhie_pickle):
+        with open(randhie_pickle, 'rb') as randhie_fp:
+            randhie_bunch = pickle.load(randhie_fp)
+    else:
+        randhie_bunch = randhie.load()
+        with open(randhie_pickle, 'wb') as randhie_fp:
+            pickle.dump(randhie_bunch, randhie_fp)
+    randhie_data = randhie_bunch['data']
+    logger.info('randhie data has %d rows ' % len(randhie_data))
+    randhie_names = randhie_bunch['names']
+    logger.info('randhie names: %s' % str(randhie_names))
 
     logger.info('loading Reuters Corpus Volume I data')
     rcv1_bunch = fetch_rcv1(subset='all', download_if_missing=True, random_state=random_state)

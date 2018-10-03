@@ -42,6 +42,7 @@ from statsmodels.datasets import macrodata
 from statsmodels.datasets import modechoice
 from statsmodels.datasets import nile
 from statsmodels.datasets import randhie
+from statsmodels.datasets import scotland
 
 if __name__ == '__main__':
     start_time = time()
@@ -523,6 +524,20 @@ if __name__ == '__main__':
     sample_images = sample_images_bunch['images']
     sample_images_filenames = sample_images_bunch['filenames']
     sample_images_description = sample_images_bunch['DESCR']
+
+    logger.info('loading Scotland taxation data')
+    scotland_pickle = data_folder + 'scotland.pkl'
+    if exists(scotland_pickle):
+        with open(scotland_pickle, 'rb') as scotland_fp:
+            scotland_bunch = pickle.load(scotland_fp)
+    else:
+        scotland_bunch = scotland.load()
+        with open(scotland_pickle, 'wb') as scotland_fp:
+            pickle.dump(scotland_bunch, scotland_fp)
+    scotland_data = scotland_bunch['data']
+    logger.info('scotland data has %d rows ' % len(scotland_data))
+    scotland_names = scotland_bunch['names']
+    logger.info('scotland names: %s' % str(scotland_names))
 
     logger.info('loading well log data')
     try:

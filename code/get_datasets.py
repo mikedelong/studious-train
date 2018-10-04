@@ -43,6 +43,7 @@ from statsmodels.datasets import modechoice
 from statsmodels.datasets import nile
 from statsmodels.datasets import randhie
 from statsmodels.datasets import scotland
+from statsmodels.datasets import spector
 
 if __name__ == '__main__':
     start_time = time()
@@ -538,6 +539,20 @@ if __name__ == '__main__':
     logger.info('scotland data has %d rows ' % len(scotland_data))
     scotland_names = scotland_bunch['names']
     logger.info('scotland names: %s' % str(scotland_names))
+
+    logger.info('loading Spector and Mazzeo program effectiveness data')
+    spector_pickle = data_folder + 'spector.pkl'
+    if exists(spector_pickle):
+        with open(spector_pickle, 'rb') as spector_fp:
+            spector_bunch = pickle.load(spector_fp)
+    else:
+        spector_bunch = spector.load()
+        with open(spector_pickle, 'wb') as spector_fp:
+            pickle.dump(spector_bunch, spector_fp)
+    spector_data = spector_bunch['data']
+    logger.info('spector data has %d rows ' % len(spector_data))
+    spector_names = spector_bunch['names']
+    logger.info('spector names: %s' % str(spector_names))
 
     logger.info('loading well log data')
     try:

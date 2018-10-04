@@ -1,4 +1,4 @@
-''' Present an interactive function explorer with slider widgets.
+""" Present an interactive function explorer with slider widgets.
 
 Scrub the sliders to change the properties of the ``sin`` curve, or
 type into the title text box to update the title of the plot.
@@ -13,7 +13,7 @@ at your command prompt. Then navigate to the URL
 
 in your browser.
 
-'''
+"""
 import numpy as np
 
 from bokeh.io import curdoc

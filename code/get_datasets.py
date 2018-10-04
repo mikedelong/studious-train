@@ -44,6 +44,7 @@ from statsmodels.datasets import nile
 from statsmodels.datasets import randhie
 from statsmodels.datasets import scotland
 from statsmodels.datasets import spector
+from statsmodels.datasets import stackloss
 
 if __name__ == '__main__':
     start_time = time()
@@ -553,6 +554,20 @@ if __name__ == '__main__':
     logger.info('spector data has %d rows ' % len(spector_data))
     spector_names = spector_bunch['names']
     logger.info('spector names: %s' % str(spector_names))
+
+    logger.info('loading stack loss data')
+    stackloss_pickle = data_folder + 'stackloss.pkl'
+    if exists(stackloss_pickle):
+        with open(stackloss_pickle, 'rb') as stackloss_fp:
+            stackloss_bunch = pickle.load(stackloss_fp)
+    else:
+        stackloss_bunch = stackloss.load()
+        with open(stackloss_pickle, 'wb') as stackloss_fp:
+            pickle.dump(stackloss_bunch, stackloss_fp)
+    stackloss_data = stackloss_bunch['data']
+    logger.info('stackloss data has %d rows ' % len(stackloss_data))
+    stackloss_names = stackloss_bunch['names']
+    logger.info('stackloss names: %s' % str(stackloss_names))
 
     logger.info('loading well log data')
     try:

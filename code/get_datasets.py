@@ -297,19 +297,6 @@ if __name__ == '__main__':
     fertility_names = fertility_bunch['names']
     logger.info('fertility names: %s' % str(fertility_names))
 
-    logger.info('loading fish killer data')
-    try:
-        fish_killer_bunch = fetch_mldata('fish_killer', data_home=data_folder)
-        fish_killer_column_names = fish_killer_bunch['COL_NAMES']
-        logger.info('fish killer column names: %s' % fish_killer_column_names)
-        fish_killer_data = fish_killer_bunch['data']
-        logger.info('fish killer data is %d x %d' % fish_killer_data.shape)
-        fish_killer_description = fish_killer_bunch['DESCR']
-        fish_killer_int2 = fish_killer_bunch['int2']
-        fish_killer_target = fish_killer_bunch['target']
-        logger.debug('fish killer target variable: %s' % fish_killer_target)
-    except HTTPError as httpError:
-        logger.warning(httpError)
 
     logger.info('loading Grunfeld data')
     grunfeld_pickle = data_folder + 'grunfeld.pkl'

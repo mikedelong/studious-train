@@ -326,17 +326,6 @@ if __name__ == '__main__':
     heart_names = heart_bunch['names']
     logger.info('heart names: %s' % str(heart_names))
 
-    logger.info('loading industry portfolio data')
-    try:
-        industry_portfolio_bunch = fetch_mldata('industry-portfolio', data_home=data_folder)
-        industry_portfolio_column_names = industry_portfolio_bunch['COL_NAMES']
-        logger.info('industry portfolio column names are %s' % industry_portfolio_column_names)
-        industry_portfolio_data = industry_portfolio_bunch['data']
-        logger.info('industry portfolio data is %d x %d' % industry_portfolio_data.shape)
-        industry_portfolio_description = industry_portfolio_bunch['DESCR']
-        logger.debug('industry portfolio description: %s' % industry_portfolio_description)
-    except HTTPError as httpError:
-        logger.warning(httpError)
 
     logger.info('loading West German interest and inflation rate data')
     interest_inflation_pickle = data_folder + 'interest_inflation.pkl'

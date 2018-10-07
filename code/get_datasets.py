@@ -524,15 +524,6 @@ if __name__ == '__main__':
     stackloss_names = stackloss_bunch['names']
     logger.info('stackloss names: %s' % str(stackloss_names))
 
-    logger.info('loading well log data')
-    try:
-        well_log_bunch = fetch_mldata('well-log', data_home=data_folder)
-        well_log_column_names = well_log_bunch['COL_NAMES']
-        logger.info('well log column names: %s' % well_log_column_names)
-        well_log_data = well_log_bunch['data']
-        logger.info('well log data is %d x %d' % well_log_data.shape)
-    except HTTPError as httpError:
-        logger.warning(httpError)
 
     # this one is garbage because the data is full of NaNs
     logger.info('loading Whistler daily snowfall data')

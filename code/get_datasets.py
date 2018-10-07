@@ -82,7 +82,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-
     logger.info('loading boston data')
     boston_bunch = load_boston(return_X_y=return_X_y)
     boston_data = boston_bunch.data
@@ -297,7 +296,6 @@ if __name__ == '__main__':
     fertility_names = fertility_bunch['names']
     logger.info('fertility names: %s' % str(fertility_names))
 
-
     logger.info('loading Grunfeld data')
     grunfeld_pickle = data_folder + 'grunfeld.pkl'
     if exists(grunfeld_pickle):
@@ -325,7 +323,6 @@ if __name__ == '__main__':
     logger.info('heart data has %d rows' % len(heart_data))
     heart_names = heart_bunch['names']
     logger.info('heart names: %s' % str(heart_names))
-
 
     logger.info('loading West German interest and inflation rate data')
     interest_inflation_pickle = data_folder + 'interest_inflation.pkl'
@@ -430,7 +427,7 @@ if __name__ == '__main__':
     newsgroups_bunch = fetch_20newsgroups(data_home=data_folder)
     newsgroups_data = newsgroups_bunch['data']
     newsgroups_target_names = newsgroups_bunch['target_names']
-    newsgroups_description = newsgroups_bunch['description']
+    newsgroups_description = newsgroups_bunch['DESCR']
     newsgroups_target = newsgroups_bunch['target']
     newsgroups_filenames = newsgroups_bunch['filenames']
 
@@ -447,7 +444,6 @@ if __name__ == '__main__':
     logger.info('nile data has %d rows ' % len(nile_data))
     nile_names = nile_bunch['names']
     logger.info('nile names: %s' % str(nile_names))
-
 
     logger.info('loading Olivetti faces data')
     olivetti_faces = fetch_olivetti_faces(data_home=data_folder)

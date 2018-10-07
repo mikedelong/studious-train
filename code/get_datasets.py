@@ -82,14 +82,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    logger.info('loading book evaluation data')
-    book_evaluation_bunch = fetch_mldata('book-evaluation-complete', data_home=data_folder)
-    book_data = book_evaluation_bunch['data']
-    logger.info('data is %d x %d' % book_data.shape)
-    book_column_names = book_evaluation_bunch['COL_NAMES']
-    logger.info('book evaluation column names: %s' % book_column_names)
-    book_description = book_evaluation_bunch['DESCR']
-    logger.info('book evaluation description: %s' % book_description)
 
     logger.info('loading boston data')
     boston_bunch = load_boston(return_X_y=return_X_y)

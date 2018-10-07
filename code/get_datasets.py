@@ -4,14 +4,12 @@ import logging
 import pickle
 from os.path import exists
 from time import time
-from urllib.error import HTTPError
 from warnings import catch_warnings
 from warnings import filterwarnings
 
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.datasets import fetch_kddcup99
 from sklearn.datasets import fetch_lfw_people
-from sklearn.datasets import fetch_mldata
 from sklearn.datasets import fetch_olivetti_faces
 from sklearn.datasets import fetch_rcv1
 from sklearn.datasets import load_boston
@@ -523,16 +521,6 @@ if __name__ == '__main__':
     logger.info('stackloss data has %d rows ' % len(stackloss_data))
     stackloss_names = stackloss_bunch['names']
     logger.info('stackloss names: %s' % str(stackloss_names))
-
-
-    # this one is garbage because the data is full of NaNs
-    logger.info('loading Whistler daily snowfall data')
-    try:
-        whistler_daily_bunch = fetch_mldata('whistler-daily-snowfall', data_home=data_folder)
-        whistler_data = whistler_daily_bunch['data']
-        logger.info('Whistler daily snowfall data is %d x %d' % whistler_data.shape)
-    except HTTPError as httpError:
-        logger.warning(httpError)
 
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)

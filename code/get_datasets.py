@@ -43,6 +43,7 @@ from statsmodels.datasets import randhie
 from statsmodels.datasets import scotland
 from statsmodels.datasets import spector
 from statsmodels.datasets import stackloss
+from statsmodels.datasets import star98
 
 if __name__ == '__main__':
     start_time = time()
@@ -521,6 +522,20 @@ if __name__ == '__main__':
     logger.info('stackloss data has %d rows ' % len(stackloss_data))
     stackloss_names = stackloss_bunch['names']
     logger.info('stackloss names: %s' % str(stackloss_names))
+
+    logger.info('loading Star98 educational data')
+    star98_pickle = data_folder + 'star98.pkl'
+    if exists(star98_pickle):
+        with open(star98_pickle, 'rb') as star98_fp:
+            star98_bunch = pickle.load(star98_fp)
+    else:
+        star98_bunch = star98.load()
+        with open(star98_pickle, 'wb') as star98_fp:
+            pickle.dump(star98_bunch, star98_fp)
+    star98_data = star98_bunch['data']
+    logger.info('star98 data has %d rows ' % len(star98_data))
+    star98_names = star98_bunch['names']
+    logger.info('star98 names: %s' % str(star98_names))
 
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)

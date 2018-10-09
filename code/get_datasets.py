@@ -44,6 +44,7 @@ from statsmodels.datasets import scotland
 from statsmodels.datasets import spector
 from statsmodels.datasets import stackloss
 from statsmodels.datasets import star98
+from statsmodels.datasets import statecrime
 
 if __name__ == '__main__':
     start_time = time()
@@ -536,6 +537,20 @@ if __name__ == '__main__':
     logger.info('star98 data has %d rows ' % len(star98_data))
     star98_names = star98_bunch['names']
     logger.info('star98 names: %s' % str(star98_names))
+
+    logger.info('loading State Crime data')
+    statecrime_pickle = data_folder + 'statecrime.pkl'
+    if exists(statecrime_pickle):
+        with open(statecrime_pickle, 'rb') as statecrime_fp:
+            statecrime_bunch = pickle.load(statecrime_fp)
+    else:
+        statecrime_bunch = statecrime.load()
+        with open(statecrime_pickle, 'wb') as statecrime_fp:
+            pickle.dump(statecrime_bunch, statecrime_fp)
+    statecrime_data = statecrime_bunch['data']
+    logger.info('statecrime data has %d rows ' % len(statecrime_data))
+    statecrime_names = statecrime_bunch['names']
+    logger.info('statecrime names: %s' % str(statecrime_names))
 
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)

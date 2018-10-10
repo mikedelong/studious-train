@@ -45,6 +45,7 @@ from statsmodels.datasets import spector
 from statsmodels.datasets import stackloss
 from statsmodels.datasets import star98
 from statsmodels.datasets import statecrime
+from statsmodels.datasets import strikes
 
 if __name__ == '__main__':
     start_time = time()
@@ -551,6 +552,20 @@ if __name__ == '__main__':
     logger.info('statecrime data has %d rows ' % len(statecrime_data))
     statecrime_names = statecrime_bunch['names']
     logger.info('statecrime names: %s' % str(statecrime_names))
+
+    logger.info('loading US strike duration data')
+    strikes_pickle = data_folder + 'strikes.pkl'
+    if exists(strikes_pickle):
+        with open(strikes_pickle, 'rb') as strikes_fp:
+            strikes_bunch = pickle.load(strikes_fp)
+    else:
+        strikes_bunch = strikes.load()
+        with open(strikes_pickle, 'wb') as strikes_fp:
+            pickle.dump(strikes_bunch, strikes_fp)
+    strikes_data = strikes_bunch['data']
+    logger.info('strikes data has %d rows ' % len(strikes_data))
+    strikes_names = strikes_bunch['names']
+    logger.info('strikes names: %s' % str(strikes_names))
 
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)

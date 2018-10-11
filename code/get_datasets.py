@@ -46,6 +46,7 @@ from statsmodels.datasets import stackloss
 from statsmodels.datasets import star98
 from statsmodels.datasets import statecrime
 from statsmodels.datasets import strikes
+from statsmodels.datasets import sunspots
 
 if __name__ == '__main__':
     start_time = time()
@@ -566,6 +567,20 @@ if __name__ == '__main__':
     logger.info('strikes data has %d rows ' % len(strikes_data))
     strikes_names = strikes_bunch['names']
     logger.info('strikes names: %s' % str(strikes_names))
+
+    logger.info('loading yearly sunspot data')
+    sunspots_pickle = data_folder + 'sunspots.pkl'
+    if exists(sunspots_pickle):
+        with open(sunspots_pickle, 'rb') as sunspots_fp:
+            sunspots_bunch = pickle.load(sunspots_fp)
+    else:
+        sunspots_bunch = sunspots.load()
+        with open(sunspots_pickle, 'wb') as sunspots_fp:
+            pickle.dump(sunspots_bunch, sunspots_fp)
+    sunspots_data = sunspots_bunch['data']
+    logger.info('sunspots data has %d rows ' % len(sunspots_data))
+    sunspots_names = sunspots_bunch['names']
+    logger.info('sunspots names: %s' % str(sunspots_names))
 
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)

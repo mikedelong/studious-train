@@ -5,6 +5,9 @@ import pickle
 from os.path import exists
 from time import time
 
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
 from statsmodels.datasets import anes96
 
 if __name__ == '__main__':
@@ -42,6 +45,22 @@ if __name__ == '__main__':
     logger.info('ANES96 endogengous variable is %s' % anes96_endog)
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
+
+    random_state = 1
+    X_train, X_test, y_train, y_test = train_test_split(anes96_data[anes96_exog], anes96_data[anes96_endog],
+                                                        test_size=0.33, random_state=random_state)
+    for criterion in ['entropy', 'gini']:
+        model = DecisionTreeClassifier(criterion=criterion, splitter='best', max_depth=None, min_samples_split=2,
+                                       min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=None,
+                                       random_state=random_state, max_leaf_nodes=None, min_impurity_decrease=0.0,
+                                       min_impurity_split=None, class_weight=None, presort=False)
+        model.fit(X=X_train, y=y_train.values)
+        logger.info(
+            'feature importance: %s' % {anes96_exog[i]: model.feature_importances_[i] for i in range(len(anes96_exog))})
+        y_predicted = model.predict(X=X_test)
+        logger.info('criterion: %s weather confusion matrix: \n%s' % (
+            criterion, confusion_matrix(y_true=y_test, y_pred=y_predicted)))
+
 
     logger.info('done')
 

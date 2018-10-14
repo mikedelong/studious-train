@@ -46,7 +46,9 @@ if __name__ == '__main__':
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
     random_state = 1
-    X_train, X_test, y_train, y_test = train_test_split(anes96_data[anes96_exog], anes96_data[anes96_endog],
+
+    features = [item for item in list(anes96_data) if item not in anes96_endog]
+    X_train, X_test, y_train, y_test = train_test_split(anes96_data[features], anes96_data[anes96_endog],
                                                         test_size=0.33, random_state=random_state)
     for criterion in ['entropy', 'gini']:
         model = DecisionTreeClassifier(criterion=criterion, splitter='best', max_depth=None, min_samples_split=2,
@@ -55,7 +57,7 @@ if __name__ == '__main__':
                                        min_impurity_split=None, class_weight=None, presort=False)
         model.fit(X=X_train, y=y_train.values)
         logger.info(
-            'feature importance: %s' % {anes96_exog[i]: model.feature_importances_[i] for i in range(len(anes96_exog))})
+            'feature importance: %s' % {features[i]: model.feature_importances_[i] for i in range(len(features))})
         y_predicted = model.predict(X=X_test)
         logger.info('criterion: %s weather confusion matrix: \n%s' % (
             criterion, confusion_matrix(y_true=y_test, y_pred=y_predicted)))

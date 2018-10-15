@@ -4,6 +4,7 @@ import pickle
 from os.path import exists
 from time import time
 
+import pandas  as pd
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
@@ -41,6 +42,7 @@ if __name__ == '__main__':
     anes96_data = anes96_bunch['data']
     logger.info('ANES96 data is %d x %d' % anes96_data.shape)
     anes96_names = anes96_bunch['names']
+    logger.info('names are %s' % anes96_names)
     anes96_endog = anes96_bunch['endog_name']
     logger.info('ANES96 endogengous variable is %s' % anes96_endog)
     anes96_exog = anes96_bunch['exog_name']
@@ -49,12 +51,13 @@ if __name__ == '__main__':
     random_state = 1
 
     data_df = anes96_data.copy(deep=True)
-    features = [item for item in list(anes96_data) if item != 'pop']
+    features = [item for item in list(anes96_data) if item != 'logpopul']
     for feature in features:
         encoder = LabelEncoder()
         data_df[feature] = encoder.fit_transform(data_df[feature])
 
-    features = [item for item in list(anes96_data) if item not in anes96_endog]
+    data_df = pd.get_dummies(data_df, columns=['vote', 'educ', 'income', 'selfLR', 'ClinLR', 'DoleLR'])
+    features = [item for item in list(data_df) if item not in anes96_endog]
     X_train, X_test, y_train, y_test = train_test_split(data_df[features], data_df[anes96_endog],
                                                         test_size=0.33, random_state=random_state)
     for criterion in ['entropy', 'gini']:

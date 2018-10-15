@@ -6,6 +6,7 @@ from time import time
 
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier
 from statsmodels.datasets import anes96
 
@@ -47,8 +48,14 @@ if __name__ == '__main__':
 
     random_state = 1
 
+    data_df = anes96_data.copy(deep=True)
+    features = [item for item in list(anes96_data) if item != 'pop']
+    for feature in features:
+        encoder = LabelEncoder()
+        data_df[feature] = encoder.fit_transform(data_df[feature])
+
     features = [item for item in list(anes96_data) if item not in anes96_endog]
-    X_train, X_test, y_train, y_test = train_test_split(anes96_data[features], anes96_data[anes96_endog],
+    X_train, X_test, y_train, y_test = train_test_split(data_df[features], data_df[anes96_endog],
                                                         test_size=0.33, random_state=random_state)
     for criterion in ['entropy', 'gini']:
         model = DecisionTreeClassifier(criterion=criterion, splitter='best', max_depth=None, min_samples_split=2,

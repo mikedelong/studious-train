@@ -56,7 +56,8 @@ if __name__ == '__main__':
         encoder = LabelEncoder()
         data_df[feature] = encoder.fit_transform(data_df[feature])
 
-    data_df = pd.get_dummies(data_df, columns=['vote', 'educ', 'income', 'selfLR', 'ClinLR', 'DoleLR'])
+    data_df = pd.get_dummies(data_df, columns=['vote', 'educ', 'income', 'selfLR', 'ClinLR', 'DoleLR', 'TVnews', 'age'])
+    logger.info(list(data_df))
     features = [item for item in list(data_df) if item not in anes96_endog]
     X_train, X_test, y_train, y_test = train_test_split(data_df[features], data_df[anes96_endog],
                                                         test_size=0.33, random_state=random_state)

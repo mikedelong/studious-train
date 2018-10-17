@@ -4,7 +4,8 @@ import pickle
 from os.path import exists
 from time import time
 
-import pandas  as pd
+import pandas as pd
+from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
@@ -70,8 +71,10 @@ if __name__ == '__main__':
         logger.info(
             'feature importance: %s' % {features[i]: model.feature_importances_[i] for i in range(len(features))})
         y_predicted = model.predict(X=X_test)
-        logger.info('criterion: %s weather confusion matrix: \n%s' % (
+        logger.info('criterion: %s ANES96 PID confusion matrix: \n%s' % (
             criterion, confusion_matrix(y_true=y_test, y_pred=y_predicted)))
+        logger.info('criterion: %s ANES96 PID accuracy score: %.3f' % (
+        criterion, accuracy_score(y_true=y_test, y_pred=y_predicted)))
 
     logger.info('done')
 

@@ -1,3 +1,4 @@
+pandas
 bokeh
 numpy
 scikit-learn

@@ -74,7 +74,7 @@ if __name__ == '__main__':
         logger.info('criterion: %s ANES96 PID confusion matrix: \n%s' % (
             criterion, confusion_matrix(y_true=y_test, y_pred=y_predicted)))
         logger.info('criterion: %s ANES96 PID accuracy score: %.3f' % (
-        criterion, accuracy_score(y_true=y_test, y_pred=y_predicted)))
+            criterion, accuracy_score(y_true=y_test, y_pred=y_predicted)))
 
     logger.info('done')
 

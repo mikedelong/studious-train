@@ -62,7 +62,8 @@ if __name__ == '__main__':
         logger.info(
             'feature importance: %s' % {features[i]: model.feature_importances_[i] for i in range(len(features))})
         y_predicted = model.predict(X=X_test)
-        logger.info('criterion: %s ccard PID accuracy score: %.3f' % (criterion, model.score(X=X_test, y=y_test)))
+        logger.info(
+            'criterion: %s ccard %s accuracy score: %.3f' % (criterion, ccard_endog, model.score(X=X_test, y=y_test)))
 
     logger.info('done')
 

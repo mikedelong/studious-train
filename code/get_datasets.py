@@ -32,6 +32,7 @@ from statsmodels.datasets import elnino
 from statsmodels.datasets import engel
 from statsmodels.datasets import fair
 from statsmodels.datasets import fertility
+from statsmodels.datasets import get_rdataset
 from statsmodels.datasets import grunfeld
 from statsmodels.datasets import heart
 from statsmodels.datasets import interest_inflation
@@ -592,6 +593,8 @@ if __name__ == '__main__':
     wine_feature_names = wine_bunch['feature_names']
     logger.info('wine feature names: %s' % wine_feature_names)
     wine_description = wine_bunch['DESCR']
+
+    r_airmiles = get_rdataset('airmiles', 'datasets')
 
     logger.info('done')
 

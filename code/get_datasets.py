@@ -594,7 +594,12 @@ if __name__ == '__main__':
     logger.info('wine feature names: %s' % wine_feature_names)
     wine_description = wine_bunch['DESCR']
 
-    r_airmiles = get_rdataset('airmiles', 'datasets')
+    logger.info('loading acme data')
+    acme_bundle = get_rdataset('acme', 'boot')
+    acme_data = acme_bundle.data
+    logger.info('acme data has variables %s' % list(acme_data))
+    acme_title = acme_bundle.title
+    logger.info('acme data has title %s' % acme_title)
 
     logger.info('done')
 

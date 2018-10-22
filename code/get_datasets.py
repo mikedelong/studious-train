@@ -68,6 +68,7 @@ if __name__ == '__main__':
     output_folder = '../output/'
     return_X_y = False
 
+    # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading acme data')
     acme_bundle = get_rdataset('acme', 'boot')
     acme_data = acme_bundle.data

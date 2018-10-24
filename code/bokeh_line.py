@@ -1,3 +1,4 @@
+# http://bokeh.pydata.org/en/0.10.0/docs/quickstart.html
 from bokeh.plotting import figure, output_file, show
 
 # prepare some data

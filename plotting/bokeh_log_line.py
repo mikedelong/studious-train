@@ -8,7 +8,7 @@ y1 = [10 ** i for i in x]
 y2 = [10 ** (i ** 2) for i in x]
 
 # output to static HTML file
-output_file('log_lines.html')
+output_file('../output/log_lines.html')
 
 # create a new plot
 p = figure(

@@ -1,8 +1,9 @@
-from bokeh.server.server import Server
+import random
+
 from bokeh.application import Application
 from bokeh.application.handlers.function import FunctionHandler
 from bokeh.plotting import figure, ColumnDataSource
-import random
+from bokeh.server.server import Server
 
 
 def make_document(doc):

@@ -84,6 +84,14 @@ if __name__ == '__main__':
     aids_title = aids_bundle.title
     logger.info('aids data has title %s' % aids_title)
 
+    # TODO serialize and save if we have the data on hand otherwise download
+    logger.info('loading air conditioning failure data')
+    aircondit_bundle = get_rdataset('aircondit', 'boot')
+    aircondit_data = aircondit_bundle.data
+    logger.info('aircondit data has variables %s' % list(aircondit_data))
+    aircondit_title = aircondit_bundle.title
+    logger.info('aircondit data has title %s' % aircondit_title)
+
     logger.info('loading ANES96 data')
     anes96_pickle = data_folder + 'anes96.pkl'
     if exists(anes96_pickle):

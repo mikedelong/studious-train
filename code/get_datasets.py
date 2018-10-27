@@ -100,6 +100,14 @@ if __name__ == '__main__':
     aircondit7_title = aircondit7_bundle.title
     logger.info('aircondit7 data has title %s' % aircondit7_title)
 
+    # TODO serialize and save if we have the data on hand otherwise download
+    logger.info('loading car speeding and warning sign data')
+    amis_bundle = get_rdataset('amis', 'boot')
+    amis_data = amis_bundle.data
+    logger.info('amis data has variables %s' % list(amis_data))
+    amis_title = amis_bundle.title
+    logger.info('amis data has title %s' % amis_title)
+
     logger.info('loading ANES96 data')
     anes96_pickle = data_folder + 'anes96.pkl'
     if exists(anes96_pickle):

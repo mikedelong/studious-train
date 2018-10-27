@@ -73,6 +73,7 @@ if __name__ == '__main__':
     acme_bundle = get_rdataset('acme', 'boot')
     acme_data = acme_bundle.data
     logger.info('acme data has variables %s' % list(acme_data))
+    logger.info('acme data has %d rows and %d variables' % acme_data.shape)
     acme_title = acme_bundle.title
     logger.info('acme data has title %s' % acme_title)
 

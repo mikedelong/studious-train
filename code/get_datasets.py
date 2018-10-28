@@ -91,6 +91,7 @@ if __name__ == '__main__':
     aircondit_bundle = get_rdataset('aircondit', 'boot')
     aircondit_data = aircondit_bundle.data
     logger.info('aircondit data has variables %s' % list(aircondit_data))
+    logger.info('aircondit data has %d rows and %d variables' % aircondit_data.shape)
     aircondit_title = aircondit_bundle.title
     logger.info('aircondit data has title %s' % aircondit_title)
 

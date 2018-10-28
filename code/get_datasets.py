@@ -82,6 +82,7 @@ if __name__ == '__main__':
     aids_bundle = get_rdataset('aids', 'boot')
     aids_data = aids_bundle.data
     logger.info('aids data has variables %s' % list(aids_data))
+    logger.info('aids data has %d rows and %d variables' % aids_data.shape)
     aids_title = aids_bundle.title
     logger.info('aids data has title %s' % aids_title)
 
@@ -133,6 +134,14 @@ if __name__ == '__main__':
     logger.info('ANES96 endogengous variable is %s' % anes96_endog)
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
+
+    # TODO serialize and save if we have the data on hand otherwise download
+    logger.info('loading beaver body temperature data')
+    beaver_bundle = get_rdataset('beaver', 'boot')
+    beaver_data = beaver_bundle.data
+    logger.info('beaver data has variables %s' % list(beaver_data))
+    beaver_title = beaver_bundle.title
+    logger.info('beaver data has title %s' % beaver_title)
 
     logger.info('loading boston data')
     boston_bunch = load_boston(return_X_y=return_X_y)

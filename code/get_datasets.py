@@ -109,6 +109,14 @@ if __name__ == '__main__':
     amis_title = amis_bundle.title
     logger.info('amis data has title %s' % amis_title)
 
+    # TODO serialize and save if we have the data on hand otherwise download
+    logger.info('loading remission time for Acute Myelogenous Leukemia data')
+    aml_bundle = get_rdataset('aml', 'boot')
+    aml_data = aml_bundle.data
+    logger.info('aml data has variables %s' % list(aml_data))
+    aml_title = aml_bundle.title
+    logger.info('aml data has title %s' % aml_title)
+
     logger.info('loading ANES96 data')
     anes96_pickle = data_folder + 'anes96.pkl'
     if exists(anes96_pickle):

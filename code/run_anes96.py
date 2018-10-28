@@ -6,7 +6,10 @@ from time import time
 
 import pandas as pd
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import adjusted_mutual_info_score
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import mutual_info_score
+from sklearn.metrics import normalized_mutual_info_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier
@@ -75,6 +78,12 @@ if __name__ == '__main__':
             criterion, confusion_matrix(y_true=y_test, y_pred=y_predicted)))
         logger.info('criterion: %s ANES96 PID accuracy score: %.3f' % (
             criterion, accuracy_score(y_true=y_test, y_pred=y_predicted)))
+        logger.info('criterion: %s ANES96 PID mutual information score: %.3f' % (
+            criterion, mutual_info_score(labels_true=y_test, labels_pred=y_predicted, contingency=None)))
+        logger.info('criterion: %s ANES96 PID adjusted mutual information score: %.3f' % (
+            criterion, adjusted_mutual_info_score(labels_true=y_test, labels_pred=y_predicted)))
+        logger.info('criterion: %s ANES96 PID normalized mutual information score: %.3f' % (
+            criterion, normalized_mutual_info_score(labels_true=y_test, labels_pred=y_predicted)))
 
     logger.info('done')
 

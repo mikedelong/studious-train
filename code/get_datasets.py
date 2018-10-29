@@ -70,7 +70,15 @@ if __name__ == '__main__':
 
     # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading acme data')
-    acme_bundle = get_rdataset('acme', 'boot')
+    acme_pickle = data_folder + 'acme.pkl'
+    if exists(acme_pickle):
+        with open(acme_pickle, 'rb') as acme_fp:
+            acme_bundle = pickle.load(acme_fp)
+    else:
+        acme_bundle = get_rdataset('acme', 'boot')
+        with open(acme_pickle, 'wb') as acme_fp:
+            pickle.dump(acme_bundle, acme_fp)
+
     acme_data = acme_bundle.data
     logger.info('acme data has variables %s' % list(acme_data))
     logger.info('acme data has %d rows and %d variables' % acme_data.shape)

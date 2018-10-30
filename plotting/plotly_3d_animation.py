@@ -24,16 +24,18 @@ if __name__ == '__main__':
     logger.info('started')
 
     periods = 2000
+    sqrt_periods = int(np.sqrt(float(periods)))
     start = datetime(2018, 4, 15, 0, 0, 0)
     dates = pd.date_range(start=start, periods=periods, freq='S')
     x = np.linspace(start=0, stop=periods + 1, num=periods).transpose()
-    y = np.linspace(start=0, stop=periods + 1, num=periods).transpose()
+    y = np.linspace(start=0, stop=sqrt_periods, num=periods).transpose()
     y = y * y
     z = np.linspace(start=0, stop=periods + 1, num=periods).transpose()
     speed = np.linspace(start=0, stop=periods + 1, num=periods).transpose()
     df = pd.DataFrame.from_dict({'dates': dates, 'x': x, 'y': y, 'z': z, 'speed': speed}).set_index('dates')
+    df['color'] = (256.0 * df['speed'] / float(periods)).astype('int32')
 
-    trace2 = Scatter3d(
+    scatter = Scatter3d(
         x=df['x'].values,
         y=df['y'].values,
         z=df['z'].values,
@@ -43,14 +45,15 @@ if __name__ == '__main__':
             size=6,
             symbol='circle',
             line=dict(
-                color='rgb(204, 204, 204)',
+                color=df['color'].values,
+                colorscale='Jet',
                 width=1
             ),
             opacity=0.9
         )
     )
 
-    data = [trace2]
+    data = [scatter]
     fig = Figure(data=data)
 
     plot(fig, filename='../output/plotly_3d_animation.html', auto_open=False)

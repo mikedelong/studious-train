@@ -77,7 +77,6 @@ if __name__ == '__main__':
         acme_bundle = get_rdataset('acme', 'boot')
         with open(acme_pickle, 'wb') as acme_fp:
             pickle.dump(acme_bundle, acme_fp)
-
     acme_data = acme_bundle.data
     logger.info('acme data has variables %s' % list(acme_data))
     logger.info('acme data has %d rows and %d variables' % acme_data.shape)
@@ -86,7 +85,14 @@ if __name__ == '__main__':
 
     # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading aids data')
-    aids_bundle = get_rdataset('aids', 'boot')
+    aids_pickle = data_folder + 'aids.pkl'
+    if exists(aids_pickle):
+        with open(aids_pickle, 'rb') as aids_fp:
+            aids_bundle = pickle.load(aids_fp)
+    else:
+        aids_bundle = get_rdataset('aids', 'boot')
+        with open(aids_pickle, 'wb') as aids_fp:
+            pickle.dump(aids_bundle, aids_fp)
     aids_data = aids_bundle.data
     logger.info('aids data has variables %s' % list(aids_data))
     logger.info('aids data has %d rows and %d variables' % aids_data.shape)

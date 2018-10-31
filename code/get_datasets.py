@@ -100,7 +100,14 @@ if __name__ == '__main__':
 
     # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading air conditioning failure data')
-    aircondit_bundle = get_rdataset('aircondit', 'boot')
+    aircondit_pickle = data_folder + 'aircondit.pkl'
+    if exists(aircondit_pickle):
+        with open(aircondit_pickle, 'rb') as aircondit_fp:
+            aircondit_bundle = pickle.load(aircondit_fp)
+    else:
+        aircondit_bundle = get_rdataset('aircondit', 'boot')
+        with open(aircondit_pickle, 'wb') as aircondit_fp:
+            pickle.dump(aircondit_bundle, aircondit_fp)
     aircondit_data = aircondit_bundle.data
     logger.info('aircondit data has variables %s' % list(aircondit_data))
     logger.info('aircondit data has %d rows and %d variables' % aircondit_data.shape)

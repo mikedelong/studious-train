@@ -5,7 +5,9 @@ from time import time
 import numpy as np
 import pandas as pd
 from plotly.graph_objs import Figure
+from plotly.graph_objs import Layout
 from plotly.graph_objs import Scatter3d
+from plotly.graph_objs.layout.scene import Camera
 from plotly.offline import plot
 
 if __name__ == '__main__':
@@ -24,6 +26,7 @@ if __name__ == '__main__':
     logger.info('started')
 
     periods = 2000
+    slice_size = 50
     sqrt_periods = int(np.sqrt(float(periods)))
     start = datetime(2018, 4, 15, 0, 0, 0)
     dates = pd.date_range(start=start, periods=periods, freq='S')
@@ -41,8 +44,8 @@ if __name__ == '__main__':
         z=df['z'].values,
         mode='markers',
         marker=dict(
-            color='rgb(127, 127, 127)',
-            size=6,
+            # color='rgb(127, 127, 127)',
+            size=1,
             symbol='circle',
             line=dict(
                 color=df['color'].values,
@@ -54,7 +57,29 @@ if __name__ == '__main__':
     )
 
     data = [scatter]
-    fig = Figure(data=data)
+    layout = Layout(scene=dict(
+        xaxis=dict(nticks=4, range=[0, periods], autorange=False),
+        yaxis=dict(nticks=4, range=[0, periods], autorange=False),
+        zaxis=dict(nticks=4, range=[0, periods], autorange=False),
+        camera=Camera(
+            eye=dict(x=2, y=2, z=0)  # todo revisit
+        )
+    ),
+        width=800,
+        autosize=False,
+        height=800,
+        margin=dict(r=20, l=10, b=10, t=10),
+        updatemenus=[{'type': 'buttons',
+                      'buttons': [{'label': 'Play',
+                                   'method': 'animate',
+                                   'args': [None]}]}]
+    )
+    frames = [dict(data=[
+        Scatter3d(x=x[:k], y=y[:k], z=z[:k], mode='markers',
+                  marker=dict(color=df['color'].iloc[:k], colorscale='Jet', size=6))]) for k in
+        range(0, periods, slice_size)]
+
+    fig = Figure(data=data, layout=layout, frames=frames)
 
     plot(fig, filename='../output/plotly_3d_animation.html', auto_open=False)
 

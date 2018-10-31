@@ -98,7 +98,6 @@ if __name__ == '__main__':
     aids_title = aids_bundle.title
     logger.info('aids data has title %s' % aids_title)
 
-    # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading air conditioning failure data')
     aircondit_pickle = data_folder + 'aircondit.pkl'
     if exists(aircondit_pickle):

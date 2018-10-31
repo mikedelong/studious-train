@@ -83,7 +83,6 @@ if __name__ == '__main__':
     acme_title = acme_bundle.title
     logger.info('acme data has title %s' % acme_title)
 
-    # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading aids data')
     aids_pickle = data_folder + 'aids.pkl'
     if exists(aids_pickle):

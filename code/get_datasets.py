@@ -130,7 +130,14 @@ if __name__ == '__main__':
 
     # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading car speeding and warning sign data')
-    amis_bundle = get_rdataset('amis', 'boot')
+    amis_pickle = data_folder + 'amis.pkl'
+    if exists(amis_pickle):
+        with open(amis_pickle, 'rb') as amis_fp:
+            amis_bundle = pickle.load(amis_fp)
+    else:
+        amis_bundle = get_rdataset('amis', 'boot')
+        with open(amis_pickle, 'wb') as amis_fp:
+            pickle.dump(amis_bundle, amis_fp)
     amis_data = amis_bundle.data
     logger.info('amis data has variables %s' % list(amis_data))
     amis_title = amis_bundle.title

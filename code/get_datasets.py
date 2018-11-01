@@ -113,11 +113,18 @@ if __name__ == '__main__':
     aircondit_title = aircondit_bundle.title
     logger.info('aircondit data has title %s' % aircondit_title)
 
-    # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading air conditioning 7 failure data')
-    aircondit7_bundle = get_rdataset('aircondit7', 'boot')
+    aircondit7_pickle = data_folder + 'aircondit7.pkl'
+    if exists(aircondit7_pickle):
+        with open(aircondit7_pickle, 'rb') as aircondit7_fp:
+            aircondit7_bundle = pickle.load(aircondit7_fp)
+    else:
+        aircondit7_bundle = get_rdataset('aircondit7', 'boot')
+        with open(aircondit7_pickle, 'wb') as aircondit7_fp:
+            pickle.dump(aircondit7_bundle, aircondit7_fp)
     aircondit7_data = aircondit7_bundle.data
     logger.info('aircondit7 data has variables %s' % list(aircondit7_data))
+    logger.info('aircondit7 data has %d rows and %d variables' % aircondit7_data.shape)
     aircondit7_title = aircondit7_bundle.title
     logger.info('aircondit7 data has title %s' % aircondit7_title)
 

@@ -5,8 +5,6 @@ from time import time
 import numpy as np
 import pandas as pd
 from plotly.graph_objs import Figure
-from plotly.graph_objs import Layout
-from plotly.graph_objs import Scatter
 from plotly.offline import plot
 
 if __name__ == '__main__':
@@ -24,7 +22,7 @@ if __name__ == '__main__':
 
     logger.info('started')
     periods = 2000
-    slice_size = 50
+    slice_size = 200
     sqrt_periods = int(np.sqrt(float(periods)))
     start = datetime(2018, 4, 15, 0, 0, 0)
     dates = pd.date_range(start=start, periods=periods, freq='S')
@@ -37,17 +35,36 @@ if __name__ == '__main__':
         {'dates': dates, 'x': x, 'y': y, 'speed': speed, 'phenomenon': phenomenon}).set_index('dates')
     df['color'] = (256.0 * df['speed'] / float(periods)).astype('int32')
 
-    data = [dict(x=df['x'].values, y=df['phenomenon'].values, mode='markers')]
-    layout = Layout(height=800, width=800, xaxis=dict(autorange=False, range=[0, periods], zeroline=True),
-                    updatemenus=[{'type': 'buttons',
-                                  'buttons': [{'label': 'Play',
-                                               'method': 'update',
-                                               'args': [None]}]}])
-    frames = [dict(data=[
-        Scatter(x=df['x'].iloc[:k], y=df['phenomenon'].iloc[:k], mode='markers',
-                marker=dict(color=df['color'].iloc[:k], colorscale='Jet', size=6))]) for k in
-        range(0, periods, slice_size)]
-    figure = Figure(data=data, layout=layout, frames=frames)
+    if False:
+        data = [dict(x=df['x'].values, y=df['phenomenon'].values, mode='markers')]
+        layout = Layout(height=800, width=800, xaxis=dict(autorange=False, range=[0, periods], zeroline=True),
+                        updatemenus=[{'type': 'buttons',
+                                      'buttons': [{'label': 'Play',
+                                                   'method': 'update',
+                                                   'args': [None]}]}])
+        frames = [dict(data=[
+            Scatter(x=df['x'].iloc[:k], y=df['phenomenon'].iloc[:k], mode='markers',
+                    marker=dict(color=df['color'].iloc[:k], colorscale='Jet', size=6))]) for k in
+            range(0, periods, slice_size)]
+        figure = Figure(data=data, layout=layout, frames=frames)
+    else:
+        traces = list()
+        steps = [dict(method='restyle',
+                      args=['visible', [j == k for j in range(0, periods, slice_size)]
+                            ]) for k in range(0, periods, slice_size)]
+        for k in range(0, periods, slice_size):
+            traces.append(
+                dict(type='scatter',
+                     name=str(k),
+                     x=df['x'].iloc[k:k + slice_size].values,
+                     y=df['phenomenon'].iloc[k:k + slice_size].values,
+                     mode='markers')
+            )
+
+        sliders = dict(steps=steps)
+        layout = dict(sliders=[sliders], xaxis=dict(range=[0, periods]), yaxis=dict(range=[1, 1.05]))
+        # data = Data(traces)
+        figure = Figure(data=traces, layout=layout)
     plot(figure, filename='../output/plotly_scatter_slider.html', auto_open=False)
 
     logger.info('done')

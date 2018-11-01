@@ -41,6 +41,9 @@ if __name__ == '__main__':
     df['color'] = (256.0 * df['speed'] / float(periods)).astype('int32')
 
     scatter = Scatter(x=df['x'].values, y=df['phenomenon'].values, mode='markers', marker=dict(size=2, symbol='circle'))
+    scatter2 = Scatter(x=df['x'].values, y=df['phenomenon'].values, mode='markers',
+                       marker=dict(size=2, symbol='circle'),
+                       xaxis='x2', yaxis='y2')
 
     scatter3d_line = dict(color=df['color'].values, colorscale='Jet', width=1)
     scatter3d = Scatter3d(x=df['x'].values, y=df['y'].values, z=df['z'].values, mode='markers',
@@ -49,10 +52,12 @@ if __name__ == '__main__':
     layout = Layout(height=700, width=1000, title='...', showlegend=True,
                     scene={'domain': {'x': [0.5, 1], 'y': [0, 1]}},
                     xaxis={'anchor': 'x', 'domain': [0, 0.5]},
-                    yaxis={'anchor': 'y', 'domain': [0, 1]},
+                    yaxis={'anchor': 'y', 'domain': [0, 0.5]},
+                    xaxis2={'anchor': 'x', 'domain': [0, 0.5]},
+                    yaxis2={'anchor': 'y', 'domain': [0.5, 1]},
                     margin={'r': 50, 't': 50, 'b': 50, 'l': 50})
 
-    figure = Figure(data=[scatter, scatter3d], layout=layout)
+    figure = Figure(data=[scatter, scatter2, scatter3d], layout=layout)
     plot(figure, filename='../output/plotly_scatter_scatter3d.html', auto_open=False)
     logger.info('done')
 

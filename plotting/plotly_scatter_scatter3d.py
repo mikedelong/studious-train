@@ -5,6 +5,7 @@ from time import time
 import numpy as np
 import pandas as pd
 from plotly.graph_objs import Figure
+from plotly.graph_objs import Layout
 from plotly.graph_objs import Scatter
 from plotly.graph_objs import Scatter3d
 from plotly.offline import plot
@@ -40,52 +41,16 @@ if __name__ == '__main__':
     df['color'] = (256.0 * df['speed'] / float(periods)).astype('int32')
 
     scatter = Scatter(x=df['x'].values, y=df['phenomenon'].values, mode='markers', marker=dict(size=2, symbol='circle'))
-    scatter3d = Scatter3d(
-        x=df['x'].values,
-        y=df['y'].values,
-        z=df['z'].values,
-        mode='markers',
-        marker=dict(
-            size=2,
-            symbol='circle',
-            line=dict(
-                color=df['color'].values,
-                colorscale='Jet',
-                width=1
-            ),
-            opacity=0.9
-        )
-    )
 
-    layout = {
-        'margin': {
-            'r': 50,
-            't': 50,
-            'b': 50,
-            'l': 50
-        },
-        'scene': {'domain': {
-            'x': [0.5, 1],
-            'y': [0, 1]  # z?
-        },
-            'xaxis': {'gridcolor': 'white'},
-            'yaxis': {'gridcolor': 'white'},
-            'zaxis': {'gridcolor': 'white'}
-        },
-        'showlegend': True,
-        'title': '...',
-        'xaxis': {
-            'anchor': 'x',
-            'domain': [0, 0.5]
-        },
-        'yaxis': {
-            'anchor': 'y',
-            'domain': [0, 1],
-            'showgrid': True
-        },
-        'height': 700,
-        'width': 1000
-    }
+    scatter3d_line = dict(color=df['color'].values, colorscale='Jet', width=1)
+    scatter3d = Scatter3d(x=df['x'].values, y=df['y'].values, z=df['z'].values, mode='markers',
+                          marker=dict(size=2, symbol='circle', line=scatter3d_line, opacity=0.9))
+
+    layout = Layout(height=700, width=1000, title='...', showlegend=True,
+                    scene={'domain': {'x': [0.5, 1], 'y': [0, 1]}},
+                    xaxis={'anchor': 'x', 'domain': [0, 0.5]},
+                    yaxis={'anchor': 'y', 'domain': [0, 1]},
+                    margin={'r': 50, 't': 50, 'b': 50, 'l': 50})
 
     figure = Figure(data=[scatter, scatter3d], layout=layout)
     plot(figure, filename='../output/plotly_scatter_scatter3d.html', auto_open=False)

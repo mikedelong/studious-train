@@ -128,7 +128,6 @@ if __name__ == '__main__':
     aircondit7_title = aircondit7_bundle.title
     logger.info('aircondit7 data has title %s' % aircondit7_title)
 
-    # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading car speeding and warning sign data')
     amis_pickle = data_folder + 'amis.pkl'
     if exists(amis_pickle):

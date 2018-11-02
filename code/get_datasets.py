@@ -144,7 +144,14 @@ if __name__ == '__main__':
 
     # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading remission time for Acute Myelogenous Leukemia data')
-    aml_bundle = get_rdataset('aml', 'boot')
+    aml_pickle = data_folder + 'aml.pkl'
+    if exists(aml_pickle):
+        with open(aml_pickle, 'rb') as aml_fp:
+            aml_bundle = pickle.load(aml_fp)
+    else:
+        aml_bundle = get_rdataset('aml', 'boot')
+        with open(aml_pickle, 'wb') as aml_fp:
+            pickle.dump(aml_bundle, aml_fp)
     aml_data = aml_bundle.data
     logger.info('aml data has variables %s' % list(aml_data))
     aml_title = aml_bundle.title

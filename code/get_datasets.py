@@ -142,7 +142,6 @@ if __name__ == '__main__':
     amis_title = amis_bundle.title
     logger.info('amis data has title %s' % amis_title)
 
-    # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading remission time for Acute Myelogenous Leukemia data')
     aml_pickle = data_folder + 'aml.pkl'
     if exists(aml_pickle):
@@ -176,7 +175,14 @@ if __name__ == '__main__':
 
     # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading beaver body temperature data')
-    beaver_bundle = get_rdataset('beaver', 'boot')
+    beaver_pickle = data_folder + 'beaver.pkl'
+    if exists(beaver_pickle):
+        with open(beaver_pickle, 'rb') as beaver_fp:
+            beaver_bundle = pickle.load(beaver_fp)
+    else:
+        beaver_bundle = get_rdataset('beaver', 'boot')
+        with open(beaver_pickle, 'wb') as beaver_fp:
+            pickle.dump(beaver_bundle, beaver_fp)
     beaver_data = beaver_bundle.data
     logger.info('beaver data has variables %s' % list(beaver_data))
     beaver_title = beaver_bundle.title

@@ -187,6 +187,20 @@ if __name__ == '__main__':
     beaver_title = beaver_bundle.title
     logger.info('beaver data has title %s' % beaver_title)
 
+    logger.info('loading big city population data')
+    bigcity_pickle = data_folder + 'bigcity.pkl'
+    if exists(bigcity_pickle):
+        with open(bigcity_pickle, 'rb') as bigcity_fp:
+            bigcity_bundle = pickle.load(bigcity_fp)
+    else:
+        bigcity_bundle = get_rdataset('bigcity', 'boot')
+        with open(bigcity_pickle, 'wb') as bigcity_fp:
+            pickle.dump(bigcity_bundle, bigcity_fp)
+    bigcity_data = bigcity_bundle.data
+    logger.info('bigcity data has variables %s' % list(bigcity_data))
+    bigcity_title = bigcity_bundle.title
+    logger.info('bigcity data has title %s' % bigcity_title)
+
     logger.info('loading boston data')
     boston_bunch = load_boston(return_X_y=return_X_y)
     boston_data = boston_bunch.data

@@ -211,6 +211,20 @@ if __name__ == '__main__':
     boston_description = boston_bunch.DESCR
     logger.debug('boston description: %s' % boston_description)
 
+    logger.info('loading spatial location of bramble cane data')
+    brambles_pickle = data_folder + 'brambles.pkl'
+    if exists(brambles_pickle):
+        with open(brambles_pickle, 'rb') as brambles_fp:
+            brambles_bundle = pickle.load(brambles_fp)
+    else:
+        brambles_bundle = get_rdataset('brambles', 'boot')
+        with open(brambles_pickle, 'wb') as brambles_fp:
+            pickle.dump(brambles_bundle, brambles_fp)
+    brambles_data = brambles_bundle.data
+    logger.info('brambles data has variables %s' % list(brambles_data))
+    brambles_title = brambles_bundle.title
+    logger.info('brambles data has title %s' % brambles_title)
+
     logger.info('loading breast cancer data')
     breast_cancer_bunch = load_breast_cancer(return_X_y=return_X_y)
     breast_cancer_data = breast_cancer_bunch['data']

@@ -173,7 +173,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    # TODO serialize and save if we have the data on hand otherwise download
     logger.info('loading beaver body temperature data')
     beaver_pickle = data_folder + 'beaver.pkl'
     if exists(beaver_pickle):

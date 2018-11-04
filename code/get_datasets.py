@@ -235,6 +235,20 @@ if __name__ == '__main__':
     breast_cancer_description = breast_cancer_bunch['DESCR']
     logger.debug('cancer description: %s' % breast_cancer_description)
 
+    logger.info('loading smoking deaths among doctors data')
+    breslow_pickle = data_folder + 'breslow.pkl'
+    if exists(breslow_pickle):
+        with open(breslow_pickle, 'rb') as breslow_fp:
+            breslow_bundle = pickle.load(breslow_fp)
+    else:
+        breslow_bundle = get_rdataset('breslow', 'boot')
+        with open(breslow_pickle, 'wb') as breslow_fp:
+            pickle.dump(breslow_bundle, breslow_fp)
+    breslow_data = breslow_bundle.data
+    logger.info('breslow data has variables %s' % list(breslow_data))
+    breslow_title = breslow_bundle.title
+    logger.info('breslow data has title %s' % breslow_title)
+
     logger.info('loading cancer data')
     cancer_pickle = data_folder + 'cancer.pkl'
     if exists(cancer_pickle):

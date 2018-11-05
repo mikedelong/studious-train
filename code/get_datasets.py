@@ -280,6 +280,20 @@ if __name__ == '__main__':
     cancer_exog = cancer_bunch['exog_name']
     logger.info('Cancer exogenous variable is %s' % cancer_exog)
 
+    logger.info('loading sugar-cane disease data')
+    cane_pickle = data_folder + 'cane.pkl'
+    if exists(cane_pickle):
+        with open(cane_pickle, 'rb') as cane_fp:
+            cane_bundle = pickle.load(cane_fp)
+    else:
+        cane_bundle = get_rdataset('cane', 'boot')
+        with open(cane_pickle, 'wb') as cane_fp:
+            pickle.dump(cane_bundle, cane_fp)
+    cane_data = cane_bundle.data
+    logger.info('cane data has variables %s' % list(cane_data))
+    cane_title = cane_bundle.title
+    logger.info('cane data has title %s' % cane_title)
+
     logger.info('loading credit card data')
     ccard_pickle = data_folder + 'ccard.pkl'
     if exists(ccard_pickle):

@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     # first create our bogus source data
     periods = 2000
-    slice_size = 200
+    slice_size = 1000
     sqrt_periods = int(np.sqrt(float(periods)))
     start = datetime(2018, 4, 15, 0, 0, 0)
     dates = pd.date_range(start=start, periods=periods, freq='S')
@@ -83,6 +83,7 @@ if __name__ == '__main__':
             margin={'t': 50, 'b': 50, 'l': 50, 'r': 50},
             sliders=[{'yanchor': 'top',
                       'xanchor': 'left',
+                      'visible': True,
                       'transition': {'duration': 100.0, 'easing': 'linear'},
                       'pad': {'b': 10, 't': 50},
                       'len': 0.9,
@@ -90,41 +91,39 @@ if __name__ == '__main__':
                       'steps': [{
                           'args': [[str(k)], {'frame': {'duration': 500.0, 'easing': 'linear', 'redraw': False},
                                               'transition': {'duration': 0, 'easing': 'linear'}}],
+                          'method': 'animate',
                           'label': str(k)
                       } for k in range(0, periods, slice_size)]}]
         ),
 
         data=[scatter2d, scatter3d],
-        frames=list()
-    )
-
-    # now loop and add the frames
-    for k in range(0, periods, slice_size):
-        figure['frames'].append(
+        frames=[
             {
                 'name': str(k),
-                'layout': dict(),
-                'data': [
-                    {
-                        'marker': scatter2d_marker,
-                        'mode': 'markers',
-                        'name': name_2d,
-                        'type': 'scatter',
-                        'x': df['x'].values[k:k + slice_size],
-                        'y': df['phenomenon'].values[k:k + slice_size]
-                    },
-                    {
-                        'marker': scatter3d_marker,
-                        'mode': 'markers',
-                        'name': name_3d,
-                        'type': 'scatter3d',
-                        'x': df['x'].values[k:k + slice_size],
-                        'y': df['y'].values[k:k + slice_size],
-                        'z': df['z'].values[k:k + slice_size]
-                    }
-                ]
+                # 'layout': dict(),
+                'data': [{
+                    'marker': scatter2d_marker,
+                    'mode': 'markers',
+                    'name': name_2d,
+                    'type': 'scatter',
+                    'x': df['x'].values[k:k + slice_size],
+                    'xaxis': 'x1',
+                    'y': df['phenomenon'].values[k:k + slice_size],
+                    'yaxis': 'y1'
+                }, {
+                    'marker': scatter3d_marker,
+                    'mode': 'lines',
+                    'name': name_3d,
+                    'type': 'scatter3d',
+                    'x': df['x'].values[k:k + slice_size],
+                    'y': df['y'].values[k:k + slice_size],
+                    'z': df['z'].values[k:k + slice_size]
+                }]
             }
-        )
+            for k in range(0, periods, slice_size)
+        ]
+
+    )
 
     plot(figure, filename='../output/plotly_common_slider.html', auto_open=False)
 

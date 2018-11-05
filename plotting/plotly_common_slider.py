@@ -25,7 +25,8 @@ if __name__ == '__main__':
 
     # first create our bogus source data
     periods = 2000
-    slice_size = 100
+    slice_count = 10
+    slice_size = periods // slice_count
     sqrt_periods = int(np.sqrt(float(periods)))
     start = datetime(2018, 4, 15, 0, 0, 0)
     dates = pd.date_range(start=start, periods=periods, freq='S')
@@ -98,7 +99,8 @@ if __name__ == '__main__':
             {
                 'name': str(k),
                 'data': [{
-                    'marker': scatter2d_marker,
+                    'marker': dict(size=1, symbol='circle', line=dict(color=df['color'].values[k:k + slice_size],
+                                                                      colorscale=colorscale, width=1), opacity=0.9),
                     'mode': 'markers',
                     'name': name_2d,
                     'type': 'scatter',
@@ -107,8 +109,9 @@ if __name__ == '__main__':
                     'y': df['phenomenon'].values[k:k + slice_size],
                     'yaxis': 'y1'
                 }, {
-                    'marker': scatter3d_marker,
-                    'mode': 'lines',
+                    'marker': dict(size=1, symbol='circle', line=dict(color=df['color'].values[k:k + slice_size],
+                                                                      colorscale=colorscale, width=1), opacity=0.9),
+                    'mode': 'markers',
                     'name': name_3d,
                     'type': 'scatter3d',
                     'x': df['x'].values[k:k + slice_size],

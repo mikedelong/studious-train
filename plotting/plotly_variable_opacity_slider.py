@@ -44,15 +44,11 @@ if __name__ == '__main__':
     # graph constants
     colorscale = 'Jet'
     name_2d = 'phenomenon'
-    name_3d = 'location'
 
     # make the left-hand scatter plot data
     scatter2d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
     scatter2d_marker = dict(size=1, symbol='circle', line=scatter2d_marker_line, opacity=0.9)
 
-    # then make the right-hand 3d scatter plot data
-    scatter3d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
-    scatter3d_marker = dict(size=1, symbol='circle', line=scatter3d_marker_line, opacity=0.9)
     figure = dict(
         layout=dict(
             xaxis1={'domain': [0.0, 1.0], 'anchor': 'y1', 'title': 'x', 'range': [0, periods]},
@@ -86,12 +82,16 @@ if __name__ == '__main__':
             {
                 'name': str(k),
                 'data': [{
-                    'marker': dict(size=3, symbol='circle', line=dict(color=df['color'].values,
-                                                                      colorscale=colorscale, width=1),
-                                   opacity=
-                                   # 0.9
-                                   [0.9 if k < index < k + slice_size else 0.2 for index in range(periods)]
-                                   ),
+                    'marker': {
+                        'size': 5,
+                        'symbol': 'circle',
+                        'line': {
+                            'color': df['color'].values,
+                            'colorscale': colorscale,
+                            'width': 1
+                        },
+                        'opacity': [0.9 if k < index < k + slice_size else 0.2 for index in range(periods)]
+                    },
                     'mode': 'markers',
                     'name': name_2d,
                     'type': 'scatter',

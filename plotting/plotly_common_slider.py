@@ -42,13 +42,15 @@ if __name__ == '__main__':
 
     # graph constants
     colorscale = 'Jet'
+    name_2d = 'phenomenon'
+    name_3d = 'location'
     # make the left-hand scatter plot data
     scatter2d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
     scatter2d_marker = dict(size=1, symbol='circle', line=scatter2d_marker_line, opacity=0.9)
     scatter2d = {
         'marker': scatter2d_marker,
         'mode': 'markers',
-        'name': '2d plot',
+        'name': name_2d,
         'x': df['x'].values,
         'y': df['phenomenon'].values,
         'type': 'scatter',
@@ -60,7 +62,7 @@ if __name__ == '__main__':
     scatter3d = {
         'marker': scatter3d_marker,
         'mode': 'markers',
-        'name': '3d plot',
+        'name': name_3d,
         'type': 'scatter3d',
         'x': df['x'].values,
         'y': df['y'].values,
@@ -71,36 +73,30 @@ if __name__ == '__main__':
         layout=dict(
             xaxis1={'domain': [0.0, 0.5], 'anchor': 'y1', 'title': '1', 'range': [0, periods]},
             yaxis1={'domain': [0.0, 1.0], 'anchor': 'x1', 'title': 'y', 'range': [0.99, 1.06]},
-            xaxis2={'domain': [0.5, 1.0], 'anchor': 'y2', 'title': '2', },
-            yaxis2={'domain': [0.0, 1.0], 'anchor': 'x2', 'title': 'y', },
-            scene={'domain': {'x': [0.5, 1], 'y': [0, 1]}},
-
+            # xaxis2={'domain': [0.5, 1.0], 'anchor': 'y2', 'title': '2', },
+            # yaxis2={'domain': [0.0, 1.0], 'anchor': 'x2', 'title': 'y', },
+            scene={'domain': {'x': [0.5, 1], 'y': [0, 1]},
+                   'xaxis': dict(nticks=4, range=[0, periods], autorange=False),
+                   'yaxis': dict(nticks=4, range=[0, periods], autorange=False),
+                   'zaxis': dict(nticks=4, range=[0, periods], autorange=False)},
             title='',
             margin={'t': 50, 'b': 50, 'l': 50, 'r': 50},
             sliders=[{'yanchor': 'top',
                       'xanchor': 'left',
-                      'transition': {'duration': 500.0,
-                                     'easing': 'linear'},
-                      'pad': {'b': 10,
-                              't': 50},
+                      'transition': {'duration': 100.0, 'easing': 'linear'},
+                      'pad': {'b': 10, 't': 50},
                       'len': 0.9,
                       'x': 0.1, 'y': 0,
-                      'steps': list()}]
+                      'steps': [{
+                          'args': [[str(k)], {'frame': {'duration': 500.0, 'easing': 'linear', 'redraw': False},
+                                              'transition': {'duration': 0, 'easing': 'linear'}}],
+                          'label': str(k)
+                      } for k in range(0, periods, slice_size)]}]
         ),
 
         data=[scatter2d, scatter3d],
-
-        frames=[
-        ]
+        frames=list()
     )
-    # now loop and add the slider steps
-    for k in range(0, periods, slice_size):
-        figure['layout']['sliders'][0]['steps'].append(
-            {
-                'args': [[str(k)], {'frame': {'duration': 500.0, 'easing': 'linear', 'redraw': False},
-                                    'transition': {'duration': 0, 'easing': 'linear'}}],
-                'label': str(k)
-            })
 
     # now loop and add the frames
     for k in range(0, periods, slice_size):
@@ -112,15 +108,15 @@ if __name__ == '__main__':
                     {
                         'marker': scatter2d_marker,
                         'mode': 'markers',
-                        'name': '2d plot',
+                        'name': name_2d,
+                        'type': 'scatter',
                         'x': df['x'].values[k:k + slice_size],
-                        'y': df['phenomenon'].values[k:k + slice_size],
-                        'type': 'scatter'
+                        'y': df['phenomenon'].values[k:k + slice_size]
                     },
                     {
                         'marker': scatter3d_marker,
                         'mode': 'markers',
-                        'name': '3d plot',
+                        'name': name_3d,
                         'type': 'scatter3d',
                         'x': df['x'].values[k:k + slice_size],
                         'y': df['y'].values[k:k + slice_size],

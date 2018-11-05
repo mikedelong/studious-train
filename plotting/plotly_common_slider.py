@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     # first create our bogus source data
     periods = 2000
-    slice_size = 1000
+    slice_size = 100
     sqrt_periods = int(np.sqrt(float(periods)))
     start = datetime(2018, 4, 15, 0, 0, 0)
     dates = pd.date_range(start=start, periods=periods, freq='S')
@@ -44,41 +44,23 @@ if __name__ == '__main__':
     colorscale = 'Jet'
     name_2d = 'phenomenon'
     name_3d = 'location'
+
     # make the left-hand scatter plot data
     scatter2d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
     scatter2d_marker = dict(size=1, symbol='circle', line=scatter2d_marker_line, opacity=0.9)
-    scatter2d = {
-        'marker': scatter2d_marker,
-        'mode': 'markers',
-        'name': name_2d,
-        'x': df['x'].values,
-        'y': df['phenomenon'].values,
-        'type': 'scatter',
-    }
 
     # then make the right-hand 3d scatter plot data
     scatter3d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
     scatter3d_marker = dict(size=1, symbol='circle', line=scatter3d_marker_line, opacity=0.9)
-    scatter3d = {
-        'marker': scatter3d_marker,
-        'mode': 'markers',
-        'name': name_3d,
-        'type': 'scatter3d',
-        'x': df['x'].values,
-        'y': df['y'].values,
-        'z': df['z'].values
-    }
-
     figure = dict(
         layout=dict(
-            xaxis1={'domain': [0.0, 0.5], 'anchor': 'y1', 'title': '1', 'range': [0, periods]},
+            xaxis1={'domain': [0.0, 0.5], 'anchor': 'y1', 'title': 'x', 'range': [0, periods]},
             yaxis1={'domain': [0.0, 1.0], 'anchor': 'x1', 'title': 'y', 'range': [0.99, 1.06]},
-            # xaxis2={'domain': [0.5, 1.0], 'anchor': 'y2', 'title': '2', },
-            # yaxis2={'domain': [0.0, 1.0], 'anchor': 'x2', 'title': 'y', },
             scene={'domain': {'x': [0.5, 1], 'y': [0, 1]},
                    'xaxis': dict(nticks=4, range=[0, periods], autorange=False),
                    'yaxis': dict(nticks=4, range=[0, periods], autorange=False),
-                   'zaxis': dict(nticks=4, range=[0, periods], autorange=False)},
+                   'zaxis': dict(nticks=4, range=[0, periods], autorange=False)
+                   },
             title='',
             margin={'t': 50, 'b': 50, 'l': 50, 'r': 50},
             sliders=[{'yanchor': 'top',
@@ -96,11 +78,25 @@ if __name__ == '__main__':
                       } for k in range(0, periods, slice_size)]}]
         ),
 
-        data=[scatter2d, scatter3d],
+        data=[{
+            'marker': scatter2d_marker,
+            'mode': 'markers',
+            'name': name_2d,
+            'x': df['x'].values,
+            'y': df['phenomenon'].values,
+            'type': 'scatter',
+        }, {
+            'marker': scatter3d_marker,
+            'mode': 'markers',
+            'name': name_3d,
+            'type': 'scatter3d',
+            'x': df['x'].values,
+            'y': df['y'].values,
+            'z': df['z'].values
+        }],
         frames=[
             {
                 'name': str(k),
-                # 'layout': dict(),
                 'data': [{
                     'marker': scatter2d_marker,
                     'mode': 'markers',
@@ -122,7 +118,6 @@ if __name__ == '__main__':
             }
             for k in range(0, periods, slice_size)
         ]
-
     )
 
     plot(figure, filename='../output/plotly_common_slider.html', auto_open=False)

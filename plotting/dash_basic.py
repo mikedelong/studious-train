@@ -1,5 +1,3 @@
-# https://community.plot.ly/t/multiple-plots-running-on-frames/8235/8
-
 import logging
 from datetime import datetime
 from time import time
@@ -42,6 +40,7 @@ if __name__ == '__main__':
         {'dates': dates, 'x': x, 'y': y, 'z': z, 'speed': speed, 'phenomenon': phenomenon}).set_index('dates')
     df['color'] = (256.0 * df['speed'] / float(periods)).astype('int32')
 
+    # https://community.plot.ly/t/how-do-i-use-dash-to-add-local-css/4914/17
     # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
     dcc._css_dist[0]['relative_package_path'].append('bWLwgP.css')
 

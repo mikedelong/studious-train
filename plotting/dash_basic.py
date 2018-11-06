@@ -7,6 +7,37 @@ import dash_core_components as dcc
 import dash_html_components as html
 import numpy as np
 import pandas as pd
+from plotly.graph_objs import Scatter
+from plotly.tools import make_subplots
+
+
+def get_stacked_subplots():
+    result = make_subplots(rows=4, cols=1, shared_xaxes=True, shared_yaxes=False, start_cell='top-left',
+                           print_grid=True,
+                           # specs=[[{}, {'rowspan':4}], [{}, None], [{}, None], [{}, None]]
+                           )
+
+    result.append_trace(Scatter(x=df['x'].values, y=df['y'].values, name='y'), 1, 1)
+    result.append_trace(Scatter(x=df['x'].values, y=df['z'].values, name='z'), 2, 1)
+    result.append_trace(Scatter(x=df['x'].values, y=df['phenomenon'].values, name='noise'), 3, 1)
+    result.append_trace(Scatter(x=df['x'].values, y=df['color'].values, name='color'), 4, 1)
+    result['layout'].update(height=600, width=600, xaxis={'rangeslider': {'visible': True}})
+
+    return result
+
+
+def get_scatter3d():
+    result = make_subplots(rows=1, cols=1, specs=[[{'is_3d': True}]])
+    result.append_trace(
+        dict(
+            type='scatter3d',
+            x=df['x'].values,
+            y=df['y'].values,
+            z=df['z'].values,
+            scene='scene1'
+        ), 1, 1)
+    return result
+
 
 if __name__ == '__main__':
     start_time = time()
@@ -46,26 +77,39 @@ if __name__ == '__main__':
 
     app = dash.Dash(__name__)
 
-    app.layout = html.Div(children=[
-        html.H1(children='Hello Dash'),
+    colorscale = 'Jet'
+    frame_mode = 'lines'
+    name_2d = 'datadata'
+    scatter2d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
+    scatter2d_marker = dict(size=1, symbol='circle', line=scatter2d_marker_line, opacity=0.1)
+    scatter3d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
+    scatter3d_marker = dict(size=1, symbol='circle', line=scatter3d_marker_line, opacity=0.9)
 
-        html.Div(children='''
-            Dash: A web application framework for Python.
-        '''),
+    app.layout = html.Div([
+        html.Div([
+            html.Div(
+                [
+                    html.H3('...'),
+                    dcc.Graph(
+                        id='left',
+                        figure=get_stacked_subplots(),
+                    )
+                ], className='six columns'),
+            html.Div([
+                html.H3('...'),
+                dcc.Graph(
+                    id='right',
+                    figure=get_scatter3d()
+                    # todo add colors
 
-        dcc.Graph(
-            id='example-graph',
-            figure={
-                'data': [
-                    {'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'SF'},
-                    {'x': [1, 2, 3], 'y': [2, 4, 5], 'type': 'bar', 'name': u'Montréal'},
-                ],
-                'layout': {
-                    'title': 'Dash Data Visualization'
-                }
-            }
-        )
+                )
+            ], className='six columns')
+        ], className='row')
+
     ])
+    app.css.append_css({
+        'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'
+    })
 
     app.run_server(debug=True)
 

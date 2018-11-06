@@ -35,7 +35,9 @@ if __name__ == '__main__':
     y = y * y
     z = np.linspace(start=0, stop=periods + 1, num=periods).transpose()
     speed = np.linspace(start=0, stop=periods + 1, num=periods).transpose()
-    df = pd.DataFrame.from_dict({'dates': dates, 'x': x, 'y': y, 'z': z, 'speed': speed}).set_index('dates')
+    phenomenon = [0.05 * np.random.uniform(0, 1) for j in range(periods)]
+    df = pd.DataFrame.from_dict(
+        {'dates': dates, 'x': x, 'y': y, 'z': z, 'speed': speed, 'phenomenon': phenomenon}).set_index('dates')
     df['color'] = (256.0 * df['speed'] / float(periods)).astype('int32')
 
     scatter = Scatter3d(
@@ -104,7 +106,7 @@ if __name__ == '__main__':
         'xanchor': 'left',
         'currentvalue': {
             'font': {'size': 20},
-            'prefix': 'Year:',
+            'prefix': 'timestep:',
             'visible': True,
             'xanchor': 'right'
         },

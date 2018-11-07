@@ -63,8 +63,6 @@ if __name__ == '__main__':
 
     # first create our bogus source data
     periods = 2000
-    slice_count = 10
-    slice_size = periods // slice_count
     sqrt_periods = int(np.sqrt(float(periods)))
     start = datetime(2018, 4, 15, 0, 0, 0)
     dates = pd.date_range(start=start, periods=periods, freq='S')
@@ -118,7 +116,7 @@ if __name__ == '__main__':
     @app.callback(
         dash.dependencies.Output('output-container-range-slider', 'figure'),
         [dash.dependencies.Input('range-slider-3d', 'value')])
-    def update_figure(arg_slider_values):
+    def update_scatter3d(arg_slider_values):
         min_value = arg_slider_values[0]
         max_value = arg_slider_values[1]
         logger.info('resizing with values %s' % arg_slider_values)

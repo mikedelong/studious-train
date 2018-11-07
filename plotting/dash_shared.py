@@ -35,8 +35,7 @@ def get_stacked_subplots_no_rangeslider(arg_min, arg_max):
         Scatter(name='noise', x=df['x'].values[arg_min:arg_max], y=df['phenomenon'].values[arg_min:arg_max]), 3, 1)
     result.append_trace(Scatter(name='color', x=df['x'].values[arg_min:arg_max], y=df['color'].values[arg_min:arg_max]),
                         4, 1)
-    result['layout'].update(height=700, width=700)
-
+    result['layout'].update(height=700, legend=dict(orientation='h'), width=700)
     return result
 
 

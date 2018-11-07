@@ -13,15 +13,13 @@ from plotly.tools import make_subplots
 
 def get_stacked_subplots():
     result = make_subplots(rows=4, cols=1, shared_xaxes=True, shared_yaxes=False, start_cell='top-left',
-                           print_grid=True,
-                           # specs=[[{}, {'rowspan':4}], [{}, None], [{}, None], [{}, None]]
-                           )
+                           print_grid=True)
 
     result.append_trace(Scatter(x=df['x'].values, y=df['y'].values, name='y'), 1, 1)
     result.append_trace(Scatter(x=df['x'].values, y=df['z'].values, name='z'), 2, 1)
     result.append_trace(Scatter(x=df['x'].values, y=df['phenomenon'].values, name='noise'), 3, 1)
     result.append_trace(Scatter(x=df['x'].values, y=df['color'].values, name='color'), 4, 1)
-    result['layout'].update(height=600, width=600, xaxis={'rangeslider': {'visible': True}})
+    result['layout'].update(height=800, width=800)
 
     return result
 
@@ -30,12 +28,20 @@ def get_scatter3d():
     result = make_subplots(rows=1, cols=1, specs=[[{'is_3d': True}]])
     result.append_trace(
         dict(
+            marker=dict(
+                opacity=0.05,
+                size=4,
+                symbol='circle'
+            ),
             type='scatter3d',
             x=df['x'].values,
             y=df['y'].values,
             z=df['z'].values,
             scene='scene1'
         ), 1, 1)
+    result['layout'].update(
+        height=800, width=800,
+        xaxis={'rangeslider': {'visible': True}})
     return result
 
 
@@ -82,8 +88,8 @@ if __name__ == '__main__':
     name_2d = 'datadata'
     scatter2d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
     scatter2d_marker = dict(size=1, symbol='circle', line=scatter2d_marker_line, opacity=0.1)
-    scatter3d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
-    scatter3d_marker = dict(size=1, symbol='circle', line=scatter3d_marker_line, opacity=0.9)
+    # scatter3d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
+    # scatter3d_marker = dict(size=1, symbol='circle', line=scatter3d_marker_line, opacity=0.9)
 
     app.layout = html.Div([
         html.Div([
@@ -94,7 +100,7 @@ if __name__ == '__main__':
                         id='left',
                         figure=get_stacked_subplots(),
                     )
-                ], className='six columns'),
+                ], className='five columns'),
             html.Div([
                 html.H3('...'),
                 dcc.Graph(
@@ -103,7 +109,7 @@ if __name__ == '__main__':
                     # todo add colors
 
                 )
-            ], className='six columns')
+            ], className='seven columns')
         ], className='row')
 
     ])

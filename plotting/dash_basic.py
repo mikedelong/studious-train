@@ -24,7 +24,7 @@ def get_stacked_subplots():
     return result
 
 
-def get_scatter3d():
+def get_scatter3d(arg_min, arg_max):
     result = make_subplots(rows=1, cols=1, specs=[[{'is_3d': True}]])
     result.append_trace(
         dict(
@@ -34,9 +34,9 @@ def get_scatter3d():
                 symbol='circle'
             ),
             type='scatter3d',
-            x=df['x'].values,
-            y=df['y'].values,
-            z=df['z'].values,
+            x=df['x'].values[arg_min: arg_max],
+            y=df['y'].values[arg_min: arg_max],
+            z=df['z'].values[arg_min: arg_max],
             scene='scene1'
         ), 1, 1)
     result['layout'].update(height=700, width=700)
@@ -87,19 +87,24 @@ if __name__ == '__main__':
         html.Div([
             html.Div(
                 [
-                    html.H3('...'),
+                    html.H3('features'),
                     dcc.Graph(
                         id='left',
                         figure=get_stacked_subplots(),
                     )
                 ], className='five columns'),
             html.Div([
-                html.H3('...'),
+                html.H3('location'),
                 dcc.Graph(
                     id='right',
-                    figure=get_scatter3d()
+                    figure=get_scatter3d(arg_min=0, arg_max=periods)
                     # todo add colors
-
+                ),
+                dcc.RangeSlider(
+                    id='range-sider-3d',
+                    min=0,
+                    max=periods,
+                    step=1
                 )
             ], className='seven columns')
         ], className='row')

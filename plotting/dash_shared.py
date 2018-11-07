@@ -13,8 +13,7 @@ from plotly.tools import make_subplots
 
 
 def get_stacked_scatter2d(arg_min, arg_max):
-    result = make_subplots(rows=4, cols=1, shared_xaxes=True, shared_yaxes=False, start_cell='top-left',
-                           print_grid=True)
+    result = make_subplots(print_grid=False, rows=4, shared_xaxes=True, start_cell='top-left')
 
     x_values = df['x'].values[arg_min:arg_max]
     for index, name in enumerate(['y', 'z', 'noise', 'color']):
@@ -24,7 +23,7 @@ def get_stacked_scatter2d(arg_min, arg_max):
 
 
 def get_scatter3d(arg_colorscale, arg_min, arg_max):
-    result = make_subplots(rows=1, cols=1, specs=[[{'is_3d': True}]])
+    result = make_subplots(print_grid=False, specs=[[{'is_3d': True}]])
     result.append_trace(
         dict(
             marker=dict(

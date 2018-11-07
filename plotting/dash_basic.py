@@ -19,7 +19,7 @@ def get_stacked_subplots():
     result.append_trace(Scatter(x=df['x'].values, y=df['z'].values, name='z'), 2, 1)
     result.append_trace(Scatter(x=df['x'].values, y=df['phenomenon'].values, name='noise'), 3, 1)
     result.append_trace(Scatter(x=df['x'].values, y=df['color'].values, name='color'), 4, 1)
-    result['layout'].update(height=800, width=800)
+    result['layout'].update(height=800, width=800, xaxis={'rangeslider': {'visible': True}})
 
     return result
 
@@ -39,9 +39,7 @@ def get_scatter3d():
             z=df['z'].values,
             scene='scene1'
         ), 1, 1)
-    result['layout'].update(
-        height=800, width=800,
-        xaxis={'rangeslider': {'visible': True}})
+    result['layout'].update(height=800, width=800)
     return result
 
 
@@ -77,10 +75,6 @@ if __name__ == '__main__':
         {'dates': dates, 'x': x, 'y': y, 'z': z, 'speed': speed, 'phenomenon': phenomenon}).set_index('dates')
     df['color'] = (256.0 * df['speed'] / float(periods)).astype('int32')
 
-    # https://community.plot.ly/t/how-do-i-use-dash-to-add-local-css/4914/17
-    # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-    dcc._css_dist[0]['relative_package_path'].append('bWLwgP.css')
-
     app = dash.Dash(__name__)
 
     colorscale = 'Jet'
@@ -113,6 +107,7 @@ if __name__ == '__main__':
         ], className='row')
 
     ])
+    # todo figure out how to add this from static
     app.css.append_css({
         'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'
     })

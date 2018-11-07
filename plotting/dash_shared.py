@@ -12,29 +12,13 @@ from plotly.graph_objs.layout.scene import Camera
 from plotly.tools import make_subplots
 
 
-def get_stacked_subplots():
-    result = make_subplots(rows=4, cols=1, shared_xaxes=True, shared_yaxes=False, start_cell='top-left',
-                           print_grid=True)
-
-    result.append_trace(Scatter(name='y', x=df['x'].values, y=df['y'].values), 1, 1)
-    result.append_trace(Scatter(name='z', x=df['x'].values, y=df['z'].values), 2, 1)
-    result.append_trace(Scatter(name='noise', x=df['x'].values, y=df['phenomenon'].values), 3, 1)
-    result.append_trace(Scatter(name='color', x=df['x'].values, y=df['color'].values), 4, 1)
-    result['layout'].update(height=700, width=700, xaxis={'rangeslider': {'visible': True}})
-
-    return result
-
-
 def get_stacked_subplots_no_rangeslider(arg_min, arg_max):
     result = make_subplots(rows=4, cols=1, shared_xaxes=True, shared_yaxes=False, start_cell='top-left',
                            print_grid=True)
 
-    result.append_trace(Scatter(name='y', x=df['x'].values[arg_min:arg_max], y=df['y'].values[arg_min:arg_max]), 1, 1)
-    result.append_trace(Scatter(name='z', x=df['x'].values[arg_min:arg_max], y=df['z'].values[arg_min:arg_max]), 2, 1)
-    result.append_trace(
-        Scatter(name='noise', x=df['x'].values[arg_min:arg_max], y=df['phenomenon'].values[arg_min:arg_max]), 3, 1)
-    result.append_trace(Scatter(name='color', x=df['x'].values[arg_min:arg_max], y=df['color'].values[arg_min:arg_max]),
-                        4, 1)
+    x_values = df['x'].values[arg_min:arg_max]
+    for index, name in enumerate(['y', 'z', 'noise', 'color']):
+        result.append_trace(Scatter(name=name, x=x_values, y=df[name].values[arg_min:arg_max]), index + 1, 1)
     result['layout'].update(height=700, legend=dict(orientation='h'), width=700)
     return result
 
@@ -85,16 +69,15 @@ if __name__ == '__main__':
     y = y * y
     z = np.linspace(start=0, stop=periods + 1, num=periods).transpose()
     speed = np.linspace(start=0, stop=periods + 1, num=periods).transpose()
-    phenomenon = [1.0 + 0.05 * np.random.uniform(0, 1) for j in range(periods)]
-    df = pd.DataFrame.from_dict(
-        {'dates': dates, 'x': x, 'y': y, 'z': z, 'speed': speed, 'phenomenon': phenomenon}).set_index('dates')
+    noise = [1.0 + 0.05 * np.random.uniform(0, 1) for j in range(periods)]
+    df = pd.DataFrame.from_dict({'dates': dates, 'x': x, 'y': y, 'z': z, 'speed': speed, 'noise': noise}).set_index(
+        'dates')
     df['color'] = (256.0 * df['speed'] / float(periods)).astype('int32')
 
     app = dash.Dash(__name__)
 
     colorscale = 'Jet'
-    name_2d = 'datadata'
-    scatter2d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
+    scatter2d_marker_line = dict(width=1)
     scatter2d_marker = dict(size=1, symbol='circle', line=scatter2d_marker_line, opacity=0.1)
 
     app.layout = html.Div([

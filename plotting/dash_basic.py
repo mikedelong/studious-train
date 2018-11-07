@@ -19,7 +19,7 @@ def get_stacked_subplots():
     result.append_trace(Scatter(x=df['x'].values, y=df['z'].values, name='z'), 2, 1)
     result.append_trace(Scatter(x=df['x'].values, y=df['phenomenon'].values, name='noise'), 3, 1)
     result.append_trace(Scatter(x=df['x'].values, y=df['color'].values, name='color'), 4, 1)
-    result['layout'].update(height=800, width=800, xaxis={'rangeslider': {'visible': True}})
+    result['layout'].update(height=700, width=700, xaxis={'rangeslider': {'visible': True}})
 
     return result
 
@@ -39,7 +39,7 @@ def get_scatter3d():
             z=df['z'].values,
             scene='scene1'
         ), 1, 1)
-    result['layout'].update(height=800, width=800)
+    result['layout'].update(height=700, width=700)
     return result
 
 
@@ -82,8 +82,6 @@ if __name__ == '__main__':
     name_2d = 'datadata'
     scatter2d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
     scatter2d_marker = dict(size=1, symbol='circle', line=scatter2d_marker_line, opacity=0.1)
-    # scatter3d_marker_line = dict(color=df['color'].values, colorscale=colorscale, width=1)
-    # scatter3d_marker = dict(size=1, symbol='circle', line=scatter3d_marker_line, opacity=0.9)
 
     app.layout = html.Div([
         html.Div([

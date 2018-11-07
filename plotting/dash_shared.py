@@ -109,6 +109,7 @@ if __name__ == '__main__':
         ], className='row'),
         html.Div([
             dcc.RangeSlider(
+                allowCross=False,
                 id='range-slider-3d',
                 min=0,
                 marks={item: item for item in range(0, periods, 100)},

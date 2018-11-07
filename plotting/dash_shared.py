@@ -74,8 +74,11 @@ if __name__ == '__main__':
     df['color'] = (256.0 * df['speed'] / float(periods)).astype('int32')
 
     # start the app
+    # load the CSS from the local assets folder
     app = dash.Dash(__name__, include_assets_files='bWLwgP.css')
+    # tell the app to load its other style sheets etc. from local storage instead trying to get them from the Web
     app.css.config.serve_locally = True
+    app.scripts.config.serve_locally = True
 
     slider_marks = {item: item for item in range(0, periods, 100)}
     app.layout = html.Div([

@@ -95,17 +95,15 @@ if __name__ == '__main__':
                 ], className='five columns'),
             html.Div([
                 html.H3('location'),
-                dcc.Graph(
-                    id='right',
-                    figure=get_scatter3d(arg_min=0, arg_max=periods)
-                    # todo add colors
-                ),
+                dcc.Graph(id='output-container-range-slider'),
                 dcc.RangeSlider(
-                    id='range-sider-3d',
+                    id='range-slider-3d',
                     min=0,
+                    marks={item: item for item in range(0, periods, 500)},
                     max=periods,
-                    step=1
-                )
+                    step=1,
+                    value=[0, periods]
+                ),
             ], className='seven columns')
         ], className='row')
 
@@ -114,6 +112,17 @@ if __name__ == '__main__':
     app.css.append_css({
         'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'
     })
+
+
+    @app.callback(
+        dash.dependencies.Output('output-container-range-slider', 'figure'),
+        [dash.dependencies.Input('range-slider-3d', 'value')])
+    def update_figure(arg_slider_values):
+        min_value = arg_slider_values[0]
+        max_value = arg_slider_values[1]
+        logger.info('resizing with values %s' % arg_slider_values)
+        return get_scatter3d(arg_min=min_value, arg_max=max_value)
+
 
     app.run_server(debug=True)
 

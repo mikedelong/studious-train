@@ -8,6 +8,7 @@ import dash_html_components as html
 import numpy as np
 import pandas as pd
 from plotly.graph_objs import Scatter
+from plotly.graph_objs.layout.scene import Camera
 from plotly.tools import make_subplots
 
 
@@ -15,10 +16,10 @@ def get_stacked_subplots():
     result = make_subplots(rows=4, cols=1, shared_xaxes=True, shared_yaxes=False, start_cell='top-left',
                            print_grid=True)
 
-    result.append_trace(Scatter(x=df['x'].values, y=df['y'].values, name='y'), 1, 1)
-    result.append_trace(Scatter(x=df['x'].values, y=df['z'].values, name='z'), 2, 1)
-    result.append_trace(Scatter(x=df['x'].values, y=df['phenomenon'].values, name='noise'), 3, 1)
-    result.append_trace(Scatter(x=df['x'].values, y=df['color'].values, name='color'), 4, 1)
+    result.append_trace(Scatter(name='y', x=df['x'].values, y=df['y'].values), 1, 1)
+    result.append_trace(Scatter(name='z', x=df['x'].values, y=df['z'].values), 2, 1)
+    result.append_trace(Scatter(name='noise', x=df['x'].values, y=df['phenomenon'].values), 3, 1)
+    result.append_trace(Scatter(name='color', x=df['x'].values, y=df['color'].values), 4, 1)
     result['layout'].update(height=700, width=700, xaxis={'rangeslider': {'visible': True}})
 
     return result
@@ -29,7 +30,8 @@ def get_scatter3d(arg_min, arg_max):
     result.append_trace(
         dict(
             marker=dict(
-                opacity=0.05,
+                line=dict(color=df['color'].values, colorscale=colorscale, width=3),
+                opacity=0.1,
                 size=4,
                 symbol='circle'
             ),
@@ -40,6 +42,7 @@ def get_scatter3d(arg_min, arg_max):
             scene='scene1'
         ), 1, 1)
     result['layout'].update(height=700, width=700)
+    result['layout']['scene'].update(camera=Camera(up=dict(x=0, y=0, z=1), eye=dict(x=2, y=2, z=1)))  # todo revisit
     return result
 
 
@@ -85,25 +88,23 @@ if __name__ == '__main__':
 
     app.layout = html.Div([
         html.Div([
-            html.Div(
-                [
-                    html.H3('features'),
-                    dcc.Graph(
-                        id='left',
-                        figure=get_stacked_subplots(),
-                    )
-                ], className='five columns'),
+            html.Div([
+                html.H3('features'),
+                dcc.Graph(
+                    id='left',
+                    figure=get_stacked_subplots(),
+                )
+            ], className='five columns'),
             html.Div([
                 html.H3('location'),
                 dcc.Graph(id='output-container-range-slider'),
                 dcc.RangeSlider(
                     id='range-slider-3d',
                     min=0,
-                    marks={item: item for item in range(0, periods, 500)},
+                    marks={item: item for item in range(0, periods, 100)},
                     max=periods,
                     step=1,
-                    value=[0, periods]
-                ),
+                    value=[0, periods]),
             ], className='seven columns')
         ], className='row')
 

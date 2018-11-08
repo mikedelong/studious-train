@@ -35,6 +35,8 @@ if __name__ == '__main__':
         'dates')
     df['color'] = (256.0 * df['speed'] / float(periods)).astype('int32')
 
+    df.to_csv('../output/plotly_test_data.csv')
+
     logger.info('done')
 
     finish_time = time()

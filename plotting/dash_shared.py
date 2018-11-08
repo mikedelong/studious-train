@@ -59,6 +59,7 @@ if __name__ == '__main__':
     df = pd.read_csv('../output/plotly_test_data.csv')
     df.set_index(['dates'], inplace=True)
     periods = len(df)
+    logger.info('our input data has columns with the following names: %s' % list(df))
 
     # start the app
     # load the CSS from the local assets folder

@@ -1,11 +1,9 @@
 import logging
-from datetime import datetime
 from time import time
 
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-import numpy as np
 import pandas as pd
 from plotly.graph_objs import Scatter
 from plotly.graph_objs.layout.scene import Camera
@@ -57,20 +55,10 @@ if __name__ == '__main__':
 
     logger.info('started')
 
-    # first create our bogus source data
-    periods = 2000
-    sqrt_periods = int(np.sqrt(float(periods)))
-    start = datetime(2018, 4, 15, 0, 0, 0)
-    dates = pd.date_range(start=start, periods=periods, freq='S')
-    x = np.linspace(start=0, stop=periods + 1, num=periods).transpose()
-    y = np.linspace(start=0, stop=sqrt_periods, num=periods).transpose()
-    y = y * y
-    z = np.linspace(start=0, stop=periods + 1, num=periods).transpose()
-    speed = np.linspace(start=0, stop=periods + 1, num=periods).transpose()
-    noise = [1.0 + 0.05 * np.random.uniform(0, 1) for j in range(periods)]
-    df = pd.DataFrame.from_dict({'dates': dates, 'x': x, 'y': y, 'z': z, 'speed': speed, 'noise': noise}).set_index(
-        'dates')
-    df['color'] = (256.0 * df['speed'] / float(periods)).astype('int32')
+    # load the source data from a known file
+    df = pd.read_csv('../output/plotly_test_data.csv')
+    df.set_index(['dates'], inplace=True)
+    periods = len(df)
 
     # start the app
     # load the CSS from the local assets folder

@@ -31,7 +31,6 @@ def parse_contents(contents, filename, date=None):
 
     return html.Div([
         html.H5(filename),
-        # html.H6(datetime.datetime.fromtimestamp(date)),
 
         # Use the DataTable prototype component:
         # github.com/plotly/datatable-experiments

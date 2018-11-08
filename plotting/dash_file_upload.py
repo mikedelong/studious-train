@@ -13,7 +13,6 @@ from dash.dependencies import Input, Output, State
 
 def parse_contents(contents, filename, date=None):
     content_type, content_string = contents.split(',')
-
     decoded = base64.b64decode(content_string)
     try:
         if 'csv' in filename:
@@ -31,7 +30,6 @@ def parse_contents(contents, filename, date=None):
 
     return html.Div([
         html.H5(filename),
-
         # Use the DataTable prototype component:
         # github.com/plotly/datatable-experiments
         dt.DataTable(rows=df.to_dict('records')),

@@ -308,6 +308,20 @@ if __name__ == '__main__':
     capability_title = capability_bundle.title
     logger.info('capability data has title %s' % capability_title)
 
+    logger.info('loading domestic cat weight data')
+    catsM_pickle = data_folder + 'catsM.pkl'
+    if exists(catsM_pickle):
+        with open(catsM_pickle, 'rb') as catsM_fp:
+            catsM_bundle = pickle.load(catsM_fp)
+    else:
+        catsM_bundle = get_rdataset('catsM', 'boot')
+        with open(catsM_pickle, 'wb') as catsM_fp:
+            pickle.dump(catsM_bundle, catsM_fp)
+    catsM_data = catsM_bundle.data
+    logger.info('catsM data has variables %s' % list(catsM_data))
+    catsM_title = catsM_bundle.title
+    logger.info('catsM data has title %s' % catsM_title)
+
     logger.info('loading credit card data')
     ccard_pickle = data_folder + 'ccard.pkl'
     if exists(ccard_pickle):

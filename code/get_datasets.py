@@ -294,6 +294,20 @@ if __name__ == '__main__':
     cane_title = cane_bundle.title
     logger.info('cane data has title %s' % cane_title)
 
+    logger.info('loading simulated manufacturing process data')
+    capability_pickle = data_folder + 'capability.pkl'
+    if exists(capability_pickle):
+        with open(capability_pickle, 'rb') as capability_fp:
+            capability_bundle = pickle.load(capability_fp)
+    else:
+        capability_bundle = get_rdataset('capability', 'boot')
+        with open(capability_pickle, 'wb') as capability_fp:
+            pickle.dump(capability_bundle, capability_fp)
+    capability_data = capability_bundle.data
+    logger.info('capability data has variables %s' % list(capability_data))
+    capability_title = capability_bundle.title
+    logger.info('capability data has title %s' % capability_title)
+
     logger.info('loading credit card data')
     ccard_pickle = data_folder + 'ccard.pkl'
     if exists(ccard_pickle):

@@ -353,6 +353,20 @@ if __name__ == '__main__':
     ccard_exog = ccard_bunch['exog_name']
     logger.info('Credit card exogenous variable is %s' % ccard_exog)
 
+    logger.info('loading AIDS patient CD4 count data')
+    cd4_pickle = data_folder + 'cd4.pkl'
+    if exists(cd4_pickle):
+        with open(cd4_pickle, 'rb') as cd4_fp:
+            cd4_bundle = pickle.load(cd4_fp)
+    else:
+        cd4_bundle = get_rdataset('cd4', 'boot')
+        with open(cd4_pickle, 'wb') as cd4_fp:
+            pickle.dump(cd4_bundle, cd4_fp)
+    cd4_data = cd4_bundle.data
+    logger.info('cd4 data has variables %s' % list(cd4_data))
+    cd4_title = cd4_bundle.title
+    logger.info('cd4 data has title %s' % cd4_title)
+
     logger.info('loading China smoking data')
     china_smoking_pickle = data_folder + 'china_smoking.pkl'
     if exists(china_smoking_pickle):

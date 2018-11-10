@@ -322,6 +322,20 @@ if __name__ == '__main__':
     catsM_title = catsM_bundle.title
     logger.info('catsM data has title %s' % catsM_title)
 
+    logger.info('loading muscle Caveolae position data')
+    cav_pickle = data_folder + 'cav.pkl'
+    if exists(cav_pickle):
+        with open(cav_pickle, 'rb') as cav_fp:
+            cav_bundle = pickle.load(cav_fp)
+    else:
+        cav_bundle = get_rdataset('cav', 'boot')
+        with open(cav_pickle, 'wb') as cav_fp:
+            pickle.dump(cav_bundle, cav_fp)
+    cav_data = cav_bundle.data
+    logger.info('cav data has variables %s' % list(cav_data))
+    cav_title = cav_bundle.title
+    logger.info('cav data has title %s' % cav_title)
+
     logger.info('loading credit card data')
     ccard_pickle = data_folder + 'ccard.pkl'
     if exists(ccard_pickle):

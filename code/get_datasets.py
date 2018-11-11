@@ -381,6 +381,20 @@ if __name__ == '__main__':
     cd4_nested_title = cd4_nested_bundle.title
     logger.info('cd4.nested data has title %s' % cd4_nested_title)
 
+    logger.info('loading Channing House data')
+    channing_pickle = data_folder + 'channing.pkl'
+    if exists(channing_pickle):
+        with open(channing_pickle, 'rb') as channing_fp:
+            channing_bundle = pickle.load(channing_fp)
+    else:
+        channing_bundle = get_rdataset('channing', 'boot')
+        with open(channing_pickle, 'wb') as channing_fp:
+            pickle.dump(channing_bundle, channing_fp)
+    channing_data = channing_bundle.data
+    logger.info('channing data has variables %s' % list(channing_data))
+    channing_title = channing_bundle.title
+    logger.info('channing data has title %s' % channing_title)
+
     logger.info('loading China smoking data')
     china_smoking_pickle = data_folder + 'china_smoking.pkl'
     if exists(china_smoking_pickle):

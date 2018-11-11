@@ -367,6 +367,20 @@ if __name__ == '__main__':
     cd4_title = cd4_bundle.title
     logger.info('cd4 data has title %s' % cd4_title)
 
+    logger.info('loading nested bootstrap of CD4 data')
+    cd4_nested_pickle = data_folder + 'cd4.nested.pkl'
+    if exists(cd4_nested_pickle):
+        with open(cd4_nested_pickle, 'rb') as cd4_nested_fp:
+            cd4_nested_bundle = pickle.load(cd4_nested_fp)
+    else:
+        cd4_nested_bundle = get_rdataset('cd4.nested', 'boot')
+        with open(cd4_nested_pickle, 'wb') as cd4_nested_fp:
+            pickle.dump(cd4_nested_bundle, cd4_nested_fp)
+    cd4_nested_data = cd4_nested_bundle.data
+    logger.info('cd4.nested data has variables %s' % list(cd4_nested_data))
+    cd4_nested_title = cd4_nested_bundle.title
+    logger.info('cd4.nested data has title %s' % cd4_nested_title)
+
     logger.info('loading China smoking data')
     china_smoking_pickle = data_folder + 'china_smoking.pkl'
     if exists(china_smoking_pickle):

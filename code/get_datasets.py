@@ -436,6 +436,19 @@ if __name__ == '__main__':
     claridge_title = claridge_bundle.title
     logger.info('claridge data has title %s' % claridge_title)
 
+    logger.info('loading cloth defect data')
+    cloth_pickle = data_folder + 'cloth.pkl'
+    if exists(cloth_pickle):
+        with open(cloth_pickle, 'rb') as cloth_fp:
+            cloth_bundle = pickle.load(cloth_fp)
+    else:
+        cloth_bundle = get_rdataset('cloth', 'boot')
+        with open(cloth_pickle, 'wb') as cloth_fp:
+            pickle.dump(cloth_bundle, cloth_fp)
+    cloth_data = cloth_bundle.data
+    logger.info('cloth data has variables %s' % list(cloth_data))
+    cloth_title = cloth_bundle.title
+    logger.info('cloth data has title %s' % cloth_title)
 
     logger.info('loading CO2 data')
     co2_pickle = data_folder + 'co2.pkl'

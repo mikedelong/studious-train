@@ -422,6 +422,20 @@ if __name__ == '__main__':
     city_title = city_bundle.title
     logger.info('city data has title %s' % city_title)
 
+    logger.info('loading Claridge left-handedness data')
+    claridge_pickle = data_folder + 'claridge.pkl'
+    if exists(claridge_pickle):
+        with open(claridge_pickle, 'rb') as claridge_fp:
+            claridge_bundle = pickle.load(claridge_fp)
+    else:
+        claridge_bundle = get_rdataset('claridge', 'boot')
+        with open(claridge_pickle, 'wb') as claridge_fp:
+            pickle.dump(claridge_bundle, claridge_fp)
+    claridge_data = claridge_bundle.data
+    logger.info('claridge data has variables %s' % list(claridge_data))
+    claridge_title = claridge_bundle.title
+    logger.info('claridge data has title %s' % claridge_title)
+
 
     logger.info('loading CO2 data')
     co2_pickle = data_folder + 'co2.pkl'

@@ -409,18 +409,19 @@ if __name__ == '__main__':
     china_smoking_title = china_smoking_bunch['title']
 
     logger.info('loading US City population data')
-    channing_pickle = data_folder + 'channing.pkl'
-    if exists(channing_pickle):
-        with open(channing_pickle, 'rb') as channing_fp:
-            channing_bundle = pickle.load(channing_fp)
+    city_pickle = data_folder + 'city.pkl'
+    if exists(city_pickle):
+        with open(city_pickle, 'rb') as city_fp:
+            city_bundle = pickle.load(city_fp)
     else:
-        channing_bundle = get_rdataset('channing', 'boot')
-        with open(channing_pickle, 'wb') as channing_fp:
-            pickle.dump(channing_bundle, channing_fp)
-    channing_data = channing_bundle.data
-    logger.info('channing data has variables %s' % list(channing_data))
-    channing_title = channing_bundle.title
-    logger.info('channing data has title %s' % channing_title)
+        city_bundle = get_rdataset('city', 'boot')
+        with open(city_pickle, 'wb') as city_fp:
+            pickle.dump(city_bundle, city_fp)
+    city_data = city_bundle.data
+    logger.info('city data has variables %s' % list(city_data))
+    city_title = city_bundle.title
+    logger.info('city data has title %s' % city_title)
+
 
     logger.info('loading CO2 data')
     co2_pickle = data_folder + 'co2.pkl'

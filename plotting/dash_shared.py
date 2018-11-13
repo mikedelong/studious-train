@@ -1,4 +1,5 @@
 import logging
+from datetime import timedelta
 from time import time
 
 import dash
@@ -10,25 +11,26 @@ from plotly.graph_objs.layout.scene import Camera
 from plotly.tools import make_subplots
 
 
-def get_stacked_scatter2d(arg_min, arg_max):
-    df_local = df[(arg_min <= df['x']) & (df['x'] <= arg_max)]
+def get_stacked_scatter2d(arg_min, arg_max, arg_logger):
+    t_min = df.dates.min() + timedelta(seconds=arg_min)
+    t_max = df.dates.min() + timedelta(seconds=arg_max)
+    df_local = df[(t_min <= df.dates) & (df.dates <= t_max)]
     result = make_subplots(print_grid=False, rows=4, shared_xaxes=True, start_cell='top-left')
-
-    x_values = df_local['x'].values
+    x_values = df_local.dates
     for index, name in enumerate(['y', 'z', 'noise', 'color']):
         result.append_trace(Scatter(name=name, x=x_values, y=df_local[name].values), index + 1, 1)
     result['layout'].update(height=700, legend=dict(orientation='h'), width=700)
     return result
 
 
-def get_scatter3d(arg_colorscale, arg_min, arg_max):
-    df_local = df[(arg_min <= df['x']) & (df['x'] <= arg_max)]
-
+def get_scatter3d(arg_colorscale, arg_min, arg_max, arg_logger):
+    t_min = df.dates.min() + timedelta(seconds=arg_min)
+    t_max = df.dates.min() + timedelta(seconds=arg_max)
+    df_local = df[(t_min <= df.dates) & (df.dates <= t_max)]
     result = make_subplots(print_grid=False, specs=[[{'is_3d': True}]])
     result.append_trace(
         dict(
             marker=dict(
-                # colorbar={'title': 'speed', 'titleside': 'right'},
                 line=dict(color=df_local['color'].values, colorscale=arg_colorscale, width=3),
                 opacity=0.1,
                 size=4,
@@ -60,8 +62,7 @@ if __name__ == '__main__':
     logger.info('started')
 
     # load the source data from a known file
-    df = pd.read_csv('../output/plotly_test_data.csv')
-    df.set_index(['dates'], inplace=True)
+    df = pd.read_csv('../output/plotly_test_data.csv', parse_dates=['dates'])
     periods = len(df)
     logger.info('our input data has columns with the following names: %s' % list(df))
 
@@ -72,7 +73,7 @@ if __name__ == '__main__':
     app.css.config.serve_locally = True
     app.scripts.config.serve_locally = True
 
-    slider_marks = {item: item for item in range(0, periods, 100)}
+    slider_marks = {item: str(timedelta(seconds=item)) for item in range(0, periods, 100)}
     app.layout = html.Div([
         html.Div([
             html.Div([
@@ -85,7 +86,8 @@ if __name__ == '__main__':
         html.Div([
             dcc.RangeSlider(allowCross=False, className='row', id='global-range-slider',
                             min=0, marks=slider_marks, max=periods, step=1,
-                            value=[0, periods])])
+                            value=[0, periods]
+                            )])
     ])
 
 
@@ -97,7 +99,7 @@ if __name__ == '__main__':
         max_value = arg_slider_values[1]
         logger.info('resizing the 3d scatterplot with values %s' % arg_slider_values)
         colorscale = 'Jet'
-        return get_scatter3d(arg_colorscale=colorscale, arg_min=min_value, arg_max=max_value)
+        return get_scatter3d(arg_colorscale=colorscale, arg_min=min_value, arg_max=max_value, arg_logger=logger)
 
 
     @app.callback(
@@ -107,7 +109,7 @@ if __name__ == '__main__':
         min_value = arg_slider_values[0]
         max_value = arg_slider_values[1]
         logger.info('resizing the stacked 2d scatterplots with values %s' % arg_slider_values)
-        return get_stacked_scatter2d(arg_min=min_value, arg_max=max_value)
+        return get_stacked_scatter2d(arg_min=min_value, arg_max=max_value, arg_logger=logger)
 
 
     port = 8051

@@ -11,7 +11,6 @@ from plotly.tools import make_subplots
 
 
 def get_stacked_scatter2d(arg_min, arg_max, arg_logger):
-    # df_local = df[(arg_min <= df['x']) & (df['x'] <= arg_max)]
     arg_logger.info('arg_min: %s' % arg_min)
     arg_logger.info('arg_max: %s' % arg_max)
     t_min = df['dates'].min() + timedelta(seconds=arg_min)

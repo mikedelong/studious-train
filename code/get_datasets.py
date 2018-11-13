@@ -450,19 +450,6 @@ if __name__ == '__main__':
     cloth_title = cloth_bundle.title
     logger.info('cloth data has title %s' % cloth_title)
 
-    logger.info('loading Carbon Monoxide transfer data')
-    co_transfer_pickle = data_folder + 'co.transfer.pkl'
-    if exists(co_transfer_pickle):
-        with open(co_transfer_pickle, 'rb') as co_transfer_fp:
-            co_transfer_bundle = pickle.load(co_transfer_fp)
-    else:
-        co_transfer_bundle = get_rdataset('co.transfer', 'boot')
-        with open(co_transfer_pickle, 'wb') as co_transfer_fp:
-            pickle.dump(co_transfer_bundle, co_transfer_fp)
-    co_transfer_data = co_transfer_bundle.data
-    logger.info('co.transfer data has variables %s' % list(co_transfer_data))
-    co_transfer_title = co_transfer_bundle.title
-    logger.info('co.transfer data has title %s' % co_transfer_title)
 
     logger.info('loading CO2 data')
     co2_pickle = data_folder + 'co2.pkl'
@@ -511,6 +498,20 @@ if __name__ == '__main__':
     logger.info('copper names: %s' % str(copper_names))
     copper_raw_data = copper_bunch['raw_data']
     logger.info('copper raw data is %d x %d' % copper_raw_data.shape)
+
+    logger.info('loading Carbon Monoxide transfer data')
+    co_transfer_pickle = data_folder + 'co.transfer.pkl'
+    if exists(co_transfer_pickle):
+        with open(co_transfer_pickle, 'rb') as co_transfer_fp:
+            co_transfer_bundle = pickle.load(co_transfer_fp)
+    else:
+        co_transfer_bundle = get_rdataset('co.transfer', 'boot')
+        with open(co_transfer_pickle, 'wb') as co_transfer_fp:
+            pickle.dump(co_transfer_bundle, co_transfer_fp)
+    co_transfer_data = co_transfer_bundle.data
+    logger.info('co.transfer data has variables %s' % list(co_transfer_data))
+    co_transfer_title = co_transfer_bundle.title
+    logger.info('co.transfer data has title %s' % co_transfer_title)
 
     logger.info('loading capital punishment data')
     cpunish_pickle = data_folder + 'cpunish.pkl'

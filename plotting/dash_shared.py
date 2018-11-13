@@ -11,29 +11,33 @@ from plotly.tools import make_subplots
 
 
 def get_stacked_scatter2d(arg_min, arg_max):
+    df_local = df[(arg_min <= df['x']) & (df['x'] <= arg_max)]
     result = make_subplots(print_grid=False, rows=4, shared_xaxes=True, start_cell='top-left')
 
-    x_values = df['x'].values[arg_min:arg_max]
+    x_values = df_local['x'].values
     for index, name in enumerate(['y', 'z', 'noise', 'color']):
-        result.append_trace(Scatter(name=name, x=x_values, y=df[name].values[arg_min:arg_max]), index + 1, 1)
+        result.append_trace(Scatter(name=name, x=x_values, y=df_local[name].values), index + 1, 1)
     result['layout'].update(height=700, legend=dict(orientation='h'), width=700)
     return result
 
 
 def get_scatter3d(arg_colorscale, arg_min, arg_max):
+    df_local = df[(arg_min <= df['x']) & (df['x'] <= arg_max)]
+
     result = make_subplots(print_grid=False, specs=[[{'is_3d': True}]])
     result.append_trace(
         dict(
             marker=dict(
-                line=dict(color=df['color'].values, colorscale=arg_colorscale, width=3),
+                # colorbar={'title': 'speed', 'titleside': 'right'},
+                line=dict(color=df_local['color'].values, colorscale=arg_colorscale, width=3),
                 opacity=0.1,
                 size=4,
                 symbol='circle'
             ),
             type='scatter3d',
-            x=df['x'].values[arg_min: arg_max],
-            y=df['y'].values[arg_min: arg_max],
-            z=df['z'].values[arg_min: arg_max]
+            x=df_local['x'].values,
+            y=df_local['y'].values,
+            z=df_local['z'].values
         ), 1, 1)
     result['layout'].update(height=700, width=700)
     result['layout']['scene'].update(camera=Camera(up=dict(x=0, y=0, z=1), eye=dict(x=2, y=2, z=1)))  # todo revisit
@@ -79,8 +83,9 @@ if __name__ == '__main__':
             ], className='seven columns'),
         ], className='row'),
         html.Div([
-            dcc.RangeSlider(allowCross=False, className='row', id='global-range-slider', min=0,
-                            marks=slider_marks, max=periods, step=1, value=[0, periods])])
+            dcc.RangeSlider(allowCross=False, className='row', id='global-range-slider',
+                            min=0, marks=slider_marks, max=periods, step=1,
+                            value=[0, periods])])
     ])
 
 

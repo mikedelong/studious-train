@@ -450,7 +450,6 @@ if __name__ == '__main__':
     cloth_title = cloth_bundle.title
     logger.info('cloth data has title %s' % cloth_title)
 
-
     logger.info('loading CO2 data')
     co2_pickle = data_folder + 'co2.pkl'
     if exists(co2_pickle):
@@ -906,7 +905,6 @@ if __name__ == '__main__':
     wine_feature_names = wine_bunch['feature_names']
     logger.info('wine feature names: %s' % wine_feature_names)
     wine_description = wine_bunch['DESCR']
-
 
     logger.info('done')
 

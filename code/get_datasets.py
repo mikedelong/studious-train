@@ -577,6 +577,20 @@ if __name__ == '__main__':
     digits_description = digits_bunch['DESCR']
     logger.debug('digits description: %s' % digits_description)
 
+    logger.info('loading domestic dog cardiac data')
+    dogs_pickle = data_folder + 'dogs.pkl'
+    if exists(dogs_pickle):
+        with open(dogs_pickle, 'rb') as dogs_fp:
+            dogs_bundle = pickle.load(dogs_fp)
+    else:
+        dogs_bundle = get_rdataset('dogs', 'boot')
+        with open(dogs_pickle, 'wb') as dogs_fp:
+            pickle.dump(dogs_bundle, dogs_fp)
+    dogs_data = dogs_bundle.data
+    logger.info('dogs data has variables %s' % list(dogs_data))
+    dogs_title = dogs_bundle.title
+    logger.info('dogs data has title %s' % dogs_title)
+
     logger.info('loading el nino data')
     elnino_pickle = data_folder + 'elnino.pkl'
     if exists(elnino_pickle):

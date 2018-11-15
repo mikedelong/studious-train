@@ -542,6 +542,20 @@ if __name__ == '__main__':
     cpunish_raw_data = cpunish_bunch['raw_data']
     logger.info('cpunish raw data is %d x %d' % cpunish_raw_data.shape)
 
+    logger.info("loading Darwin's plant height data")
+    darwin_pickle = data_folder + 'darwin.pkl'
+    if exists(darwin_pickle):
+        with open(darwin_pickle, 'rb') as darwin_fp:
+            darwin_bundle = pickle.load(darwin_fp)
+    else:
+        darwin_bundle = get_rdataset('darwin', 'boot')
+        with open(darwin_pickle, 'wb') as darwin_fp:
+            pickle.dump(darwin_bundle, darwin_fp)
+    darwin_data = darwin_bundle.data
+    logger.info('darwin data has variables %s' % list(darwin_data))
+    darwin_title = darwin_bundle.title
+    logger.info('darwin data has title %s' % darwin_title)
+
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)
     diabetes_data = diabetes_bunch['data']

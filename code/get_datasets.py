@@ -587,7 +587,7 @@ if __name__ == '__main__':
         with open(dogs_pickle, 'wb') as dogs_fp:
             pickle.dump(dogs_bundle, dogs_fp)
     dogs_data = dogs_bundle.data
-    logger.info('dogs data has variables %s' % list(dogs_data))
+    logger.info('dogs data has variables %s and has %d rows' % (list(dogs_data), len(dogs_data)))
     dogs_title = dogs_bundle.title
     logger.info('dogs data has title %s' % dogs_title)
 

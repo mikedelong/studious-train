@@ -591,6 +591,20 @@ if __name__ == '__main__':
     dogs_title = dogs_bundle.title
     logger.info('dogs data has title %s' % dogs_title)
 
+    logger.info('loading hybrid duck data')
+    ducks_pickle = data_folder + 'ducks.pkl'
+    if exists(ducks_pickle):
+        with open(ducks_pickle, 'rb') as ducks_fp:
+            ducks_bundle = pickle.load(ducks_fp)
+    else:
+        ducks_bundle = get_rdataset('ducks', 'boot')
+        with open(ducks_pickle, 'wb') as ducks_fp:
+            pickle.dump(ducks_bundle, ducks_fp)
+    ducks_data = ducks_bundle.data
+    logger.info('ducks data has variables %s and has %d rows' % (list(ducks_data), len(ducks_data)))
+    ducks_title = ducks_bundle.title
+    logger.info('ducks data has title %s' % ducks_title)
+
     logger.info('loading el nino data')
     elnino_pickle = data_folder + 'elnino.pkl'
     if exists(elnino_pickle):

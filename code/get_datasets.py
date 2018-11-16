@@ -552,7 +552,7 @@ if __name__ == '__main__':
         with open(darwin_pickle, 'wb') as darwin_fp:
             pickle.dump(darwin_bundle, darwin_fp)
     darwin_data = darwin_bundle.data
-    logger.info('darwin data has variables %s' % list(darwin_data))
+    logger.info('darwin data has variables %s and has %d rows' % (list(darwin_data), len(darwin_data)))
     darwin_title = darwin_bundle.title
     logger.info('darwin data has title %s' % darwin_title)
 

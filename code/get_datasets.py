@@ -667,6 +667,20 @@ if __name__ == '__main__':
     fertility_names = fertility_bunch['names']
     logger.info('fertility names: %s' % str(fertility_names))
 
+    logger.info('loading balsam fir seedling data')
+    fir_pickle = data_folder + 'fir.pkl'
+    if exists(fir_pickle):
+        with open(fir_pickle, 'rb') as fir_fp:
+            fir_bundle = pickle.load(fir_fp)
+    else:
+        fir_bundle = get_rdataset('fir', 'boot')
+        with open(fir_pickle, 'wb') as fir_fp:
+            pickle.dump(fir_bundle, fir_fp)
+    fir_data = fir_bundle.data
+    logger.info('fir data has variables %s and has %d rows' % (list(fir_data), len(fir_data)))
+    fir_title = fir_bundle.title
+    logger.info('fir data has title %s' % fir_title)
+
     logger.info('loading Grunfeld data')
     grunfeld_pickle = data_folder + 'grunfeld.pkl'
     if exists(grunfeld_pickle):

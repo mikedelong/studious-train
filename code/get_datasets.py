@@ -681,6 +681,34 @@ if __name__ == '__main__':
     fir_title = fir_bundle.title
     logger.info('fir data has title %s' % fir_title)
 
+    logger.info('loading fraternal head size data')
+    frets_pickle = data_folder + 'frets.pkl'
+    if exists(frets_pickle):
+        with open(frets_pickle, 'rb') as frets_fp:
+            frets_bundle = pickle.load(frets_fp)
+    else:
+        frets_bundle = get_rdataset('frets', 'boot')
+        with open(frets_pickle, 'wb') as frets_fp:
+            pickle.dump(frets_bundle, frets_fp)
+    frets_data = frets_bundle.data
+    logger.info('frets data has variables %s and has %d rows' % (list(frets_data), len(frets_data)))
+    frets_title = frets_bundle.title
+    logger.info('frets data has title %s' % frets_title)
+
+    logger.info('loading acceleration due to gravity data')
+    grav_pickle = data_folder + 'grav.pkl'
+    if exists(grav_pickle):
+        with open(grav_pickle, 'rb') as grav_fp:
+            grav_bundle = pickle.load(grav_fp)
+    else:
+        grav_bundle = get_rdataset('grav', 'boot')
+        with open(grav_pickle, 'wb') as grav_fp:
+            pickle.dump(grav_bundle, grav_fp)
+    grav_data = grav_bundle.data
+    logger.info('grav data has variables %s and has %d rows' % (list(grav_data), len(grav_data)))
+    grav_title = grav_bundle.title
+    logger.info('grav data has title %s' % grav_title)
+
     logger.info('loading Grunfeld data')
     grunfeld_pickle = data_folder + 'grunfeld.pkl'
     if exists(grunfeld_pickle):

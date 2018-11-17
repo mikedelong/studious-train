@@ -709,6 +709,20 @@ if __name__ == '__main__':
     grav_title = grav_bundle.title
     logger.info('grav data has title %s' % grav_title)
 
+    logger.info('loading acceleration due to gravity data')
+    gravity_pickle = data_folder + 'gravity.pkl'
+    if exists(gravity_pickle):
+        with open(gravity_pickle, 'rb') as gravity_fp:
+            gravity_bundle = pickle.load(gravity_fp)
+    else:
+        gravity_bundle = get_rdataset('gravity', 'boot')
+        with open(gravity_pickle, 'wb') as gravity_fp:
+            pickle.dump(gravity_bundle, gravity_fp)
+    gravity_data = gravity_bundle.data
+    logger.info('gravity data has variables %s and has %d rows' % (list(gravity_data), len(gravity_data)))
+    gravity_title = gravity_bundle.title
+    logger.info('gravity data has title %s' % gravity_title)
+
     logger.info('loading Grunfeld data')
     grunfeld_pickle = data_folder + 'grunfeld.pkl'
     if exists(grunfeld_pickle):

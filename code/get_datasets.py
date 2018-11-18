@@ -751,6 +751,20 @@ if __name__ == '__main__':
     heart_names = heart_bunch['names']
     logger.info('heart names: %s' % str(heart_names))
 
+    logger.info('loading failure time of PET film data')
+    hirose_pickle = data_folder + 'hirose.pkl'
+    if exists(hirose_pickle):
+        with open(hirose_pickle, 'rb') as hirose_fp:
+            hirose_bundle = pickle.load(hirose_fp)
+    else:
+        hirose_bundle = get_rdataset('hirose', 'boot')
+        with open(hirose_pickle, 'wb') as hirose_fp:
+            pickle.dump(hirose_bundle, hirose_fp)
+    hirose_data = hirose_bundle.data
+    logger.info('hirose data has variables %s and has %d rows' % (list(hirose_data), len(hirose_data)))
+    hirose_title = hirose_bundle.title
+    logger.info('hirose data has title %s' % hirose_title)
+
     logger.info('loading West German interest and inflation rate data')
     interest_inflation_pickle = data_folder + 'interest_inflation.pkl'
     if exists(interest_inflation_pickle):

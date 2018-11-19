@@ -864,6 +864,20 @@ if __name__ == '__main__':
     macrodata_names = macrodata_bunch['names']
     logger.info('macrodata names: %s' % str(macrodata_names))
 
+    logger.info('loading Manaus river height data')
+    manaus_pickle = data_folder + 'manaus.pkl'
+    if exists(manaus_pickle):
+        with open(manaus_pickle, 'rb') as manaus_fp:
+            manaus_bundle = pickle.load(manaus_fp)
+    else:
+        manaus_bundle = get_rdataset('manaus', 'boot')
+        with open(manaus_pickle, 'wb') as manaus_fp:
+            pickle.dump(manaus_bundle, manaus_fp)
+    manaus_data = manaus_bundle.data
+    logger.info('manaus data has variables %s and has %d rows' % (list(manaus_data), len(manaus_data)))
+    manaus_title = manaus_bundle.title
+    logger.info('manaus data has title %s' % manaus_title)
+
     logger.info('loading travel mode choice data')
     modechoice_pickle = data_folder + 'modechoice.pkl'
     if exists(modechoice_pickle):

@@ -791,6 +791,20 @@ if __name__ == '__main__':
     iris_description = iris_bunch['DESCR']
     logger.debug('iris description: %s' % iris_description)
 
+    logger.info('loading Islay quartzite data')
+    islay_pickle = data_folder + 'islay.pkl'
+    if exists(islay_pickle):
+        with open(islay_pickle, 'rb') as islay_fp:
+            islay_bundle = pickle.load(islay_fp)
+    else:
+        islay_bundle = get_rdataset('islay', 'boot')
+        with open(islay_pickle, 'wb') as islay_fp:
+            pickle.dump(islay_bundle, islay_fp)
+    islay_data = islay_bundle.data
+    logger.info('islay data has variables %s and has %d rows' % (list(islay_data), len(islay_data)))
+    islay_title = islay_bundle.title
+    logger.info('islay data has title %s' % islay_title)
+
     random_state = 1
     logger.info('loading KDD data')
     kdd_bunch = fetch_kddcup99(random_state=random_state, download_if_missing=True)

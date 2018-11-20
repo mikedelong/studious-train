@@ -878,6 +878,20 @@ if __name__ == '__main__':
     manaus_title = manaus_bundle.title
     logger.info('manaus data has title %s' % manaus_title)
 
+    logger.info('loading melanoma survival data')
+    melanoma_pickle = data_folder + 'melanoma.pkl'
+    if exists(melanoma_pickle):
+        with open(melanoma_pickle, 'rb') as melanoma_fp:
+            melanoma_bundle = pickle.load(melanoma_fp)
+    else:
+        melanoma_bundle = get_rdataset('melanoma', 'boot')
+        with open(melanoma_pickle, 'wb') as melanoma_fp:
+            pickle.dump(melanoma_bundle, melanoma_fp)
+    melanoma_data = melanoma_bundle.data
+    logger.info('melanoma data has variables %s and has %d rows' % (list(melanoma_data), len(melanoma_data)))
+    melanoma_title = melanoma_bundle.title
+    logger.info('melanoma data has title %s' % melanoma_title)
+
     logger.info('loading travel mode choice data')
     modechoice_pickle = data_folder + 'modechoice.pkl'
     if exists(modechoice_pickle):

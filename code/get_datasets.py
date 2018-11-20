@@ -906,6 +906,20 @@ if __name__ == '__main__':
     modechoice_names = modechoice_bunch['names']
     logger.info('modechoice names: %s' % str(modechoice_names))
 
+    logger.info('loading simulated motorcycle accident data')
+    motor_pickle = data_folder + 'motor.pkl'
+    if exists(motor_pickle):
+        with open(motor_pickle, 'rb') as motor_fp:
+            motor_bundle = pickle.load(motor_fp)
+    else:
+        motor_bundle = get_rdataset('motor', 'boot')
+        with open(motor_pickle, 'wb') as motor_fp:
+            pickle.dump(motor_bundle, motor_fp)
+    motor_data = motor_bundle.data
+    logger.info('motor data has variables %s and has %d rows' % (list(motor_data), len(motor_data)))
+    motor_title = motor_bundle.title
+    logger.info('motor data has title %s' % motor_title)
+
     logger.info('loading newsgroups data')
     newsgroups_bunch = fetch_20newsgroups(data_home=data_folder)
     newsgroups_data = newsgroups_bunch['data']

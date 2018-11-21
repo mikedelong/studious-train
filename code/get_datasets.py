@@ -920,6 +920,20 @@ if __name__ == '__main__':
     motor_title = motor_bundle.title
     logger.info('motor data has title %s' % motor_title)
 
+    logger.info('loading neurophysiological point process data')
+    neuro_pickle = data_folder + 'neuro.pkl'
+    if exists(neuro_pickle):
+        with open(neuro_pickle, 'rb') as neuro_fp:
+            neuro_bundle = pickle.load(neuro_fp)
+    else:
+        neuro_bundle = get_rdataset('neuro', 'boot')
+        with open(neuro_pickle, 'wb') as neuro_fp:
+            pickle.dump(neuro_bundle, neuro_fp)
+    neuro_data = neuro_bundle.data
+    logger.info('neuro data has variables %s and has %d rows' % (list(neuro_data), len(neuro_data)))
+    neuro_title = neuro_bundle.title
+    logger.info('neuro data has title %s' % neuro_title)
+
     logger.info('loading newsgroups data')
     newsgroups_bunch = fetch_20newsgroups(data_home=data_folder)
     newsgroups_data = newsgroups_bunch['data']

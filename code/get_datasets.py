@@ -956,6 +956,20 @@ if __name__ == '__main__':
     nile_names = nile_bunch['names']
     logger.info('nile names: %s' % str(nile_names))
 
+    logger.info('loading aquatic nitrofen data')
+    nitrofen_pickle = data_folder + 'nitrofen.pkl'
+    if exists(nitrofen_pickle):
+        with open(nitrofen_pickle, 'rb') as nitrofen_fp:
+            nitrofen_bundle = pickle.load(nitrofen_fp)
+    else:
+        nitrofen_bundle = get_rdataset('nitrofen', 'boot')
+        with open(nitrofen_pickle, 'wb') as nitrofen_fp:
+            pickle.dump(nitrofen_bundle, nitrofen_fp)
+    nitrofen_data = nitrofen_bundle.data
+    logger.info('nitrofen data has variables %s and has %d rows' % (list(nitrofen_data), len(nitrofen_data)))
+    nitrofen_title = nitrofen_bundle.title
+    logger.info('nitrofen data has title %s' % nitrofen_title)
+
     logger.info('loading Olivetti faces data')
     olivetti_faces = fetch_olivetti_faces(data_home=data_folder)
     olivetti_faces_data = olivetti_faces['data']

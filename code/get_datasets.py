@@ -984,6 +984,20 @@ if __name__ == '__main__':
     nodal_title = nodal_bundle.title
     logger.info('nodal data has title %s' % nodal_title)
 
+    logger.info('loading nuclear power station construction data')
+    nuclear_pickle = data_folder + 'nuclear.pkl'
+    if exists(nuclear_pickle):
+        with open(nuclear_pickle, 'rb') as nuclear_fp:
+            nuclear_bundle = pickle.load(nuclear_fp)
+    else:
+        nuclear_bundle = get_rdataset('nuclear', 'boot')
+        with open(nuclear_pickle, 'wb') as nuclear_fp:
+            pickle.dump(nuclear_bundle, nuclear_fp)
+    nuclear_data = nuclear_bundle.data
+    logger.info('nuclear data has variables %s and has %d rows' % (list(nuclear_data), len(nuclear_data)))
+    nuclear_title = nuclear_bundle.title
+    logger.info('nuclear data has title %s' % nuclear_title)
+
     logger.info('loading Olivetti faces data')
     olivetti_faces = fetch_olivetti_faces(data_home=data_folder)
     olivetti_faces_data = olivetti_faces['data']

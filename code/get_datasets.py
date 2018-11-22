@@ -1005,6 +1005,21 @@ if __name__ == '__main__':
     olivetti_faces_target = olivetti_faces['target']
     olivetti_faces_description = olivetti_faces['DESCR']
 
+    logger.info('loading Guinea pig brain data')
+    paulsen_pickle = data_folder + 'paulsen.pkl'
+    if exists(paulsen_pickle):
+        with open(paulsen_pickle, 'rb') as paulsen_fp:
+            paulsen_bundle = pickle.load(paulsen_fp)
+    else:
+        paulsen_bundle = get_rdataset('paulsen', 'boot')
+        with open(paulsen_pickle, 'wb') as paulsen_fp:
+            pickle.dump(paulsen_bundle, paulsen_fp)
+    paulsen_data = paulsen_bundle.data
+    logger.info('paulsen data has variables %s and has %d rows' % (list(paulsen_data), len(paulsen_data)))
+    paulsen_title = paulsen_bundle.title
+    logger.info('paulsen data has title %s' % paulsen_title)
+
+
     logger.info('loading RAND health insurance experiment data')
     randhie_pickle = data_folder + 'randhie.pkl'
     if exists(randhie_pickle):

@@ -970,6 +970,20 @@ if __name__ == '__main__':
     nitrofen_title = nitrofen_bundle.title
     logger.info('nitrofen data has title %s' % nitrofen_title)
 
+    logger.info('loading prostate cancer data')
+    nodal_pickle = data_folder + 'nodal.pkl'
+    if exists(nodal_pickle):
+        with open(nodal_pickle, 'rb') as nodal_fp:
+            nodal_bundle = pickle.load(nodal_fp)
+    else:
+        nodal_bundle = get_rdataset('nodal', 'boot')
+        with open(nodal_pickle, 'wb') as nodal_fp:
+            pickle.dump(nodal_bundle, nodal_fp)
+    nodal_data = nodal_bundle.data
+    logger.info('nodal data has variables %s and has %d rows' % (list(nodal_data), len(nodal_data)))
+    nodal_title = nodal_bundle.title
+    logger.info('nodal data has title %s' % nodal_title)
+
     logger.info('loading Olivetti faces data')
     olivetti_faces = fetch_olivetti_faces(data_home=data_folder)
     olivetti_faces_data = olivetti_faces['data']

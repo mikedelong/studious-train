@@ -1019,6 +1019,19 @@ if __name__ == '__main__':
     paulsen_title = paulsen_bundle.title
     logger.info('paulsen data has title %s' % paulsen_title)
 
+    logger.info('loading animal poison data')
+    poisons_pickle = data_folder + 'poisons.pkl'
+    if exists(poisons_pickle):
+        with open(poisons_pickle, 'rb') as poisons_fp:
+            poisons_bundle = pickle.load(poisons_fp)
+    else:
+        poisons_bundle = get_rdataset('poisons', 'boot')
+        with open(poisons_pickle, 'wb') as poisons_fp:
+            pickle.dump(poisons_bundle, poisons_fp)
+    poisons_data = poisons_bundle.data
+    logger.info('poisons data has variables %s and has %d rows' % (list(poisons_data), len(poisons_data)))
+    poisons_title = poisons_bundle.title
+    logger.info('poisons data has title %s' % poisons_title)
 
     logger.info('loading RAND health insurance experiment data')
     randhie_pickle = data_folder + 'randhie.pkl'

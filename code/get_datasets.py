@@ -1033,6 +1033,20 @@ if __name__ == '__main__':
     poisons_title = poisons_bundle.title
     logger.info('poisons data has title %s' % poisons_title)
 
+    logger.info('loading New Caledonian Laterites data')
+    polar_pickle = data_folder + 'polar.pkl'
+    if exists(polar_pickle):
+        with open(polar_pickle, 'rb') as polar_fp:
+            polar_bundle = pickle.load(polar_fp)
+    else:
+        polar_bundle = get_rdataset('polar', 'boot')
+        with open(polar_pickle, 'wb') as polar_fp:
+            pickle.dump(polar_bundle, polar_fp)
+    polar_data = polar_bundle.data
+    logger.info('polar data has variables %s and has %d rows' % (list(polar_data), len(polar_data)))
+    polar_title = polar_bundle.title
+    logger.info('polar data has title %s' % polar_title)
+
     logger.info('loading RAND health insurance experiment data')
     randhie_pickle = data_folder + 'randhie.pkl'
     if exists(randhie_pickle):

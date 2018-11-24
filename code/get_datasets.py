@@ -1203,6 +1203,20 @@ if __name__ == '__main__':
     sunspots_names = sunspots_bunch['names']
     logger.info('sunspots names: %s' % str(sunspots_names))
 
+    logger.info('loading cancer survival data')
+    survival_pickle = data_folder + 'survival.pkl'
+    if exists(survival_pickle):
+        with open(survival_pickle, 'rb') as survival_fp:
+            survival_bundle = pickle.load(survival_fp)
+    else:
+        survival_bundle = get_rdataset('survival', 'boot')
+        with open(survival_pickle, 'wb') as survival_fp:
+            pickle.dump(survival_bundle, survival_fp)
+    survival_data = survival_bundle.data
+    logger.info('survival data has variables %s and has %d rows' % (list(survival_data), len(survival_data)))
+    survival_title = survival_bundle.title
+    logger.info('survival data has title %s' % survival_title)
+
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)
     wine_data = wine_bunch['data']

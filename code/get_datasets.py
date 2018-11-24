@@ -1083,6 +1083,20 @@ if __name__ == '__main__':
     rcv1_target_names = rcv1_bunch['target_names']
     rcv1_description = rcv1_bunch['DESCR']
 
+    logger.info('loading water salinity data')
+    salinity_pickle = data_folder + 'salinity.pkl'
+    if exists(salinity_pickle):
+        with open(salinity_pickle, 'rb') as salinity_fp:
+            salinity_bundle = pickle.load(salinity_fp)
+    else:
+        salinity_bundle = get_rdataset('salinity', 'boot')
+        with open(salinity_pickle, 'wb') as salinity_fp:
+            pickle.dump(salinity_bundle, salinity_fp)
+    salinity_data = salinity_bundle.data
+    logger.info('salinity data has variables %s and has %d rows' % (list(salinity_data), len(salinity_data)))
+    salinity_title = salinity_bundle.title
+    logger.info('salinity data has title %s' % salinity_title)
+
     logger.info('loading sample images data')
     with catch_warnings():
         filterwarnings('ignore', category=DeprecationWarning)

@@ -1061,6 +1061,20 @@ if __name__ == '__main__':
     randhie_names = randhie_bunch['names']
     logger.info('randhie names: %s' % str(randhie_names))
 
+    logger.info('loading cancer remission data')
+    remission_pickle = data_folder + 'remission.pkl'
+    if exists(remission_pickle):
+        with open(remission_pickle, 'rb') as remission_fp:
+            remission_bundle = pickle.load(remission_fp)
+    else:
+        remission_bundle = get_rdataset('remission', 'boot')
+        with open(remission_pickle, 'wb') as remission_fp:
+            pickle.dump(remission_bundle, remission_fp)
+    remission_data = remission_bundle.data
+    logger.info('remission data has variables %s and has %d rows' % (list(remission_data), len(remission_data)))
+    remission_title = remission_bundle.title
+    logger.info('remission data has title %s' % remission_title)
+
     logger.info('loading Reuters Corpus Volume I data')
     rcv1_bunch = fetch_rcv1(subset='all', download_if_missing=True, random_state=random_state)
     rcv1_data = rcv1_bunch['data']

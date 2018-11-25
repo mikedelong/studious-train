@@ -1231,6 +1231,20 @@ if __name__ == '__main__':
     tau_title = tau_bundle.title
     logger.info('tau data has title %s' % tau_title)
 
+    logger.info('loading tuna sighting data')
+    tuna_pickle = data_folder + 'tuna.pkl'
+    if exists(tuna_pickle):
+        with open(tuna_pickle, 'rb') as tuna_fp:
+            tuna_bundle = pickle.load(tuna_fp)
+    else:
+        tuna_bundle = get_rdataset('tuna', 'boot')
+        with open(tuna_pickle, 'wb') as tuna_fp:
+            pickle.dump(tuna_bundle, tuna_fp)
+    tuna_data = tuna_bundle.data
+    logger.info('tuna data has variables %s and has %d rows' % (list(tuna_data), len(tuna_data)))
+    tuna_title = tuna_bundle.title
+    logger.info('tuna data has title %s' % tuna_title)
+
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)
     wine_data = wine_bunch['data']

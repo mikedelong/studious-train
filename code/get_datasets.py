@@ -1217,6 +1217,20 @@ if __name__ == '__main__':
     survival_title = survival_bundle.title
     logger.info('survival data has title %s' % survival_title)
 
+    logger.info('loading Tau particle data')
+    tau_pickle = data_folder + 'tau.pkl'
+    if exists(tau_pickle):
+        with open(tau_pickle, 'rb') as tau_fp:
+            tau_bundle = pickle.load(tau_fp)
+    else:
+        tau_bundle = get_rdataset('tau', 'boot')
+        with open(tau_pickle, 'wb') as tau_fp:
+            pickle.dump(tau_bundle, tau_fp)
+    tau_data = tau_bundle.data
+    logger.info('tau data has variables %s and has %d rows' % (list(tau_data), len(tau_data)))
+    tau_title = tau_bundle.title
+    logger.info('tau data has title %s' % tau_title)
+
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)
     wine_data = wine_bunch['data']

@@ -1270,6 +1270,20 @@ if __name__ == '__main__':
     logger.info('wine feature names: %s' % wine_feature_names)
     wine_description = wine_bunch['DESCR']
 
+    logger.info('loading Australian wool data')
+    wool_pickle = data_folder + 'wool.pkl'
+    if exists(wool_pickle):
+        with open(wool_pickle, 'rb') as wool_fp:
+            wool_bundle = pickle.load(wool_fp)
+    else:
+        wool_bundle = get_rdataset('wool', 'boot')
+        with open(wool_pickle, 'wb') as wool_fp:
+            pickle.dump(wool_bundle, wool_fp)
+    wool_data = wool_bundle.data
+    logger.info('wool data has variables %s and has %d rows' % (list(wool_data), len(wool_data)))
+    wool_title = wool_bundle.title
+    logger.info('wool data has title %s' % wool_title)
+
     logger.info('done')
 
     finish_time = time()

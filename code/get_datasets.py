@@ -1245,6 +1245,20 @@ if __name__ == '__main__':
     tuna_title = tuna_bundle.title
     logger.info('tuna data has title %s' % tuna_title)
 
+    logger.info('loading urine analysis data')
+    urine_pickle = data_folder + 'urine.pkl'
+    if exists(urine_pickle):
+        with open(urine_pickle, 'rb') as urine_fp:
+            urine_bundle = pickle.load(urine_fp)
+    else:
+        urine_bundle = get_rdataset('urine', 'boot')
+        with open(urine_pickle, 'wb') as urine_fp:
+            pickle.dump(urine_bundle, urine_fp)
+    urine_data = urine_bundle.data
+    logger.info('urine data has variables %s and has %d rows' % (list(urine_data), len(urine_data)))
+    urine_title = urine_bundle.title
+    logger.info('urine data has title %s' % urine_title)
+
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)
     wine_data = wine_bunch['data']

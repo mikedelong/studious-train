@@ -201,6 +201,20 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
+    logger.info('loading city integration data')
+    Angell_pickle = data_folder + 'Angell.pkl'
+    if exists(Angell_pickle):
+        with open(Angell_pickle, 'rb') as Angell_fp:
+            Angell_bundle = pickle.load(Angell_fp)
+    else:
+        Angell_bundle = get_rdataset('Angell', 'carData')
+        with open(Angell_pickle, 'wb') as Angell_fp:
+            pickle.dump(Angell_bundle, Angell_fp)
+    Angell_data = Angell_bundle.data
+    logger.info('Angell data has variables %s and has %d rows' % (list(Angell_data), len(Angell_data)))
+    Angell_title = Angell_bundle.title
+    logger.info('Angell data has title %s' % Angell_title)
+
     logger.info('loading beaver body temperature data')
     beaver_pickle = data_folder + 'beaver.pkl'
     if exists(beaver_pickle):

@@ -170,6 +170,20 @@ if __name__ == '__main__':
     aml_title = aml_bundle.title
     logger.info('aml data has title %s' % aml_title)
 
+    logger.info('loading AMS survey data')
+    AMSsurvey_pickle = data_folder + 'AMSsurvey.pkl'
+    if exists(AMSsurvey_pickle):
+        with open(AMSsurvey_pickle, 'rb') as AMSsurvey_fp:
+            AMSsurvey_bundle = pickle.load(AMSsurvey_fp)
+    else:
+        AMSsurvey_bundle = get_rdataset('AMSsurvey', 'carData')
+        with open(AMSsurvey_pickle, 'wb') as AMSsurvey_fp:
+            pickle.dump(AMSsurvey_bundle, AMSsurvey_fp)
+    AMSsurvey_data = AMSsurvey_bundle.data
+    logger.info('AMSsurvey data has variables %s and has %d rows' % (list(AMSsurvey_data), len(AMSsurvey_data)))
+    AMSsurvey_title = AMSsurvey_bundle.title
+    logger.info('AMSsurvey data has title %s' % AMSsurvey_title)
+
     logger.info('loading ANES96 data')
     anes96_pickle = data_folder + 'anes96.pkl'
     if exists(anes96_pickle):

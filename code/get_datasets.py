@@ -215,6 +215,20 @@ if __name__ == '__main__':
     Angell_title = Angell_bundle.title
     logger.info('Angell data has title %s' % Angell_title)
 
+    logger.info('loading US public school expenditure data')
+    Anscombe_pickle = data_folder + 'Anscombe.pkl'
+    if exists(Anscombe_pickle):
+        with open(Anscombe_pickle, 'rb') as Anscombe_fp:
+            Anscombe_bundle = pickle.load(Anscombe_fp)
+    else:
+        Anscombe_bundle = get_rdataset('Anscombe', 'carData')
+        with open(Anscombe_pickle, 'wb') as Anscombe_fp:
+            pickle.dump(Anscombe_bundle, Anscombe_fp)
+    Anscombe_data = Anscombe_bundle.data
+    logger.info('Anscombe data has variables %s and has %d rows' % (list(Anscombe_data), len(Anscombe_data)))
+    Anscombe_title = Anscombe_bundle.title
+    logger.info('Anscombe data has title %s' % Anscombe_title)
+
     logger.info('loading beaver body temperature data')
     beaver_pickle = data_folder + 'beaver.pkl'
     if exists(beaver_pickle):

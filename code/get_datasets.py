@@ -229,6 +229,20 @@ if __name__ == '__main__':
     Anscombe_title = Anscombe_bundle.title
     logger.info('Anscombe data has title %s' % Anscombe_title)
 
+    logger.info('loading marijuana arrest data')
+    Arrests_pickle = data_folder + 'Arrests.pkl'
+    if exists(Arrests_pickle):
+        with open(Arrests_pickle, 'rb') as Arrests_fp:
+            Arrests_bundle = pickle.load(Arrests_fp)
+    else:
+        Arrests_bundle = get_rdataset('Arrests', 'carData')
+        with open(Arrests_pickle, 'wb') as Arrests_fp:
+            pickle.dump(Arrests_bundle, Arrests_fp)
+    Arrests_data = Arrests_bundle.data
+    logger.info('Arrests data has variables %s and has %d rows' % (list(Arrests_data), len(Arrests_data)))
+    Arrests_title = Arrests_bundle.title
+    logger.info('Arrests data has title %s' % Arrests_title)
+
     logger.info('loading beaver body temperature data')
     beaver_pickle = data_folder + 'beaver.pkl'
     if exists(beaver_pickle):

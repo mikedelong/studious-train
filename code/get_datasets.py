@@ -271,6 +271,20 @@ if __name__ == '__main__':
     beaver_title = beaver_bundle.title
     logger.info('beaver data has title %s' % beaver_title)
 
+    logger.info('loading British elections data')
+    BEPS_pickle = data_folder + 'BEPS.pkl'
+    if exists(BEPS_pickle):
+        with open(BEPS_pickle, 'rb') as BEPS_fp:
+            BEPS_bundle = pickle.load(BEPS_fp)
+    else:
+        BEPS_bundle = get_rdataset('BEPS', 'carData')
+        with open(BEPS_pickle, 'wb') as BEPS_fp:
+            pickle.dump(BEPS_bundle, BEPS_fp)
+    BEPS_data = BEPS_bundle.data
+    logger.info('BEPS data has variables %s and has %d rows' % (list(BEPS_data), len(BEPS_data)))
+    BEPS_title = BEPS_bundle.title
+    logger.info('BEPS data has title %s' % BEPS_title)
+
     logger.info('loading big city population data')
     bigcity_pickle = data_folder + 'bigcity.pkl'
     if exists(bigcity_pickle):

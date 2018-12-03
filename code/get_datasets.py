@@ -904,8 +904,15 @@ if __name__ == '__main__':
     logger.info('islay data has title %s' % islay_title)
 
     random_state = 1
-    logger.info('loading KDD data')
-    kdd_bunch = fetch_kddcup99(random_state=random_state, download_if_missing=True)
+    kdd_pickle = data_folder + 'kddcup99.pkl'
+    if exists(kdd_pickle):
+        with open(kdd_pickle, 'rb') as kdd_fp:
+            kdd_bunch = pickle.load(kdd_fp)
+    else:
+        logger.info('loading KDD data')
+        kdd_bunch = fetch_kddcup99(random_state=random_state, download_if_missing=True)
+        with open(kdd_pickle, 'wb') as kdd_fp:
+            pickle.dump(kdd_bunch, kdd_fp)
     kdd_data = kdd_bunch['data']
     logger.info('KDD data is %d x %d' % kdd_data.shape)
     kdd_target = kdd_bunch['target']

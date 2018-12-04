@@ -920,10 +920,17 @@ if __name__ == '__main__':
 
     min_faces_per_person = 0
     lfw_resize = None
+    lfw_pickle = data_folder + 'lfw.pkl'
     logger.info('loading LFW people')
-    with catch_warnings():
-        filterwarnings('ignore', category=DeprecationWarning)
-        lfw_people = fetch_lfw_people(min_faces_per_person=min_faces_per_person, resize=lfw_resize)
+    if exists(lfw_pickle):
+        with open(lfw_pickle, 'rb') as lfw_fp:
+            lfw_people = pickle.load(lfw_fp, 'rb')
+    else:
+        with catch_warnings():
+            filterwarnings('ignore', category=DeprecationWarning)
+            lfw_people = fetch_lfw_people(min_faces_per_person=min_faces_per_person, resize=lfw_resize)
+            with open(lfw_pickle, 'wb') as lfw_fp:
+                pickle.dump(lfw_people, lfw_fp)
     lfw_people_data = lfw_people['data']
     logger.info('LFW data is %d x %d' % lfw_people_data.shape)
     lfw_people_images = lfw_people['images']

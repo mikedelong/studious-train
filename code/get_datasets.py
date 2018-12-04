@@ -285,6 +285,20 @@ if __name__ == '__main__':
     BEPS_title = BEPS_bundle.title
     logger.info('BEPS data has title %s' % BEPS_title)
 
+    logger.info('loading Canadian labor-force participation data')
+    Bfox_pickle = data_folder + 'Bfox.pkl'
+    if exists(Bfox_pickle):
+        with open(Bfox_pickle, 'rb') as Bfox_fp:
+            Bfox_bundle = pickle.load(Bfox_fp)
+    else:
+        Bfox_bundle = get_rdataset('Bfox', 'carData')
+        with open(Bfox_pickle, 'wb') as Bfox_fp:
+            pickle.dump(Bfox_bundle, Bfox_fp)
+    Bfox_data = Bfox_bundle.data
+    logger.info('Bfox data has variables %s and has %d rows' % (list(Bfox_data), len(Bfox_data)))
+    Bfox_title = Bfox_bundle.title
+    logger.info('Bfox data has title %s' % Bfox_title)
+
     logger.info('loading big city population data')
     bigcity_pickle = data_folder + 'bigcity.pkl'
     if exists(bigcity_pickle):
@@ -924,7 +938,7 @@ if __name__ == '__main__':
     logger.info('loading LFW people')
     if exists(lfw_pickle):
         with open(lfw_pickle, 'rb') as lfw_fp:
-            lfw_people = pickle.load(lfw_fp, 'rb')
+            lfw_people = pickle.load(lfw_fp)
     else:
         with catch_warnings():
             filterwarnings('ignore', category=DeprecationWarning)

@@ -918,28 +918,27 @@ if __name__ == '__main__':
     kdd_target = kdd_bunch['target']
     logger.info('KDD target unique values: %s' % list(set(kdd_target)))
 
-    if False:
-        min_faces_per_person = 0
-        lfw_resize = None
-        lfw_pickle = data_folder + 'lfw.pkl'
-        logger.info('loading LFW people')
-        if exists(lfw_pickle):
-            with open(lfw_pickle, 'rb') as lfw_fp:
-                lfw_people = pickle.load(lfw_fp, 'rb')
-        else:
-            with catch_warnings():
-                filterwarnings('ignore', category=DeprecationWarning)
-                lfw_people = fetch_lfw_people(min_faces_per_person=min_faces_per_person, resize=lfw_resize)
-                with open(lfw_pickle, 'wb') as lfw_fp:
-                    pickle.dump(lfw_people, lfw_fp)
-        lfw_people_data = lfw_people['data']
-        logger.info('LFW data is %d x %d' % lfw_people_data.shape)
-        lfw_people_images = lfw_people['images']
-        lfw_people_target = lfw_people['target']
-        logger.info('LFW target is %s' % lfw_people_target)
-        lfw_people_target_names = lfw_people['target_names']
-        lfw_people_description = lfw_people['DESCR']
-        logger.info('the LFW data is %d x %d' % lfw_people_data.shape)
+    min_faces_per_person = 0
+    lfw_resize = None
+    lfw_pickle = data_folder + 'lfw.pkl'
+    logger.info('loading LFW people')
+    if exists(lfw_pickle):
+        with open(lfw_pickle, 'rb') as lfw_fp:
+            lfw_people = pickle.load(lfw_fp, 'rb')
+    else:
+        with catch_warnings():
+            filterwarnings('ignore', category=DeprecationWarning)
+            lfw_people = fetch_lfw_people(min_faces_per_person=min_faces_per_person, resize=lfw_resize)
+            with open(lfw_pickle, 'wb') as lfw_fp:
+                pickle.dump(lfw_people, lfw_fp)
+    lfw_people_data = lfw_people['data']
+    logger.info('LFW data is %d x %d' % lfw_people_data.shape)
+    lfw_people_images = lfw_people['images']
+    lfw_people_target = lfw_people['target']
+    logger.info('LFW target is %s' % lfw_people_target)
+    lfw_people_target_names = lfw_people['target_names']
+    lfw_people_description = lfw_people['DESCR']
+    logger.info('the LFW data is %d x %d' % lfw_people_data.shape)
 
     logger.info('loading Linnerud data')
     linnerud_bunch = load_linnerud(return_X_y=return_X_y)

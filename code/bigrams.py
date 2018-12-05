@@ -17,6 +17,7 @@ def count_punctuation(arg):
     else:
         return sum([1 for character in arg if character in punctuation])
 
+
 def modify_author(arg):
     if ',' not in arg:
         return arg
@@ -75,6 +76,8 @@ if __name__ == '__main__':
                                                         test_size=test_size, random_state=split_random_state,
                                                         shuffle=True)
 
+    current = None
+    current_importance = None
     for index, random_state in enumerate(range(1000)):
         model = DecisionTreeClassifier(random_state=random_state)
         model.fit(X=X_train, y=y_train)
@@ -83,7 +86,7 @@ if __name__ == '__main__':
         current = y_predicted if index == 0 else (float(index) * current + y_predicted) * (1.0 / float(index + 1))
         importance = model.feature_importances_
         current_importance = importance if index == 0 else (float(index) * current_importance + importance) * (
-                    1.0 / float(index + 1))
+                1.0 / float(index + 1))
         if index % 100 == 0:
             logger.info('%d names: %s \nexpected: %s \nactual: %s \ncurrent: %s' %
                         (random_state, X_test.index.values, y_test, y_predicted, current))
@@ -93,6 +96,15 @@ if __name__ == '__main__':
                                                      confusion_matrix(y_true=y_test, y_pred=current_hard)))
     plot([Scatter(x=y_test, y=current, text=X_test.index.values, mode='markers+text')], auto_open=False,
          show_link=False, filename='../output/bigrams.html')
+
+    importance_dict = dict()
+    count = 0
+    for index, value in enumerate(current_importance):
+        if value > 0:
+            count += 1
+            key = features[index]
+            importance_dict[key] = value
+            logger.info('%d %s %.5f' % (count, key, value))
     logger.info('done')
 
     finish_time = time()

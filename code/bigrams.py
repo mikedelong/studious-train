@@ -5,6 +5,7 @@ import pandas as pd
 from plotly.graph_objs import Scatter
 from plotly.offline import plot
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import f1_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 
@@ -51,11 +52,16 @@ if __name__ == '__main__':
         data_dict[item] = [int(bigram in item) for bigram in bigrams] + [int(item in names)]
 
     data_df = pd.DataFrame.from_dict(data_dict, orient='index', columns=bigrams + ['target'])
+
+    # now let's add the string length feature
+    data_df['len'] = data_df.index.str.len()
+
     logger.info('our data has %d rows and %d columns' % data_df.shape)
 
     test_size = 0.33
     split_random_state = 1
-    X_train, X_test, y_train, y_test = train_test_split(data_df[bigrams], data_df['target'].values,
+    features = [item for item in list(data_df) if item != 'target']
+    X_train, X_test, y_train, y_test = train_test_split(data_df[features], data_df['target'].values,
                                                         test_size=test_size, random_state=split_random_state)
 
     for index, random_state in enumerate(range(1000)):
@@ -68,7 +74,8 @@ if __name__ == '__main__':
                         (random_state, X_test.index.values, y_test, y_predicted, current))
 
     current_hard = (current >= 0.5).astype('float')
-    logger.info('\n%s' % confusion_matrix(y_true=y_test, y_pred=current_hard))
+    logger.info('f1: %.3f confusion matrix: \n%s' % (f1_score(y_true=y_test, y_pred=current_hard),
+                                                     confusion_matrix(y_true=y_test, y_pred=current_hard)))
     plot([Scatter(x=y_test, y=current, text=X_test.index.values, mode='markers+text')], auto_open=False,
          show_link=False, filename='../output/bigrams.html')
     logger.info('done')

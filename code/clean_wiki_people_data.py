@@ -1,3 +1,4 @@
+# https://www.kaggle.com/sameersmahajan/people-wikipedia-data
 import logging
 from time import time
 

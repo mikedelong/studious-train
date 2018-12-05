@@ -72,9 +72,8 @@ if __name__ == '__main__':
     test_size = 0.33
     split_random_state = 1
     features = [item for item in list(data_df) if item != 'target']
-    X_train, X_test, y_train, y_test = train_test_split(data_df[features], data_df['target'].values,
-                                                        test_size=test_size, random_state=split_random_state,
-                                                        shuffle=True)
+    X_train, X_test, y_train, y_test = train_test_split(data_df[features], data_df['target'].values, shuffle=True,
+                                                        test_size=test_size, random_state=split_random_state)
 
     current = None
     current_importance = None
@@ -84,9 +83,8 @@ if __name__ == '__main__':
         y_predicted = model.predict(X=X_test)
         # use a weighted average to update our current prediction
         current = y_predicted if index == 0 else (float(index) * current + y_predicted) * (1.0 / float(index + 1))
-        importance = model.feature_importances_
-        current_importance = importance if index == 0 else (float(index) * current_importance + importance) * (
-                1.0 / float(index + 1))
+        current_importance = model.feature_importances_ if index == 0 else (float(
+            index) * current_importance + model.feature_importances_) * (1.0 / float(index + 1))
         if index % 100 == 0:
             logger.info('%d names: %s \nexpected: %s \nactual: %s \ncurrent: %s' %
                         (random_state, X_test.index.values, y_test, y_predicted, current))

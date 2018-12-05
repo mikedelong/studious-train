@@ -1,4 +1,5 @@
 import logging
+from string import punctuation
 from time import time
 
 import pandas as pd
@@ -9,6 +10,12 @@ from sklearn.metrics import f1_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 
+
+def count_punctuation(arg):
+    if type(arg) is not str:
+        return 0
+    else:
+        return sum([1 for character in arg if character in punctuation])
 
 def modify_author(arg):
     if ',' not in arg:
@@ -32,16 +39,14 @@ if __name__ == '__main__':
 
     logger.info('started')
 
+    # our data originally came from here https://gist.github.com/jaidevd but has been cleaned up somewhat
+
     usecols = ['Title', 'Author']
-    source_df = pd.read_csv('../data/books.csv', usecols=usecols)
-    logger.info(list(source_df))
-    logger.info(source_df.head())
+    source_df = pd.read_csv('../data/books_clean.csv', usecols=usecols, sep=';')
+    logger.info('initially source data has %d rows' % len(source_df))
 
-    source_df = source_df.dropna()
-
-    source_df['modified_author'] = source_df['Author'].apply(modify_author)
-    names = source_df['modified_author'].dropna().values
-    bogeys = source_df['Title'].dropna().values
+    names = source_df['Author'].values
+    bogeys = source_df['Title'].values
     # build the bigrams list; this is our feature list
     bigrams = sorted(
         list(set([item[i:i + 2] for item in names.tolist() + bogeys.tolist() for i in range(len(item) - 1)])))
@@ -56,20 +61,30 @@ if __name__ == '__main__':
     # now let's add the string length feature
     data_df['len'] = data_df.index.str.len()
 
+    # now let's add the punctuation count
+    data_df['punctuation_count'] = data_df.index.map(count_punctuation)
+
     logger.info('our data has %d rows and %d columns' % data_df.shape)
+    data_file = '../output/bigrams_data.csv'
+    data_df.to_csv(data_file)
 
     test_size = 0.33
     split_random_state = 1
     features = [item for item in list(data_df) if item != 'target']
     X_train, X_test, y_train, y_test = train_test_split(data_df[features], data_df['target'].values,
-                                                        test_size=test_size, random_state=split_random_state)
+                                                        test_size=test_size, random_state=split_random_state,
+                                                        shuffle=True)
 
     for index, random_state in enumerate(range(1000)):
         model = DecisionTreeClassifier(random_state=random_state)
         model.fit(X=X_train, y=y_train)
         y_predicted = model.predict(X=X_test)
+        # use a weighted average to update our current prediction
         current = y_predicted if index == 0 else (float(index) * current + y_predicted) * (1.0 / float(index + 1))
-        if index % 10 == 0:
+        importance = model.feature_importances_
+        current_importance = importance if index == 0 else (float(index) * current_importance + importance) * (
+                    1.0 / float(index + 1))
+        if index % 100 == 0:
             logger.info('%d names: %s \nexpected: %s \nactual: %s \ncurrent: %s' %
                         (random_state, X_test.index.values, y_test, y_predicted, current))
 

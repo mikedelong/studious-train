@@ -2,6 +2,9 @@ import logging
 from time import time
 
 import pandas as pd
+from plotly.graph_objs import Scatter
+from plotly.offline import plot
+from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 
@@ -64,6 +67,10 @@ if __name__ == '__main__':
             logger.info('%d names: %s \nexpected: %s \nactual: %s \ncurrent: %s' %
                         (random_state, X_test.index.values, y_test, y_predicted, current))
 
+    current_hard = (current >= 0.5).astype('float')
+    logger.info('\n%s' % confusion_matrix(y_true=y_test, y_pred=current_hard))
+    plot([Scatter(x=y_test, y=current, text=X_test.index.values, mode='markers+text')], auto_open=False,
+         show_link=False, filename='../output/bigrams.html')
     logger.info('done')
 
     finish_time = time()

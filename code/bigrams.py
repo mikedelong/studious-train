@@ -32,10 +32,12 @@ if __name__ == '__main__':
 
     logger.info('started')
 
-    names = None
-    bogeys = None
     do_books_and_authors = False
     do_wikipeople_and_cities = True
+    if do_books_and_authors and do_wikipeople_and_cities:
+        raise ValueError('too many cases chosen')
+    if not do_books_and_authors and not do_wikipeople_and_cities:
+        raise ValueError('none of the chosen cases have been chosen')
     if do_books_and_authors:
         # our data originally came from here https://gist.github.com/jaidevd but has been cleaned up somewhat
         usecols = ['Title', 'Author']

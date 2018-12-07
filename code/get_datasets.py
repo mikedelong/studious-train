@@ -313,6 +313,20 @@ if __name__ == '__main__':
     bigcity_title = bigcity_bundle.title
     logger.info('bigcity data has title %s' % bigcity_title)
 
+    logger.info('loading eating disorder exercise data')
+    Blackmore_pickle = data_folder + 'Blackmore.pkl'
+    if exists(Blackmore_pickle):
+        with open(Blackmore_pickle, 'rb') as Blackmore_fp:
+            Blackmore_bundle = pickle.load(Blackmore_fp)
+    else:
+        Blackmore_bundle = get_rdataset('Blackmore', 'carData')
+        with open(Blackmore_pickle, 'wb') as Blackmore_fp:
+            pickle.dump(Blackmore_bundle, Blackmore_fp)
+    Blackmore_data = Blackmore_bundle.data
+    logger.info('Blackmore data has variables %s and has %d rows' % (list(Blackmore_data), len(Blackmore_data)))
+    Blackmore_title = Blackmore_bundle.title
+    logger.info('Blackmore data has title %s' % Blackmore_title)
+
     logger.info('loading boston data')
     boston_bunch = load_boston(return_X_y=return_X_y)
     boston_data = boston_bunch.data

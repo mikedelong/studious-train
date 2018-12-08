@@ -337,6 +337,20 @@ if __name__ == '__main__':
     boston_description = boston_bunch.DESCR
     logger.debug('boston description: %s' % boston_description)
 
+    logger.info('loading fake twins data')
+    Burt_pickle = data_folder + 'Burt.pkl'
+    if exists(Burt_pickle):
+        with open(Burt_pickle, 'rb') as Burt_fp:
+            Burt_bundle = pickle.load(Burt_fp)
+    else:
+        Burt_bundle = get_rdataset('Burt', 'carData')
+        with open(Burt_pickle, 'wb') as Burt_fp:
+            pickle.dump(Burt_bundle, Burt_fp)
+    Burt_data = Burt_bundle.data
+    logger.info('Burt data has variables %s and has %d rows' % (list(Burt_data), len(Burt_data)))
+    Burt_title = Burt_bundle.title
+    logger.info('Burt data has title %s' % Burt_title)
+
     logger.info('loading spatial location of bramble cane data')
     brambles_pickle = data_folder + 'brambles.pkl'
     if exists(brambles_pickle):

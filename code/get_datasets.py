@@ -549,6 +549,20 @@ if __name__ == '__main__':
     channing_title = channing_bundle.title
     logger.info('channing data has title %s' % channing_title)
 
+    logger.info('loading Chilean voting data')
+    Chile_pickle = data_folder + 'Chile.pkl'
+    if exists(Chile_pickle):
+        with open(Chile_pickle, 'rb') as Chile_fp:
+            Chile_bundle = pickle.load(Chile_fp)
+    else:
+        Chile_bundle = get_rdataset('Chile', 'carData')
+        with open(Chile_pickle, 'wb') as Chile_fp:
+            pickle.dump(Chile_bundle, Chile_fp)
+    Chile_data = Chile_bundle.data
+    logger.info('Chile data has variables %s and has %d rows' % (list(Chile_data), len(Chile_data)))
+    Chile_title = Chile_bundle.title
+    logger.info('Chile data has title %s' % Chile_title)
+
     logger.info('loading China smoking data')
     china_smoking_pickle = data_folder + 'china_smoking.pkl'
     if exists(china_smoking_pickle):

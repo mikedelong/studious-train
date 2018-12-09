@@ -576,6 +576,20 @@ if __name__ == '__main__':
     logger.info('China smoking data is %d x %d' % china_smoking_data.shape)
     china_smoking_title = china_smoking_bunch['title']
 
+    logger.info('loading Romanian peasant revolt data')
+    Chirot_pickle = data_folder + 'Chirot.pkl'
+    if exists(Chirot_pickle):
+        with open(Chirot_pickle, 'rb') as Chirot_fp:
+            Chirot_bundle = pickle.load(Chirot_fp)
+    else:
+        Chirot_bundle = get_rdataset('Chirot', 'carData')
+        with open(Chirot_pickle, 'wb') as Chirot_fp:
+            pickle.dump(Chirot_bundle, Chirot_fp)
+    Chirot_data = Chirot_bundle.data
+    logger.info('Chirot data has variables %s and has %d rows' % (list(Chirot_data), len(Chirot_data)))
+    Chirot_title = Chirot_bundle.title
+    logger.info('Chirot data has title %s' % Chirot_title)
+
     logger.info('loading US City population data')
     city_pickle = data_folder + 'city.pkl'
     if exists(city_pickle):

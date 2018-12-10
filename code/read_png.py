@@ -13,6 +13,10 @@ def mse(left, right):
     return err
 
 
+def get_ply(arg_list, arg_index):
+    return [image[:, :, arg_index] for image in arg_list]
+
+
 if __name__ == '__main__':
     start_time = time()
 
@@ -37,10 +41,15 @@ if __name__ == '__main__':
     images = [
         imread(item) for index, item in enumerate(glob(input_folder + '*.jpg')) if index < limit
     ]
+    logger.info('we read %d images', len(images))
+
+    logger.info(images[0].shape)
+    images_blue = get_ply(images, 0)
+    images_green = get_ply(images, 1)
+    images_red = get_ply(images, 2)
 
     # todo break this into 3 components/colors
     # todo loop over the whole space
-    logger.info('we read %d images', len(images))
     for index, image in enumerate(images):
         if index == 0:
             pass

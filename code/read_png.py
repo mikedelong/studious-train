@@ -41,14 +41,16 @@ if __name__ == '__main__':
     images = [
         imread(item) for index, item in enumerate(glob(input_folder + '*.jpg')) if index < limit
     ]
-    logger.info('we read %d images', len(images))
+    logger.info('we read %d images and each one is %d x %d x %d' % (
+        len(images), images[0].shape[0], images[0].shape[1], images[0].shape[2]))
 
-    logger.info(images[0].shape)
+    if images[0].shape[2] != 3:
+        logger.warning('we only support 3 channels; quitting')
+        quit()
     images_blue = get_ply(images, 0)
     images_green = get_ply(images, 1)
     images_red = get_ply(images, 2)
 
-    # todo break this into 3 components/colors
     # todo loop over the whole space
     for index, image in enumerate(images):
         if index == 0:

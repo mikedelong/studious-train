@@ -2,8 +2,10 @@ import logging
 from glob import glob
 from time import time
 
+import matplotlib.pyplot as plt
 import numpy as np
-from imageio import imread
+from PIL import Image
+from mpl_toolkits.mplot3d import Axes3D
 
 
 def mse(left, right):
@@ -14,7 +16,19 @@ def mse(left, right):
 
 
 def get_ply(arg_list, arg_index):
-    return [image[:, :, arg_index] for image in arg_list]
+    return [value[..., arg_index] for value in arg_list]
+
+
+def get_mean(arg_list):
+    if arg_list is None:
+        return None
+    if len(arg_list) == 0:
+        return None
+    weight = 1.0 / float(len(arg_list))
+    result = np.zeros(arg_list[0].shape, np.float)
+    for item in arg_list:
+        result += weight * item
+    return result
 
 
 if __name__ == '__main__':
@@ -32,31 +46,34 @@ if __name__ == '__main__':
     logger.info('started')
     input_folder = '../../../data/MoonPix/'
 
-    if False:
-        for item in glob(input_folder + '*.jpg'):
-            image = imread(item)
-            logger.info('%s %s' % (item, image.shape))
+    limit = 900
+    images = [np.array(Image.open(item), dtype=np.float)
+              for index, item in enumerate(glob(input_folder + '*.jpg')) if index < limit]
 
-    limit = 20
-    images = [
-        imread(item) for index, item in enumerate(glob(input_folder + '*.jpg')) if index < limit
-    ]
-    logger.info('we read %d images and each one is %d x %d x %d' % (
-        len(images), images[0].shape[0], images[0].shape[1], images[0].shape[2]))
+    width, height, depth = images[0].shape
 
-    if images[0].shape[2] != 3:
-        logger.warning('we only support 3 channels; quitting')
-        quit()
+    logger.info('we read %d images and each one is %d x %d x 3' % (len(images), width, height))
+
     images_blue = get_ply(images, 0)
+    mean_blue = get_mean(images_blue)
+    errors_blue = [mse(images_blue[index], mean_blue) for index in range(len(images_blue))]
     images_green = get_ply(images, 1)
+    mean_green = get_mean(images_green)
+    errors_green = [mse(images_green[index], mean_green) for index in range(len(images_green))]
     images_red = get_ply(images, 2)
+    mean_red = get_mean(images_red)
+    errors_red = [mse(images_red[index], mean_red) for index in range(len(images_red))]
 
-    # todo loop over the whole space
-    for index, image in enumerate(images):
-        if index == 0:
-            pass
-        else:
-            logger.info(mse(images[index - 1], image))
+    do_3d_plot = True
+    if do_3d_plot:
+        figure = plt.figure()
+        axis = Axes3D(figure)
+        axis.scatter(xs=errors_blue, ys=errors_green, zs=errors_red)
+    else:
+        plt.plot(errors_blue)
+        plt.plot(errors_green)
+        plt.plot(errors_red)
+    plt.show()
 
     logger.info('done')
 

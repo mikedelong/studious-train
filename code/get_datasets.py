@@ -708,6 +708,20 @@ if __name__ == '__main__':
     co_transfer_title = co_transfer_bundle.title
     logger.info('co.transfer data has title %s' % co_transfer_title)
 
+    logger.info('loading volunteering data')
+    Cowles_pickle = data_folder + 'Cowles.pkl'
+    if exists(Cowles_pickle):
+        with open(Cowles_pickle, 'rb') as Cowles_fp:
+            Cowles_bundle = pickle.load(Cowles_fp)
+    else:
+        Cowles_bundle = get_rdataset('Cowles', 'carData')
+        with open(Cowles_pickle, 'wb') as Cowles_fp:
+            pickle.dump(Cowles_bundle, Cowles_fp)
+    Cowles_data = Cowles_bundle.data
+    logger.info('Cowles data has variables %s and has %d rows' % (list(Cowles_data), len(Cowles_data)))
+    Cowles_title = Cowles_bundle.title
+    logger.info('Cowles data has title %s' % Cowles_title)
+
     logger.info('loading capital punishment data')
     cpunish_pickle = data_folder + 'cpunish.pkl'
     if exists(cpunish_pickle):

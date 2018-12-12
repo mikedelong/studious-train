@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 from mpl_toolkits.mplot3d import Axes3D
+from plotly.graph_objs import Figure
+from plotly.graph_objs import Scatter
+from plotly.offline import plot
 
 
 def mse(left, right):
@@ -64,16 +67,22 @@ if __name__ == '__main__':
     mean_red = get_mean(images_red)
     errors_red = [mse(images_red[index], mean_red) for index in range(len(images_red))]
 
-    do_3d_plot = True
+    do_3d_plot = False
     if do_3d_plot:
         figure = plt.figure()
         axis = Axes3D(figure)
         axis.scatter(xs=errors_blue, ys=errors_green, zs=errors_red)
+        plt.show()
     else:
-        plt.plot(errors_blue)
-        plt.plot(errors_green)
-        plt.plot(errors_red)
-    plt.show()
+        figure = Figure(data=[
+            Scatter(x=list(range(len(errors_blue))), y=errors_blue, mode='markers', marker=dict(size=3, color='blue'),
+                    name='blue'),
+            Scatter(x=list(range(len(errors_green))), y=errors_green, mode='markers',
+                    marker=dict(size=3, color='green'), name='green'),
+            Scatter(x=list(range(len(errors_red))), y=errors_red, mode='markers', marker=dict(size=3, color='red'),
+                    name='red'),
+        ])
+        plot(figure, filename='../output/read_png.html', auto_open=False, show_link=False)
 
     logger.info('done')
 

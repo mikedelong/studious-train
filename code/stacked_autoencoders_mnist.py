@@ -22,7 +22,7 @@ def show_reconstructed_digits(x, arg_output, model_path=None, n_test_digits=2):
         x_test = mnist.test.images[:n_test_digits]
         outputs_val = arg_output.eval(feed_dict={x: x_test})
 
-    fig = plt.figure(figsize=(8, 3 * n_test_digits))
+    _ = plt.figure(figsize=(8, 3 * n_test_digits))
     for digit_index in range(n_test_digits):
         plt.subplot(n_test_digits, 2, digit_index * 2 + 1)
         plot_image(x_test[digit_index], [28, 28])
@@ -90,6 +90,7 @@ if __name__ == '__main__':
         init.run()
         for epoch in range(n_epochs):
             n_batches = mnist.train.num_examples // batch_size
+            X_batch = None
             for iteration in range(n_batches):
                 X_batch, y_batch = mnist.train.next_batch(batch_size)
                 session.run(training_op, feed_dict={X: X_batch})

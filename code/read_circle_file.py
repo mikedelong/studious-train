@@ -24,9 +24,10 @@ if __name__ == '__main__':
 
     logger.info('started')
 
+    source_glob = '../output/circle_frames/*.png'
     # load everything up in a list comprehension and do the processing in-line
     result = [array(ImageOps.invert(Image.open(input_file).convert('L'))).flatten() for input_file in
-              glob('../output/circle_frames/*.png')]
+              glob(source_glob)]
 
     # shuffle in place
     random_seed = 1

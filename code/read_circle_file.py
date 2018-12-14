@@ -6,6 +6,7 @@ from time import time
 from PIL import Image
 from PIL import ImageOps
 from numpy import array
+from numpy import stack
 
 if __name__ == '__main__':
     start_time = time()
@@ -25,15 +26,14 @@ if __name__ == '__main__':
     image = array(ImageOps.invert(Image.open(input_file).convert('L')))
     logger.info(image.shape)
 
-    result = list()
-    for input_file in glob('../output/circle_frames/*.png'):
-        logger.info('processing file %s' % input_file)
-        image = array(ImageOps.invert(Image.open(input_file).convert('L')))
-        result.append(image)
+    result = [
+        array(ImageOps.invert(Image.open(input_file).convert('L'))).flatten() for input_file in
+        glob('../output/circle_frames/*.png')
+    ]
     data_circles_pkl = '../data/circles.pkl'
     logger.info('writing circles data to %s' % data_circles_pkl)
     with open(data_circles_pkl, 'wb') as circles_fp:
-        dump(result, circles_fp)
+        dump(stack(result, axis=0), circles_fp)
 
     logger.info('done')
 

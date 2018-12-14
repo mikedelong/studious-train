@@ -19,20 +19,21 @@ def show_reconstructed_digits(x, arg_output, model_path=None, n_test_digits=2):
     with tf.Session() as local_session:
         if model_path:
             saver.restore(local_session, model_path)
-        X_test = mnist.test.images[:n_test_digits]
-        outputs_val = arg_output.eval(feed_dict={x: X_test})
+        x_test = mnist.test.images[:n_test_digits]
+        outputs_val = arg_output.eval(feed_dict={x: x_test})
 
     fig = plt.figure(figsize=(8, 3 * n_test_digits))
     for digit_index in range(n_test_digits):
         plt.subplot(n_test_digits, 2, digit_index * 2 + 1)
-        plot_image(X_test[digit_index], [28, 28])
+        plot_image(x_test[digit_index], [28, 28])
         plt.subplot(n_test_digits, 2, digit_index * 2 + 2)
         plot_image(outputs_val[digit_index], [28, 28])
 
 
 def save_fig(fig_id, arg_folder, arg_logger, tight_layout=True):
-    path = os.path.join(arg_folder, fig_id + '.png')
-    arg_logger.info('Saving figure %s' % fig_id)
+    suffix = '.png'
+    path = os.path.join(arg_folder, fig_id + suffix)
+    arg_logger.info('Saving figure %s' % fig_id + suffix)
     if tight_layout:
         plt.tight_layout()
     plt.savefig(path, format='png', dpi=300)

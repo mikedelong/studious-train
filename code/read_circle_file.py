@@ -22,10 +22,6 @@ if __name__ == '__main__':
 
     logger.info('started')
 
-    input_file = '../output/circle_frames/plotcircle21.png'
-    image = array(ImageOps.invert(Image.open(input_file).convert('L')))
-    logger.info(image.shape)
-
     result = [
         array(ImageOps.invert(Image.open(input_file).convert('L'))).flatten() for input_file in
         glob('../output/circle_frames/*.png')

@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     logger.info('started')
 
-    source_glob = '../data/jeff-rectangles/*.png'
+    source_glob = '../data/rectangles/*.png'
     # load everything up in a list comprehension and do the processing in-line
     result = [array(Image.open(input_file).convert('L')).flatten() for input_file in glob(source_glob)]
 

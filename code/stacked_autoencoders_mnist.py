@@ -10,32 +10,33 @@ import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
 
-def plot_image(image, shape=[28, 28]):
+def plot_image(image, shape=None):
     plt.imshow(image.reshape(shape), cmap='Greys', interpolation='nearest')
     plt.axis('off')
 
 
-def show_reconstructed_digits(X, outputs, model_path=None, n_test_digits=2):
-    with tf.Session() as sess:
+def show_reconstructed_digits(x, arg_output, model_path=None, n_test_digits=2):
+    with tf.Session() as local_session:
         if model_path:
-            saver.restore(sess, model_path)
+            saver.restore(local_session, model_path)
         X_test = mnist.test.images[:n_test_digits]
-        outputs_val = outputs.eval(feed_dict={X: X_test})
+        outputs_val = arg_output.eval(feed_dict={x: X_test})
 
     fig = plt.figure(figsize=(8, 3 * n_test_digits))
     for digit_index in range(n_test_digits):
         plt.subplot(n_test_digits, 2, digit_index * 2 + 1)
-        plot_image(X_test[digit_index])
+        plot_image(X_test[digit_index], [28, 28])
         plt.subplot(n_test_digits, 2, digit_index * 2 + 2)
-        plot_image(outputs_val[digit_index])
+        plot_image(outputs_val[digit_index], [28, 28])
 
 
-def save_fig(fig_id, arg_folder, tight_layout=True):
+def save_fig(fig_id, arg_folder, arg_logger, tight_layout=True):
     path = os.path.join(arg_folder, fig_id + '.png')
-    print('Saving figure', fig_id)
+    arg_logger.info('Saving figure %s' % fig_id)
     if tight_layout:
         plt.tight_layout()
     plt.savefig(path, format='png', dpi=300)
+
 
 if __name__ == '__main__':
     start_time = time()
@@ -84,16 +85,16 @@ if __name__ == '__main__':
     n_epochs = 5
     batch_size = 150
 
-    with tf.Session() as sess:
+    with tf.Session() as session:
         init.run()
         for epoch in range(n_epochs):
             n_batches = mnist.train.num_examples // batch_size
             for iteration in range(n_batches):
                 X_batch, y_batch = mnist.train.next_batch(batch_size)
-                sess.run(training_op, feed_dict={X: X_batch})
+                session.run(training_op, feed_dict={X: X_batch})
             loss_train = reconstruction_loss.eval(feed_dict={X: X_batch})
             logger.info('epoch: %s train MSE %.4f' % (epoch, loss_train))
-            saver.save(sess, './models/my_model_all_layers.ckpt')
+            saver.save(session, './models/my_model_all_layers.ckpt')
 
     show_reconstructed_digits(X, outputs, './models/my_model_all_layers.ckpt')
-    save_fig('reconstruction_plot', '../output/mnist/')
+    save_fig('reconstruction_plot', '../output/mnist/', arg_logger=logger, tight_layout=True)

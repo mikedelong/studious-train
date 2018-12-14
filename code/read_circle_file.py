@@ -1,5 +1,11 @@
 import logging
+from glob import glob
+from pickle import dump
 from time import time
+
+from PIL import Image
+from PIL import ImageOps
+from numpy import array
 
 if __name__ == '__main__':
     start_time = time()
@@ -14,6 +20,20 @@ if __name__ == '__main__':
     logger.addHandler(console_handler)
 
     logger.info('started')
+
+    input_file = '../output/circle_frames/plotcircle21.png'
+    image = array(ImageOps.invert(Image.open(input_file).convert('L')))
+    logger.info(image.shape)
+
+    result = list()
+    for input_file in glob('../output/circle_frames/*.png'):
+        logger.info('processing file %s' % input_file)
+        image = array(ImageOps.invert(Image.open(input_file).convert('L')))
+        result.append(image)
+    data_circles_pkl = '../data/circles.pkl'
+    logger.info('writing circles data to %s' % data_circles_pkl)
+    with open(data_circles_pkl, 'wb') as circles_fp:
+        dump(result, circles_fp)
 
     logger.info('done')
 

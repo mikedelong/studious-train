@@ -1,6 +1,8 @@
 import logging
 from glob import glob
 from pickle import dump
+from random import seed
+from random import shuffle
 from time import time
 
 from PIL import Image
@@ -22,10 +24,15 @@ if __name__ == '__main__':
 
     logger.info('started')
 
-    result = [
-        array(ImageOps.invert(Image.open(input_file).convert('L'))).flatten() for input_file in
-        glob('../output/circle_frames/*.png')
-    ]
+    # load everything up in a list comprehension and do the processing in-line
+    result = [array(ImageOps.invert(Image.open(input_file).convert('L'))).flatten() for input_file in
+              glob('../output/circle_frames/*.png')]
+
+    # shuffle in place
+    random_seed = 1
+    seed(random_seed)
+    shuffle(result)
+
     data_circles_pkl = '../data/circles.pkl'
     logger.info('writing circles data to %s' % data_circles_pkl)
     with open(data_circles_pkl, 'wb') as circles_fp:

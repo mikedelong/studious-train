@@ -85,6 +85,7 @@ if __name__ == '__main__':
 
     n_epochs = 5
     batch_size = 150
+    logger.info('the MNIST data set has %d examples' % mnist.train.num_examples)
 
     with tf.Session() as session:
         init.run()
@@ -96,7 +97,7 @@ if __name__ == '__main__':
                 session.run(training_op, feed_dict={X: X_batch})
             loss_train = reconstruction_loss.eval(feed_dict={X: X_batch})
             logger.info('epoch: %s train MSE %.4f' % (epoch, loss_train))
-            saver.save(session, './models/my_model_all_layers.ckpt')
+            saver.save(session, './models/mnist_model_all_layers.ckpt')
 
-    show_reconstructed_digits(X, outputs, './models/my_model_all_layers.ckpt')
+    show_reconstructed_digits(X, outputs, './models/mnist_model_all_layers.ckpt')
     save_fig('reconstruction_plot', '../output/mnist/', arg_logger=logger, tight_layout=True)

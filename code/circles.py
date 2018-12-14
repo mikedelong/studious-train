@@ -21,7 +21,7 @@ if __name__ == '__main__':
         size = 0.2
         for location in range(21, 81):
             x = float(location) / 100.0
-            fig, ax = plt.subplots(figsize=(4, 4))
+            fig, ax = plt.subplots(figsize=(0.4, 0.4))
             ax.add_artist(plt.Circle((x, x), size, color='black', fill=False))
             plt.axis('off')
             output_file = '../output/circle_frames/plotcircle{}.png'.format(location)

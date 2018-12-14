@@ -14,11 +14,11 @@ def plot_image(image, shape=None):
     plt.axis('off')
 
 
-def show_reconstructed(x, arg_output, model_path=None, n_test_samples=2):
+def show_reconstructed(x, arg_output, model_path, n_test_samples):
     with tf.Session() as local_session:
         if model_path:
             saver.restore(local_session, model_path)
-        x_test = circles_data[:n_test_samples]
+        x_test = shapes_data[:n_test_samples]
         outputs_val = arg_output.eval(feed_dict={x: x_test})
 
     _ = plt.figure(figsize=(8, 3 * n_test_samples))
@@ -52,10 +52,10 @@ if __name__ == '__main__':
 
     logger.info('started')
 
-    circles_file = '../data/circles.pkl'
-    with open(circles_file, 'rb') as circles_fp:
-        circles_data = load(circles_fp)
-    logger.info('loaded %d items from %s' % (len(circles_data), circles_file))
+    shapes_file = '../data/circles.pkl'
+    with open(shapes_file, 'rb') as shapes_fp:
+        shapes_data = load(shapes_fp)
+    logger.info('loaded %d items from %s' % (len(shapes_data), shapes_file))
 
     n_inputs = 40 * 40
     n_hidden1 = 300
@@ -85,21 +85,24 @@ if __name__ == '__main__':
     init = tf.global_variables_initializer()
     saver = tf.train.Saver()
 
-    n_epochs = 10
+    n_epochs = 40
     batch_size = 15
-    num_examples = len(circles_data)
+    num_examples = len(shapes_data)
 
+    # do the test/train split
+    test_size = 2
+    train_size = num_examples - test_size
     with tf.Session() as session:
         init.run()
         for epoch in range(n_epochs):
-            n_batches = num_examples // batch_size
+            n_batches = train_size // batch_size
             X_batch = None
             for iteration in range(n_batches):
-                X_batch = circles_data[choice(num_examples, batch_size, replace=False), :]
+                X_batch = shapes_data[choice(train_size, batch_size, replace=False), :]
                 session.run(training_op, feed_dict={X: X_batch})
             loss_train = reconstruction_loss.eval(feed_dict={X: X_batch})
             logger.info('epoch: %s train MSE %.4f' % (epoch, loss_train))
-            saver.save(session, './models/circle_model_all_layers.ckpt')
+            saver.save(session, '../models/circle_model_all_layers.ckpt')
 
-    show_reconstructed(X, outputs, './models/circle_model_all_layers.ckpt')
+    show_reconstructed(X, outputs, '../models/circle_model_all_layers.ckpt', n_test_samples=test_size)
     save_fig('reconstruction_plot', '../output/circles/', arg_logger=logger, tight_layout=True)

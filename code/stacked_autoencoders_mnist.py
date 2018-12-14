@@ -1,6 +1,7 @@
 # https://github.com/ageron/handson-ml/blob/master/15_autoencoders.ipynb
 
 import logging
+import os
 from functools import partial
 from time import time
 
@@ -10,8 +11,8 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 
 def plot_image(image, shape=[28, 28]):
-    plt.imshow(image.reshape(shape), cmap="Greys", interpolation="nearest")
-    plt.axis("off")
+    plt.imshow(image.reshape(shape), cmap='Greys', interpolation='nearest')
+    plt.axis('off')
 
 
 def show_reconstructed_digits(X, outputs, model_path=None, n_test_digits=2):
@@ -28,6 +29,13 @@ def show_reconstructed_digits(X, outputs, model_path=None, n_test_digits=2):
         plt.subplot(n_test_digits, 2, digit_index * 2 + 2)
         plot_image(outputs_val[digit_index])
 
+
+def save_fig(fig_id, arg_folder, tight_layout=True):
+    path = os.path.join(arg_folder, fig_id + '.png')
+    print('Saving figure', fig_id)
+    if tight_layout:
+        plt.tight_layout()
+    plt.savefig(path, format='png', dpi=300)
 
 if __name__ == '__main__':
     start_time = time()
@@ -85,4 +93,7 @@ if __name__ == '__main__':
                 sess.run(training_op, feed_dict={X: X_batch})
             loss_train = reconstruction_loss.eval(feed_dict={X: X_batch})
             logger.info('epoch: %s train MSE %.4f' % (epoch, loss_train))
-            saver.save(sess, './my_model_all_layers.ckpt')
+            saver.save(sess, './models/my_model_all_layers.ckpt')
+
+    show_reconstructed_digits(X, outputs, './models/my_model_all_layers.ckpt')
+    save_fig('reconstruction_plot', '../output/mnist/')

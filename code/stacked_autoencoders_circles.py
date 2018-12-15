@@ -106,3 +106,12 @@ if __name__ == '__main__':
 
     show_reconstructed(X, outputs, '../models/circle_model_all_layers.ckpt', n_test_samples=test_size)
     save_fig('reconstruction_plot', '../output/circles/', arg_logger=logger, tight_layout=True)
+
+    logger.info('done')
+
+    finish_time = time()
+    elapsed_hours, elapsed_remainder = divmod(finish_time - start_time, 3600)
+    elapsed_minutes, elapsed_seconds = divmod(elapsed_remainder, 60)
+    logger.info('Time: {:0>2}:{:0>2}:{:05.2f}'.format(int(elapsed_hours), int(elapsed_minutes), elapsed_seconds))
+    console_handler.close()
+    logger.removeHandler(console_handler)

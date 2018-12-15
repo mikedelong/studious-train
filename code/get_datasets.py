@@ -752,6 +752,20 @@ if __name__ == '__main__':
     darwin_title = darwin_bundle.title
     logger.info('darwin data has title %s' % darwin_title)
 
+    logger.info('loading self-reported height and weight data')
+    Davis_pickle = data_folder + 'Davis.pkl'
+    if exists(Davis_pickle):
+        with open(Davis_pickle, 'rb') as Davis_fp:
+            Davis_bundle = pickle.load(Davis_fp)
+    else:
+        Davis_bundle = get_rdataset('Davis', 'carData')
+        with open(Davis_pickle, 'wb') as Davis_fp:
+            pickle.dump(Davis_bundle, Davis_fp)
+    Davis_data = Davis_bundle.data
+    logger.info('Davis data has variables %s and has %d rows' % (list(Davis_data), len(Davis_data)))
+    Davis_title = Davis_bundle.title
+    logger.info('Davis data has title %s' % Davis_title)
+
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)
     diabetes_data = diabetes_bunch['data']

@@ -766,6 +766,20 @@ if __name__ == '__main__':
     Davis_title = Davis_bundle.title
     logger.info('Davis data has title %s' % Davis_title)
 
+    logger.info('loading Drive for Thinness data')
+    DavisThin_pickle = data_folder + 'DavisThin.pkl'
+    if exists(DavisThin_pickle):
+        with open(DavisThin_pickle, 'rb') as DavisThin_fp:
+            DavisThin_bundle = pickle.load(DavisThin_fp)
+    else:
+        DavisThin_bundle = get_rdataset('DavisThin', 'carData')
+        with open(DavisThin_pickle, 'wb') as DavisThin_fp:
+            pickle.dump(DavisThin_bundle, DavisThin_fp)
+    DavisThin_data = DavisThin_bundle.data
+    logger.info('DavisThin data has variables %s and has %d rows' % (list(DavisThin_data), len(DavisThin_data)))
+    DavisThin_title = DavisThin_bundle.title
+    logger.info('DavisThin data has title %s' % DavisThin_title)
+
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)
     diabetes_data = diabetes_bunch['data']

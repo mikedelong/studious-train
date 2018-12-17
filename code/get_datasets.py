@@ -780,6 +780,21 @@ if __name__ == '__main__':
     DavisThin_title = DavisThin_bundle.title
     logger.info('DavisThin data has title %s' % DavisThin_title)
 
+    logger.info('loading Minnesota wolf data')
+    Depredations_pickle = data_folder + 'Depredations.pkl'
+    if exists(Depredations_pickle):
+        with open(Depredations_pickle, 'rb') as Depredations_fp:
+            Depredations_bundle = pickle.load(Depredations_fp)
+    else:
+        Depredations_bundle = get_rdataset('Depredations', 'carData')
+        with open(Depredations_pickle, 'wb') as Depredations_fp:
+            pickle.dump(Depredations_bundle, Depredations_fp)
+    Depredations_data = Depredations_bundle.data
+    logger.info(
+        'Depredations data has variables %s and has %d rows' % (list(Depredations_data), len(Depredations_data)))
+    Depredations_title = Depredations_bundle.title
+    logger.info('Depredations data has title %s' % Depredations_title)
+
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)
     diabetes_data = diabetes_bunch['data']

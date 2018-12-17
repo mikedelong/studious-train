@@ -1,6 +1,7 @@
 import logging
 import os
-from pickle import load
+from json import load as load_json
+from pickle import load as load_pickle
 from time import time
 
 import matplotlib.pyplot as plt
@@ -13,7 +14,7 @@ def plot_image(image, shape=None):
     plt.axis('off')
 
 
-def show_reconstructed(x, arg_output, model_path, n_test_samples):
+def show_reconstructed(x, arg_output, model_path, n_test_samples, arg_shape):
     with tf.Session() as local_session:
         if model_path:
             saver.restore(local_session, model_path)
@@ -23,9 +24,9 @@ def show_reconstructed(x, arg_output, model_path, n_test_samples):
     _ = plt.figure(figsize=(8, 3 * n_test_samples))
     for index in range(n_test_samples):
         plt.subplot(n_test_samples, 2, index * 2 + 1)
-        plot_image(x_test[index], [40, 40])
+        plot_image(x_test[index], arg_shape)
         plt.subplot(n_test_samples, 2, index * 2 + 2)
-        plot_image(outputs_val[index], [40, 40])
+        plot_image(outputs_val[index], arg_shape)
 
 
 def save_fig(fig_id, arg_folder, arg_logger, tight_layout=True):
@@ -51,12 +52,24 @@ if __name__ == '__main__':
 
     logger.info('started')
 
-    shapes_file = '../data/circles.pkl'
+    with open('autoencoder_settings.json', 'r') as settings_fp:
+        settings = load_json(settings_fp)
+
+        shapes_file = settings['shapes_file']
+        image_height = settings['image_height']
+        image_width = settings['image_width']
+        image_shape = [image_height, image_width]
+        model_checkpoint = settings['model_checkpoint']
+        n_epochs = settings['n_epochs']
+        batch_size = settings['batch_size']
+        test_size = settings['test_size']
+
     with open(shapes_file, 'rb') as shapes_fp:
-        shapes_data = load(shapes_fp)
+        shapes_data = load_pickle(shapes_fp)
     logger.info('loaded %d items from %s' % (len(shapes_data), shapes_file))
 
-    n_inputs = 40 * 40
+    n_inputs = image_height * image_width
+
     n_hidden1 = 300
     n_hidden2 = 150
     n_hidden3 = n_hidden1
@@ -96,14 +109,10 @@ if __name__ == '__main__':
     init = tf.global_variables_initializer()
     saver = tf.train.Saver()
 
-    n_epochs = 40
-    batch_size = 15
     num_examples = len(shapes_data)
 
     # do the test/train split
-    test_size = 2
     train_size = num_examples - test_size
-    model_checkpoint = '../models/circle_tied_model_all_layers.ckpt'
     with tf.Session() as session:
         init.run()
         for epoch in range(n_epochs):
@@ -116,7 +125,7 @@ if __name__ == '__main__':
             logger.info('epoch: %s train MSE %.4f' % (epoch, loss_train))
             saver.save(session, model_checkpoint)
 
-    show_reconstructed(X, outputs, model_checkpoint, n_test_samples=test_size)
+    show_reconstructed(X, outputs, model_checkpoint, n_test_samples=test_size, arg_shape=image_shape)
     save_fig('reconstruction_plot', '../output/circles/tied/', arg_logger=logger, tight_layout=True)
 
     logger.info('done')

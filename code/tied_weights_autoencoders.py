@@ -52,17 +52,18 @@ if __name__ == '__main__':
 
     logger.info('started')
 
-    with open('autoencoder_settings.json', 'r') as settings_fp:
+    with open('tied_weights_settings.json', 'r') as settings_fp:
         settings = load_json(settings_fp)
 
-        shapes_file = settings['shapes_file']
+        batch_size = settings['batch_size']
         image_height = settings['image_height']
         image_width = settings['image_width']
-        image_shape = [image_height, image_width]
         model_checkpoint = settings['model_checkpoint']
         n_epochs = settings['n_epochs']
-        batch_size = settings['batch_size']
+        output_folder = settings['output_folder']
+        shapes_file = settings['shapes_file']
         test_size = settings['test_size']
+        image_shape = [image_height, image_width]
 
     with open(shapes_file, 'rb') as shapes_fp:
         shapes_data = load_pickle(shapes_fp)
@@ -126,7 +127,7 @@ if __name__ == '__main__':
             saver.save(session, model_checkpoint)
 
     show_reconstructed(X, outputs, model_checkpoint, n_test_samples=test_size, arg_shape=image_shape)
-    save_fig('reconstruction_plot', '../output/circles/tied/', arg_logger=logger, tight_layout=True)
+    save_fig('reconstruction_plot', output_folder, arg_logger=logger, tight_layout=True)
 
     logger.info('done')
 

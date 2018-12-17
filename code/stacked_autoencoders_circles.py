@@ -92,6 +92,7 @@ if __name__ == '__main__':
     # do the test/train split
     test_size = 2
     train_size = num_examples - test_size
+    model_checkpoint = '../models/circle_stacked_model_all_layers.ckpt'
     with tf.Session() as session:
         init.run()
         for epoch in range(n_epochs):
@@ -102,10 +103,10 @@ if __name__ == '__main__':
                 session.run(training_op, feed_dict={X: X_batch})
             loss_train = reconstruction_loss.eval(feed_dict={X: X_batch})
             logger.info('epoch: %s train MSE %.4f' % (epoch, loss_train))
-            saver.save(session, '../models/circle_model_all_layers.ckpt')
+            saver.save(session, model_checkpoint)
 
-    show_reconstructed(X, outputs, '../models/circle_model_all_layers.ckpt', n_test_samples=test_size)
-    save_fig('reconstruction_plot', '../output/circles/', arg_logger=logger, tight_layout=True)
+    show_reconstructed(X, outputs, model_checkpoint, n_test_samples=test_size)
+    save_fig('reconstruction_plot', '../output/circles/stacked/', arg_logger=logger, tight_layout=True)
 
     logger.info('done')
 

@@ -9,11 +9,6 @@ import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
 
-def plot_image(image, shape=[28, 28]):
-    plt.imshow(image.reshape(shape), cmap="Greys", interpolation="nearest")
-    plt.axis("off")
-
-
 def save_fig(fig_id, arg_folder, arg_logger, tight_layout=True):
     suffix = '.png'
     path = os.path.join(arg_folder, fig_id + suffix)
@@ -23,14 +18,14 @@ def save_fig(fig_id, arg_folder, arg_logger, tight_layout=True):
     plt.savefig(path, format='png', dpi=300)
 
 
-def plot_multiple_images(images, n_rows, n_cols, pad=2):
+def plot_multiple_images(images, arg_nrows, arg_ncols, pad=2):
     images = images - images.min()  # make the minimum == 0, so the padding looks white
     w, h = images.shape[1:]
-    image = np.zeros(((w + pad) * n_rows + pad, (h + pad) * n_cols + pad))
-    for y in range(n_rows):
-        for x in range(n_cols):
+    image = np.zeros(((w + pad) * arg_nrows + pad, (h + pad) * arg_ncols + pad))
+    for y in range(arg_nrows):
+        for x in range(arg_ncols):
             image[(y * (h + pad) + pad):(y * (h + pad) + pad + h), (x * (w + pad) + pad):(x * (w + pad) + pad + w)] = \
-                images[y * n_cols + x]
+                images[y * arg_ncols + x]
     plt.imshow(image, cmap="Greys", interpolation="nearest")
     plt.axis("off")
 
@@ -61,10 +56,7 @@ if __name__ == '__main__':
     learning_rate = 0.001
 
     initializer = tf.contrib.layers.variance_scaling_initializer()
-    my_dense_layer = partial(
-        tf.layers.dense,
-        activation=tf.nn.elu,
-        kernel_initializer=initializer)
+    my_dense_layer = partial(tf.layers.dense, activation=tf.nn.elu, kernel_initializer=initializer)
 
     X = tf.placeholder(tf.float32, [None, n_inputs])
     hidden1 = my_dense_layer(X, n_hidden1)
@@ -80,8 +72,7 @@ if __name__ == '__main__':
 
     xentropy = tf.nn.sigmoid_cross_entropy_with_logits(labels=X, logits=logits)
     reconstruction_loss = tf.reduce_sum(xentropy)
-    latent_loss = 0.5 * tf.reduce_sum(
-        tf.exp(hidden3_gamma) + tf.square(hidden3_mean) - 1 - hidden3_gamma)
+    latent_loss = 0.5 * tf.reduce_sum(tf.exp(hidden3_gamma) + tf.square(hidden3_mean) - 1 - hidden3_gamma)
     loss = reconstruction_loss + latent_loss
 
     optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
@@ -91,8 +82,10 @@ if __name__ == '__main__':
     saver = tf.train.Saver()
 
     n_digits = 60
-    n_epochs = 50
+    n_epochs = 100
     batch_size = 150
+    n_rows = 6
+    n_cols = 10
 
     with tf.Session() as sess:
         init.run()
@@ -100,21 +93,19 @@ if __name__ == '__main__':
             n_batches = mnist.train.num_examples // batch_size
             X_batch = None
             for iteration in range(n_batches):
-                X_batch, y_batch = mnist.train.next_batch(batch_size)
+                X_batch, _ = mnist.train.next_batch(batch_size)
                 sess.run(training_op, feed_dict={X: X_batch})
             loss_val, reconstruction_loss_val, latent_loss_val = sess.run([loss, reconstruction_loss, latent_loss],
                                                                           feed_dict={X: X_batch})
             logger.info('epoch: %s  %.4f %.4f %.4f' % (epoch, loss_val, reconstruction_loss_val, latent_loss_val))
             saver.save(sess, "./my_model_variational.ckpt")  # not shown
 
-        codings_rnd = np.random.normal(size=[n_digits, n_hidden3])
-        outputs_val = outputs.eval(feed_dict={hidden3: codings_rnd})
+            codings_rnd = np.random.normal(size=[n_digits, n_hidden3])
+            outputs_val = outputs.eval(feed_dict={hidden3: codings_rnd})
 
-    n_rows = 6
-    n_cols = 10
-    plot_multiple_images(outputs_val.reshape(-1, 28, 28), n_rows, n_cols)
-    save_fig("generated_digits_plot", arg_logger=logger, arg_folder='../output/')
-    plt.show()
+            plot_multiple_images(outputs_val.reshape(-1, 28, 28), n_rows, n_cols)
+            d__format = "generated_digits_plot{:03d}".format(epoch)
+            save_fig(d__format, arg_logger=logger, arg_folder='../output/variational_digits/')
 
     logger.info('done')
 

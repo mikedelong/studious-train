@@ -808,7 +808,7 @@ if __name__ == '__main__':
     logger.info('loading digits data')
     digits_bunch = load_digits(return_X_y=return_X_y)
     digits_data = digits_bunch['data']
-    logger.info('digits data is %d x %d' % diabetes_data.shape)
+    logger.info('digits data is %d x %d' % digits_data.shape)
     digits_target = digits_bunch['target']
     digits_target_names = digits_bunch['target_names']
     logger.debug('digits target names are %s' % digits_target_names)

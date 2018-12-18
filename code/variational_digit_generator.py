@@ -26,8 +26,8 @@ def plot_multiple_images(images, arg_nrows, arg_ncols, pad=2):
         for x in range(arg_ncols):
             image[(y * (h + pad) + pad):(y * (h + pad) + pad + h), (x * (w + pad) + pad):(x * (w + pad) + pad + w)] = \
                 images[y * arg_ncols + x]
-    plt.imshow(image, cmap="Greys", interpolation="nearest")
-    plt.axis("off")
+    plt.imshow(image, cmap='Greys', interpolation='nearest')
+    plt.axis('off')
 
 
 if __name__ == '__main__':
@@ -86,6 +86,7 @@ if __name__ == '__main__':
     batch_size = 150
     n_rows = 6
     n_cols = 10
+    model_checkpoint = './my_model_variational.ckpt'
 
     with tf.Session() as sess:
         init.run()
@@ -98,13 +99,13 @@ if __name__ == '__main__':
             loss_val, reconstruction_loss_val, latent_loss_val = sess.run([loss, reconstruction_loss, latent_loss],
                                                                           feed_dict={X: X_batch})
             logger.info('epoch: %s  %.4f %.4f %.4f' % (epoch, loss_val, reconstruction_loss_val, latent_loss_val))
-            saver.save(sess, "./my_model_variational.ckpt")  # not shown
+            saver.save(sess, model_checkpoint)
 
             codings_rnd = np.random.normal(size=[n_digits, n_hidden3])
             outputs_val = outputs.eval(feed_dict={hidden3: codings_rnd})
 
             plot_multiple_images(outputs_val.reshape(-1, 28, 28), n_rows, n_cols)
-            d__format = "generated_digits_plot{:03d}".format(epoch)
+            d__format = 'generated_digits_plot{:03d}'.format(epoch)
             save_fig(d__format, arg_logger=logger, arg_folder='../output/variational_digits/')
 
     logger.info('done')

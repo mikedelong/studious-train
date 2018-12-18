@@ -86,7 +86,7 @@ if __name__ == '__main__':
     batch_size = 150
     n_rows = 6
     n_cols = 10
-    model_checkpoint = './my_model_variational.ckpt'
+    model_checkpoint = '../models/variational_digit_generator.ckpt'
 
     with tf.Session() as sess:
         init.run()

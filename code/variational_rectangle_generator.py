@@ -90,11 +90,11 @@ if __name__ == '__main__':
     init = tf.global_variables_initializer()
     saver = tf.train.Saver()
 
-    n_epochs = 50
-    n_samples = 16
-    batch_size = 3000
-    n_rows = 4
-    n_cols = 4
+    n_epochs = 60
+    batch_size = 5000
+    n_samples = 25
+    n_rows = 5
+    n_cols = 5
     model_checkpoint = '../models/variational_rectangle_generator.ckpt'
 
     num_examples = 10000

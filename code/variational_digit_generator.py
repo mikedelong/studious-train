@@ -82,7 +82,7 @@ if __name__ == '__main__':
     saver = tf.train.Saver()
 
     n_digits = 60
-    n_epochs = 100
+    n_epochs = 10
     batch_size = 150
     n_rows = 6
     n_cols = 10

@@ -844,6 +844,21 @@ if __name__ == '__main__':
     ducks_title = ducks_bundle.title
     logger.info('ducks data has title %s' % ducks_title)
 
+    logger.info('loading work prestige data')
+    Duncan_pickle = data_folder + 'Duncan.pkl'
+    if exists(Duncan_pickle):
+        with open(Duncan_pickle, 'rb') as Duncan_fp:
+            Duncan_bundle = pickle.load(Duncan_fp)
+    else:
+        Duncan_bundle = get_rdataset('Duncan', 'carData')
+        with open(Duncan_pickle, 'wb') as Duncan_fp:
+            pickle.dump(Duncan_bundle, Duncan_fp)
+    Duncan_data = Duncan_bundle.data
+    logger.info(
+        'Duncan data has variables %s and has %d rows' % (list(Duncan_data), len(Duncan_data)))
+    Duncan_title = Duncan_bundle.title
+    logger.info('Duncan data has title %s' % Duncan_title)
+
     logger.info('loading el nino data')
     elnino_pickle = data_folder + 'elnino.pkl'
     if exists(elnino_pickle):

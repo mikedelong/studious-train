@@ -891,6 +891,21 @@ if __name__ == '__main__':
     engel_raw_data = engel_bunch['raw_data']
     logger.info('engel raw data is %d x %d' % engel_raw_data.shape)
 
+    logger.info('loading census under-count data')
+    Ericksen_pickle = data_folder + 'Ericksen.pkl'
+    if exists(Ericksen_pickle):
+        with open(Ericksen_pickle, 'rb') as Ericksen_fp:
+            Ericksen_bundle = pickle.load(Ericksen_fp)
+    else:
+        Ericksen_bundle = get_rdataset('Ericksen', 'carData')
+        with open(Ericksen_pickle, 'wb') as Ericksen_fp:
+            pickle.dump(Ericksen_bundle, Ericksen_fp)
+    Ericksen_data = Ericksen_bundle.data
+    logger.info(
+        'Ericksen data has variables %s and has %d rows' % (list(Ericksen_data), len(Ericksen_data)))
+    Ericksen_title = Ericksen_bundle.title
+    logger.info('Ericksen data has title %s' % Ericksen_title)
+
     logger.info('loading extramarital affair data')
     fair_pickle = data_folder + 'fair.pkl'
     if exists(fair_pickle):

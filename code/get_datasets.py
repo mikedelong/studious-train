@@ -950,6 +950,21 @@ if __name__ == '__main__':
     fir_title = fir_bundle.title
     logger.info('fir data has title %s' % fir_title)
 
+    logger.info('loading Florida voting data')
+    Florida_pickle = data_folder + 'Florida.pkl'
+    if exists(Florida_pickle):
+        with open(Florida_pickle, 'rb') as Florida_fp:
+            Florida_bundle = pickle.load(Florida_fp)
+    else:
+        Florida_bundle = get_rdataset('Florida', 'carData')
+        with open(Florida_pickle, 'wb') as Florida_fp:
+            pickle.dump(Florida_bundle, Florida_fp)
+    Florida_data = Florida_bundle.data
+    logger.info(
+        'Florida data has variables %s and has %d rows' % (list(Florida_data), len(Florida_data)))
+    Florida_title = Florida_bundle.title
+    logger.info('Florida data has title %s' % Florida_title)
+
     logger.info('loading fraternal head size data')
     frets_pickle = data_folder + 'frets.pkl'
     if exists(frets_pickle):

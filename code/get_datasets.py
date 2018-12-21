@@ -979,6 +979,21 @@ if __name__ == '__main__':
     frets_title = frets_bundle.title
     logger.info('frets data has title %s' % frets_title)
 
+    logger.info('loading Crowding/crime in US Metro areas data')
+    Freedman_pickle = data_folder + 'Freedman.pkl'
+    if exists(Freedman_pickle):
+        with open(Freedman_pickle, 'rb') as Freedman_fp:
+            Freedman_bundle = pickle.load(Freedman_fp)
+    else:
+        Freedman_bundle = get_rdataset('Freedman', 'carData')
+        with open(Freedman_pickle, 'wb') as Freedman_fp:
+            pickle.dump(Freedman_bundle, Freedman_fp)
+    Freedman_data = Freedman_bundle.data
+    logger.info(
+        'Freedman data has variables %s and has %d rows' % (list(Freedman_data), len(Freedman_data)))
+    Freedman_title = Freedman_bundle.title
+    logger.info('Freedman data has title %s' % Freedman_title)
+
     logger.info('loading acceleration due to gravity data')
     grav_pickle = data_folder + 'grav.pkl'
     if exists(grav_pickle):

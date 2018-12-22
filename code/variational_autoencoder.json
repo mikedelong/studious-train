@@ -1,0 +1,11 @@
+{
+  "batch_size": 15,
+  "image_height": 40,
+  "image_width": 40,
+  "model_checkpoint": "../models/circles_variational_autoencoder.ckpt",
+  "n_epochs": 40,
+  "output_folder": "../output/circles/variational/",
+  "shapes_file": "../data/circles.pkl",
+  "test_size": 2,
+  "zzz": 0
+}

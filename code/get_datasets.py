@@ -994,6 +994,21 @@ if __name__ == '__main__':
     Freedman_title = Freedman_bundle.title
     logger.info('Freedman data has title %s' % Freedman_title)
 
+    logger.info('loading Format effects on recall data')
+    Friendly_pickle = data_folder + 'Friendly.pkl'
+    if exists(Friendly_pickle):
+        with open(Friendly_pickle, 'rb') as Friendly_fp:
+            Friendly_bundle = pickle.load(Friendly_fp)
+    else:
+        Friendly_bundle = get_rdataset('Friendly', 'carData')
+        with open(Friendly_pickle, 'wb') as Friendly_fp:
+            pickle.dump(Friendly_bundle, Friendly_fp)
+    Friendly_data = Friendly_bundle.data
+    logger.info(
+        'Friendly data has variables %s and has %d rows' % (list(Friendly_data), len(Friendly_data)))
+    Friendly_title = Friendly_bundle.title
+    logger.info('Friendly data has title %s' % Friendly_title)
+
     logger.info('loading acceleration due to gravity data')
     grav_pickle = data_folder + 'grav.pkl'
     if exists(grav_pickle):

@@ -1,12 +1,12 @@
-pyap
 Pillow
-matplotlib
+bokeh
 dash
 imageio
-plotly
-pandas
-bokeh
+matplotlib
 numpy
+pandas
+plotly
+pyap
 scikit-learn
 scipy
 statsmodels

@@ -1009,6 +1009,21 @@ if __name__ == '__main__':
     Friendly_title = Friendly_bundle.title
     logger.info('Friendly data has title %s' % Friendly_title)
 
+    logger.info('loading depression data')
+    Ginzberg_pickle = data_folder + 'Ginzberg.pkl'
+    if exists(Ginzberg_pickle):
+        with open(Ginzberg_pickle, 'rb') as Ginzberg_fp:
+            Ginzberg_bundle = pickle.load(Ginzberg_fp)
+    else:
+        Ginzberg_bundle = get_rdataset('Ginzberg', 'carData')
+        with open(Ginzberg_pickle, 'wb') as Ginzberg_fp:
+            pickle.dump(Ginzberg_bundle, Ginzberg_fp)
+    Ginzberg_data = Ginzberg_bundle.data
+    logger.info(
+        'Ginzberg data has variables %s and has %d rows' % (list(Ginzberg_data), len(Ginzberg_data)))
+    Ginzberg_title = Ginzberg_bundle.title
+    logger.info('Ginzberg data has title %s' % Ginzberg_title)
+
     logger.info('loading acceleration due to gravity data')
     grav_pickle = data_folder + 'grav.pkl'
     if exists(grav_pickle):

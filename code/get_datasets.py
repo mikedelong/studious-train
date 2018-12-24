@@ -1435,19 +1435,13 @@ if __name__ == '__main__':
 
     logger.info('loading Reuters Corpus Volume I data')
     reuters_pickle = data_folder + 'reuters.pkl'
-    rcv1_bunch = None
-    if exists(reuters_pickle):
-        with open(reuters_pickle, 'rb') as reuters_fp:
-            rvc1_bunch = pickle.load(reuters_fp)
-    else:
-        rcv1_bunch = fetch_rcv1(subset='all', download_if_missing=True, random_state=random_state)
-        with open(reuters_pickle, 'wb') as reuters_fp:
-            pickle.dump(rcv1_bunch, reuters_fp)
+    rcv1_bunch = fetch_rcv1(subset='all', download_if_missing=True, random_state=random_state)
     rcv1_data = rcv1_bunch['data']
     rcv1_target = rcv1_bunch['target']
     rcv1_sample_id = rcv1_bunch['sample_id']
     rcv1_target_names = rcv1_bunch['target_names']
     rcv1_description = rcv1_bunch['DESCR']
+    logger.info('Reuters data has description %s' % str(rcv1_description).strip())
 
     logger.info('loading water salinity data')
     salinity_pickle = data_folder + 'salinity.pkl'

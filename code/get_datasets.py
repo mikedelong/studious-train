@@ -1052,6 +1052,21 @@ if __name__ == '__main__':
     gravity_title = gravity_bundle.title
     logger.info('gravity data has title %s' % gravity_title)
 
+    logger.info('loading refugee appeals data')
+    Greene_pickle = data_folder + 'Greene.pkl'
+    if exists(Greene_pickle):
+        with open(Greene_pickle, 'rb') as Greene_fp:
+            Greene_bundle = pickle.load(Greene_fp)
+    else:
+        Greene_bundle = get_rdataset('Greene', 'carData')
+        with open(Greene_pickle, 'wb') as Greene_fp:
+            pickle.dump(Greene_bundle, Greene_fp)
+    Greene_data = Greene_bundle.data
+    logger.info(
+        'Greene data has variables %s and has %d rows' % (list(Greene_data), len(Greene_data)))
+    Greene_title = Greene_bundle.title
+    logger.info('Greene data has title %s' % Greene_title)
+
     logger.info('loading Grunfeld data')
     grunfeld_pickle = data_folder + 'grunfeld.pkl'
     if exists(grunfeld_pickle):

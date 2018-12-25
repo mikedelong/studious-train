@@ -1067,6 +1067,21 @@ if __name__ == '__main__':
     Greene_title = Greene_bundle.title
     logger.info('Greene data has title %s' % Greene_title)
 
+    logger.info('loading general social survey data')
+    GSSvocab_pickle = data_folder + 'GSSvocab.pkl'
+    if exists(GSSvocab_pickle):
+        with open(GSSvocab_pickle, 'rb') as GSSvocab_fp:
+            GSSvocab_bundle = pickle.load(GSSvocab_fp)
+    else:
+        GSSvocab_bundle = get_rdataset('GSSvocab', 'carData')
+        with open(GSSvocab_pickle, 'wb') as GSSvocab_fp:
+            pickle.dump(GSSvocab_bundle, GSSvocab_fp)
+    GSSvocab_data = GSSvocab_bundle.data
+    logger.info(
+        'GSSvocab data has variables %s and has %d rows' % (list(GSSvocab_data), len(GSSvocab_data)))
+    GSSvocab_title = GSSvocab_bundle.title
+    logger.info('GSSvocab data has title %s' % GSSvocab_title)
+
     logger.info('loading Grunfeld data')
     grunfeld_pickle = data_folder + 'grunfeld.pkl'
     if exists(grunfeld_pickle):

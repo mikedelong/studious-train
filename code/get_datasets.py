@@ -1096,6 +1096,21 @@ if __name__ == '__main__':
     GSSvocab_title = GSSvocab_bundle.title
     logger.info('GSSvocab data has title %s' % GSSvocab_title)
 
+    logger.info('loading anonymity/cooperation data')
+    Guyer_pickle = data_folder + 'Guyer.pkl'
+    if exists(Guyer_pickle):
+        with open(Guyer_pickle, 'rb') as Guyer_fp:
+            Guyer_bundle = pickle.load(Guyer_fp)
+    else:
+        Guyer_bundle = get_rdataset('Guyer', 'carData')
+        with open(Guyer_pickle, 'wb') as Guyer_fp:
+            pickle.dump(Guyer_bundle, Guyer_fp)
+    Guyer_data = Guyer_bundle.data
+    logger.info(
+        'Guyer data has variables %s and has %d rows' % (list(Guyer_data), len(Guyer_data)))
+    Guyer_title = Guyer_bundle.title
+    logger.info('Guyer data has title %s' % Guyer_title)
+
     logger.info('loading Heart transplant data')
     heart_pickle = data_folder + 'heart.pkl'
     if exists(heart_pickle):

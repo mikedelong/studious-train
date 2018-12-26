@@ -1067,6 +1067,20 @@ if __name__ == '__main__':
     Greene_title = Greene_bundle.title
     logger.info('Greene data has title %s' % Greene_title)
 
+    logger.info('loading Grunfeld data')
+    grunfeld_pickle = data_folder + 'grunfeld.pkl'
+    if exists(grunfeld_pickle):
+        with open(grunfeld_pickle, 'rb') as grunfeld_fp:
+            grunfeld_bunch = pickle.load(grunfeld_fp)
+    else:
+        grunfeld_bunch = grunfeld.load()
+        with open(grunfeld_pickle, 'wb') as grunfeld_fp:
+            pickle.dump(grunfeld_bunch, grunfeld_fp)
+    grunfeld_data = grunfeld_bunch['data']
+    logger.info('grunfeld data has %d rows' % len(grunfeld_data))
+    grunfeld_names = grunfeld_bunch['names']
+    logger.info('grunfeld names: %s' % str(grunfeld_names))
+
     logger.info('loading general social survey data')
     GSSvocab_pickle = data_folder + 'GSSvocab.pkl'
     if exists(GSSvocab_pickle):
@@ -1081,20 +1095,6 @@ if __name__ == '__main__':
         'GSSvocab data has variables %s and has %d rows' % (list(GSSvocab_data), len(GSSvocab_data)))
     GSSvocab_title = GSSvocab_bundle.title
     logger.info('GSSvocab data has title %s' % GSSvocab_title)
-
-    logger.info('loading Grunfeld data')
-    grunfeld_pickle = data_folder + 'grunfeld.pkl'
-    if exists(grunfeld_pickle):
-        with open(grunfeld_pickle, 'rb') as grunfeld_fp:
-            grunfeld_bunch = pickle.load(grunfeld_fp)
-    else:
-        grunfeld_bunch = grunfeld.load()
-        with open(grunfeld_pickle, 'wb') as grunfeld_fp:
-            pickle.dump(grunfeld_bunch, grunfeld_fp)
-    grunfeld_data = grunfeld_bunch['data']
-    logger.info('grunfeld data has %d rows' % len(grunfeld_data))
-    grunfeld_names = grunfeld_bunch['names']
-    logger.info('grunfeld names: %s' % str(grunfeld_names))
 
     logger.info('loading Heart transplant data')
     heart_pickle = data_folder + 'heart.pkl'

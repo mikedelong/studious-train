@@ -1111,6 +1111,21 @@ if __name__ == '__main__':
     Guyer_title = Guyer_bundle.title
     logger.info('Guyer data has title %s' % Guyer_title)
 
+    logger.info('loading Canadian crime data')
+    Hartnagel_pickle = data_folder + 'Hartnagel.pkl'
+    if exists(Hartnagel_pickle):
+        with open(Hartnagel_pickle, 'rb') as Hartnagel_fp:
+            Hartnagel_bundle = pickle.load(Hartnagel_fp)
+    else:
+        Hartnagel_bundle = get_rdataset('Hartnagel', 'carData')
+        with open(Hartnagel_pickle, 'wb') as Hartnagel_fp:
+            pickle.dump(Hartnagel_bundle, Hartnagel_fp)
+    Hartnagel_data = Hartnagel_bundle.data
+    logger.info(
+        'Hartnagel data has variables %s and has %d rows' % (list(Hartnagel_data), len(Hartnagel_data)))
+    Hartnagel_title = Hartnagel_bundle.title
+    logger.info('Hartnagel data has title %s' % Hartnagel_title)
+
     logger.info('loading Heart transplant data')
     heart_pickle = data_folder + 'heart.pkl'
     if exists(heart_pickle):

@@ -1126,7 +1126,7 @@ if __name__ == '__main__':
     Hartnagel_title = Hartnagel_bundle.title
     logger.info('Hartnagel data has title %s' % Hartnagel_title)
 
-    logger.info('loading Heart transplant data')
+    logger.info('loading heart transplant data')
     heart_pickle = data_folder + 'heart.pkl'
     if exists(heart_pickle):
         with open(heart_pickle, 'rb') as heart_fp:

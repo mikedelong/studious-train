@@ -1224,6 +1224,21 @@ if __name__ == '__main__':
     kdd_target = kdd_bunch['target']
     logger.info('KDD target unique values: %s' % list(set(kdd_target)))
 
+    logger.info('loading migraine headache treatment data')
+    KosteckiDillon_pickle = data_folder + 'KosteckiDillon.pkl'
+    if exists(KosteckiDillon_pickle):
+        with open(KosteckiDillon_pickle, 'rb') as KosteckiDillon_fp:
+            KosteckiDillon_bundle = pickle.load(KosteckiDillon_fp)
+    else:
+        KosteckiDillon_bundle = get_rdataset('KosteckiDillon', 'carData')
+        with open(KosteckiDillon_pickle, 'wb') as KosteckiDillon_fp:
+            pickle.dump(KosteckiDillon_bundle, KosteckiDillon_fp)
+    KosteckiDillon_data = KosteckiDillon_bundle.data
+    logger.info(
+        'KosteckiDillon data has variables %s and has %d rows' % (list(KosteckiDillon_data), len(KosteckiDillon_data)))
+    KosteckiDillon_title = KosteckiDillon_bundle.title
+    logger.info('KosteckiDillon data has title %s' % KosteckiDillon_title)
+
     min_faces_per_person = 0
     lfw_resize = None
     lfw_pickle = data_folder + 'lfw.pkl'

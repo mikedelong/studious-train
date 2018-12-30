@@ -1239,6 +1239,21 @@ if __name__ == '__main__':
     KosteckiDillon_title = KosteckiDillon_bundle.title
     logger.info('KosteckiDillon data has title %s' % KosteckiDillon_title)
 
+    logger.info('loading infant mortality data')
+    Leinhardt_pickle = data_folder + 'Leinhardt.pkl'
+    if exists(Leinhardt_pickle):
+        with open(Leinhardt_pickle, 'rb') as Leinhardt_fp:
+            Leinhardt_bundle = pickle.load(Leinhardt_fp)
+    else:
+        Leinhardt_bundle = get_rdataset('Leinhardt', 'carData')
+        with open(Leinhardt_pickle, 'wb') as Leinhardt_fp:
+            pickle.dump(Leinhardt_bundle, Leinhardt_fp)
+    Leinhardt_data = Leinhardt_bundle.data
+    logger.info(
+        'Leinhardt data has variables %s and has %d rows' % (list(Leinhardt_data), len(Leinhardt_data)))
+    Leinhardt_title = Leinhardt_bundle.title
+    logger.info('Leinhardt data has title %s' % Leinhardt_title)
+
     min_faces_per_person = 0
     lfw_resize = None
     lfw_pickle = data_folder + 'lfw.pkl'

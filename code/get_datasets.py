@@ -1284,6 +1284,21 @@ if __name__ == '__main__':
     linnerud_target_names = linnerud_bunch['target_names']
     linnerud_description = linnerud_bunch['DESCR']
 
+    logger.info('loading cancer drug (skew power distribution) data')
+    LoBD_pickle = data_folder + 'LoBD.pkl'
+    if exists(LoBD_pickle):
+        with open(LoBD_pickle, 'rb') as LoBD_fp:
+            LoBD_bundle = pickle.load(LoBD_fp)
+    else:
+        LoBD_bundle = get_rdataset('LoBD', 'carData')
+        with open(LoBD_pickle, 'wb') as LoBD_fp:
+            pickle.dump(LoBD_bundle, LoBD_fp)
+    LoBD_data = LoBD_bundle.data
+    logger.info(
+        'LoBD data has variables %s and has %d rows' % (list(LoBD_data), len(LoBD_data)))
+    LoBD_title = LoBD_bundle.title
+    logger.info('LoBD data has title %s' % LoBD_title)
+
     logger.info('loading Longley macroeconomic data')
     longley_pickle = data_folder + 'longley.pkl'
     if exists(longley_pickle):

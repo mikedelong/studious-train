@@ -1341,6 +1341,21 @@ if __name__ == '__main__':
     manaus_title = manaus_bundle.title
     logger.info('manaus data has title %s' % manaus_title)
 
+    logger.info('loading contrived collinear data')
+    Mandel_pickle = data_folder + 'Mandel.pkl'
+    if exists(Mandel_pickle):
+        with open(Mandel_pickle, 'rb') as Mandel_fp:
+            Mandel_bundle = pickle.load(Mandel_fp)
+    else:
+        Mandel_bundle = get_rdataset('Mandel', 'carData')
+        with open(Mandel_pickle, 'wb') as Mandel_fp:
+            pickle.dump(Mandel_bundle, Mandel_fp)
+    Mandel_data = Mandel_bundle.data
+    logger.info(
+        'Mandel data has variables %s and has %d rows' % (list(Mandel_data), len(Mandel_data)))
+    Mandel_title = Mandel_bundle.title
+    logger.info('Mandel data has title %s' % Mandel_title)
+
     logger.info('loading melanoma survival data')
     melanoma_pickle = data_folder + 'melanoma.pkl'
     if exists(melanoma_pickle):

@@ -1370,6 +1370,21 @@ if __name__ == '__main__':
     melanoma_title = melanoma_bundle.title
     logger.info('melanoma data has title %s' % melanoma_title)
 
+    logger.info('loading Canadian migration data')
+    Migration_pickle = data_folder + 'Migration.pkl'
+    if exists(Migration_pickle):
+        with open(Migration_pickle, 'rb') as Migration_fp:
+            Migration_bundle = pickle.load(Migration_fp)
+    else:
+        Migration_bundle = get_rdataset('Migration', 'carData')
+        with open(Migration_pickle, 'wb') as Migration_fp:
+            pickle.dump(Migration_bundle, Migration_fp)
+    Migration_data = Migration_bundle.data
+    logger.info(
+        'Migration data has variables %s and has %d rows' % (list(Migration_data), len(Migration_data)))
+    Migration_title = Migration_bundle.title
+    logger.info('Migration data has title %s' % Migration_title)
+
     logger.info('loading travel mode choice data')
     modechoice_pickle = data_folder + 'modechoice.pkl'
     if exists(modechoice_pickle):

@@ -1399,6 +1399,21 @@ if __name__ == '__main__':
     modechoice_names = modechoice_bunch['names']
     logger.info('modechoice names: %s' % str(modechoice_names))
 
+    logger.info('loading status, authoritarianism, and conformity data')
+    Moore_pickle = data_folder + 'Moore.pkl'
+    if exists(Moore_pickle):
+        with open(Moore_pickle, 'rb') as Moore_fp:
+            Moore_bundle = pickle.load(Moore_fp)
+    else:
+        Moore_bundle = get_rdataset('Moore', 'carData')
+        with open(Moore_pickle, 'wb') as Moore_fp:
+            pickle.dump(Moore_bundle, Moore_fp)
+    Moore_data = Moore_bundle.data
+    logger.info(
+        'Moore data has variables %s and has %d rows' % (list(Moore_data), len(Moore_data)))
+    Moore_title = Moore_bundle.title
+    logger.info('Moore data has title %s' % Moore_title)
+
     logger.info('loading simulated motorcycle accident data')
     motor_pickle = data_folder + 'motor.pkl'
     if exists(motor_pickle):

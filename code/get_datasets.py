@@ -1428,6 +1428,21 @@ if __name__ == '__main__':
     motor_title = motor_bundle.title
     logger.info('motor data has title %s' % motor_title)
 
+    logger.info('loading Minneapolis 2015 demographic by neighborhood data')
+    MplsDemo_pickle = data_folder + 'MplsDemo.pkl'
+    if exists(MplsDemo_pickle):
+        with open(MplsDemo_pickle, 'rb') as MplsDemo_fp:
+            MplsDemo_bundle = pickle.load(MplsDemo_fp)
+    else:
+        MplsDemo_bundle = get_rdataset('MplsDemo', 'carData')
+        with open(MplsDemo_pickle, 'wb') as MplsDemo_fp:
+            pickle.dump(MplsDemo_bundle, MplsDemo_fp)
+    MplsDemo_data = MplsDemo_bundle.data
+    logger.info(
+        'MplsDemo data has variables %s and has %d rows' % (list(MplsDemo_data), len(MplsDemo_data)))
+    MplsDemo_title = MplsDemo_bundle.title
+    logger.info('MplsDemo data has title %s' % MplsDemo_title)
+
     logger.info('loading neurophysiological point process data')
     neuro_pickle = data_folder + 'neuro.pkl'
     if exists(neuro_pickle):

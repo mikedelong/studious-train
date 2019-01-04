@@ -1443,7 +1443,7 @@ if __name__ == '__main__':
     MplsDemo_title = MplsDemo_bundle.title
     logger.info('MplsDemo data has title %s' % MplsDemo_title)
 
-    logger.info('loading Minneapolis 2018 police stop data data')
+    logger.info('loading Minneapolis 2018 police stop data')
     MplsStops_pickle = data_folder + 'MplsStops.pkl'
     if exists(MplsStops_pickle):
         with open(MplsStops_pickle, 'rb') as MplsStops_fp:

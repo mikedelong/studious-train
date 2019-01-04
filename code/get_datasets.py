@@ -1443,6 +1443,21 @@ if __name__ == '__main__':
     MplsDemo_title = MplsDemo_bundle.title
     logger.info('MplsDemo data has title %s' % MplsDemo_title)
 
+    logger.info('loading Minneapolis 2018 police stop data data')
+    MplsStops_pickle = data_folder + 'MplsStops.pkl'
+    if exists(MplsStops_pickle):
+        with open(MplsStops_pickle, 'rb') as MplsStops_fp:
+            MplsStops_bundle = pickle.load(MplsStops_fp)
+    else:
+        MplsStops_bundle = get_rdataset('MplsStops', 'carData')
+        with open(MplsStops_pickle, 'wb') as MplsStops_fp:
+            pickle.dump(MplsStops_bundle, MplsStops_fp)
+    MplsStops_data = MplsStops_bundle.data
+    logger.info(
+        'MplsStops data has variables %s and has %d rows' % (list(MplsStops_data), len(MplsStops_data)))
+    MplsStops_title = MplsStops_bundle.title
+    logger.info('MplsStops data has title %s' % MplsStops_title)
+
     logger.info('loading neurophysiological point process data')
     neuro_pickle = data_folder + 'neuro.pkl'
     if exists(neuro_pickle):

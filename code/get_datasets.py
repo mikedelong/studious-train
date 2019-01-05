@@ -1458,6 +1458,20 @@ if __name__ == '__main__':
     MplsStops_title = MplsStops_bundle.title
     logger.info('MplsStops data has title %s' % MplsStops_title)
 
+    logger.info('loading US Womens labor particpation data')
+    Mroz_pickle = data_folder + 'Mroz.pkl'
+    if exists(Mroz_pickle):
+        with open(Mroz_pickle, 'rb') as Mroz_fp:
+            Mroz_bundle = pickle.load(Mroz_fp)
+    else:
+        Mroz_bundle = get_rdataset('Mroz', 'carData')
+        with open(Mroz_pickle, 'wb') as Mroz_fp:
+            pickle.dump(Mroz_bundle, Mroz_fp)
+    Mroz_data = Mroz_bundle.data
+    logger.info('Mroz data has variables %s and has %d rows' % (list(Mroz_data), len(Mroz_data)))
+    Mroz_title = Mroz_bundle.title
+    logger.info('Mroz data has title %s' % Mroz_title)
+
     logger.info('loading neurophysiological point process data')
     neuro_pickle = data_folder + 'neuro.pkl'
     if exists(neuro_pickle):

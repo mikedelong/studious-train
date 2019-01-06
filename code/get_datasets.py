@@ -1458,7 +1458,7 @@ if __name__ == '__main__':
     MplsStops_title = MplsStops_bundle.title
     logger.info('MplsStops data has title %s' % MplsStops_title)
 
-    logger.info('loading US Womens labor particpation data')
+    logger.info('loading US Womens labor participation data')
     Mroz_pickle = data_folder + 'Mroz.pkl'
     if exists(Mroz_pickle):
         with open(Mroz_pickle, 'rb') as Mroz_fp:
@@ -1549,6 +1549,21 @@ if __name__ == '__main__':
     logger.info('nuclear data has variables %s and has %d rows' % (list(nuclear_data), len(nuclear_data)))
     nuclear_title = nuclear_bundle.title
     logger.info('nuclear data has title %s' % nuclear_title)
+
+    logger.info('loading repeated measures data')
+    OBrienKaiser_pickle = data_folder + 'OBrienKaiser.pkl'
+    if exists(OBrienKaiser_pickle):
+        with open(OBrienKaiser_pickle, 'rb') as OBrienKaiser_fp:
+            OBrienKaiser_bundle = pickle.load(OBrienKaiser_fp)
+    else:
+        OBrienKaiser_bundle = get_rdataset('OBrienKaiser', 'carData')
+        with open(OBrienKaiser_pickle, 'wb') as OBrienKaiser_fp:
+            pickle.dump(OBrienKaiser_bundle, OBrienKaiser_fp)
+    OBrienKaiser_data = OBrienKaiser_bundle.data
+    logger.info(
+        'OBrienKaiser data has variables %s and has %d rows' % (list(OBrienKaiser_data), len(OBrienKaiser_data)))
+    OBrienKaiser_title = OBrienKaiser_bundle.title
+    logger.info('OBrienKaiser data has title %s' % OBrienKaiser_title)
 
     logger.info('loading Olivetti faces data')
     olivetti_faces = fetch_olivetti_faces(data_home=data_folder)

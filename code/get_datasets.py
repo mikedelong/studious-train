@@ -1572,6 +1572,20 @@ if __name__ == '__main__':
     olivetti_faces_target = olivetti_faces['target']
     olivetti_faces_description = olivetti_faces['DESCR']
 
+    logger.info('loading Canadian directorates data')
+    Ornstein_pickle = data_folder + 'Ornstein.pkl'
+    if exists(Ornstein_pickle):
+        with open(Ornstein_pickle, 'rb') as Ornstein_fp:
+            Ornstein_bundle = pickle.load(Ornstein_fp)
+    else:
+        Ornstein_bundle = get_rdataset('Ornstein', 'carData')
+        with open(Ornstein_pickle, 'wb') as Ornstein_fp:
+            pickle.dump(Ornstein_bundle, Ornstein_fp)
+    Ornstein_data = Ornstein_bundle.data
+    logger.info('Ornstein data has variables %s and has %d rows' % (list(Ornstein_data), len(Ornstein_data)))
+    Ornstein_title = Ornstein_bundle.title
+    logger.info('Ornstein data has title %s' % Ornstein_title)
+
     logger.info('loading Guinea pig brain data')
     paulsen_pickle = data_folder + 'paulsen.pkl'
     if exists(paulsen_pickle):

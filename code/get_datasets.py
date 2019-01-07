@@ -1209,13 +1209,13 @@ if __name__ == '__main__':
     islay_title = islay_bundle.title
     logger.info('islay data has title %s' % islay_title)
 
+    logger.info('loading KDD data')
     random_state = 1
     kdd_pickle = data_folder + 'kddcup99.pkl'
     if exists(kdd_pickle):
         with open(kdd_pickle, 'rb') as kdd_fp:
             kdd_bunch = pickle.load(kdd_fp)
     else:
-        logger.info('loading KDD data')
         kdd_bunch = fetch_kddcup99(random_state=random_state, download_if_missing=True)
         with open(kdd_pickle, 'wb') as kdd_fp:
             pickle.dump(kdd_bunch, kdd_fp)

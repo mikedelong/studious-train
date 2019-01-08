@@ -1628,6 +1628,20 @@ if __name__ == '__main__':
     polar_title = polar_bundle.title
     logger.info('polar data has title %s' % polar_title)
 
+    logger.info('loading chemical composition of pottery data')
+    Pottery_pickle = data_folder + 'Pottery.pkl'
+    if exists(Pottery_pickle):
+        with open(Pottery_pickle, 'rb') as Pottery_fp:
+            Pottery_bundle = pickle.load(Pottery_fp)
+    else:
+        Pottery_bundle = get_rdataset('Pottery', 'carData')
+        with open(Pottery_pickle, 'wb') as Pottery_fp:
+            pickle.dump(Pottery_bundle, Pottery_fp)
+    Pottery_data = Pottery_bundle.data
+    logger.info('Pottery data has variables %s and has %d rows' % (list(Pottery_data), len(Pottery_data)))
+    Pottery_title = Pottery_bundle.title
+    logger.info('Pottery data has title %s' % Pottery_title)
+
     logger.info('loading RAND health insurance experiment data')
     randhie_pickle = data_folder + 'randhie.pkl'
     if exists(randhie_pickle):

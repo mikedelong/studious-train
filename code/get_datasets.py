@@ -1642,6 +1642,20 @@ if __name__ == '__main__':
     Pottery_title = Pottery_bundle.title
     logger.info('Pottery data has title %s' % Pottery_title)
 
+    logger.info('loading Canadian occupation prestige data')
+    Prestige_pickle = data_folder + 'Prestige.pkl'
+    if exists(Prestige_pickle):
+        with open(Prestige_pickle, 'rb') as Prestige_fp:
+            Prestige_bundle = pickle.load(Prestige_fp)
+    else:
+        Prestige_bundle = get_rdataset('Prestige', 'carData')
+        with open(Prestige_pickle, 'wb') as Prestige_fp:
+            pickle.dump(Prestige_bundle, Prestige_fp)
+    Prestige_data = Prestige_bundle.data
+    logger.info('Prestige data has variables %s and has %d rows' % (list(Prestige_data), len(Prestige_data)))
+    Prestige_title = Prestige_bundle.title
+    logger.info('Prestige data has title %s' % Prestige_title)
+
     logger.info('loading RAND health insurance experiment data')
     randhie_pickle = data_folder + 'randhie.pkl'
     if exists(randhie_pickle):

@@ -1656,6 +1656,20 @@ if __name__ == '__main__':
     Prestige_title = Prestige_bundle.title
     logger.info('Prestige data has title %s' % Prestige_title)
 
+    logger.info('loading demo regression data')
+    Quartet_pickle = data_folder + 'Quartet.pkl'
+    if exists(Quartet_pickle):
+        with open(Quartet_pickle, 'rb') as Quartet_fp:
+            Quartet_bundle = pickle.load(Quartet_fp)
+    else:
+        Quartet_bundle = get_rdataset('Quartet', 'carData')
+        with open(Quartet_pickle, 'wb') as Quartet_fp:
+            pickle.dump(Quartet_bundle, Quartet_fp)
+    Quartet_data = Quartet_bundle.data
+    logger.info('Quartet data has variables %s and has %d rows' % (list(Quartet_data), len(Quartet_data)))
+    Quartet_title = Quartet_bundle.title
+    logger.info('Quartet data has title %s' % Quartet_title)
+
     logger.info('loading RAND health insurance experiment data')
     randhie_pickle = data_folder + 'randhie.pkl'
     if exists(randhie_pickle):

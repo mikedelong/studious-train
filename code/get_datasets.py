@@ -1708,6 +1708,21 @@ if __name__ == '__main__':
     rcv1_description = rcv1_bunch['DESCR']
     logger.info('Reuters data has description %s' % str(rcv1_description).strip())
 
+    logger.info('loading fertility and contraception data')
+    Robey_pickle = data_folder + 'Robey.pkl'
+    if exists(Robey_pickle):
+        with open(Robey_pickle, 'rb') as Robey_fp:
+            Robey_bundle = pickle.load(Robey_fp)
+    else:
+        Robey_bundle = get_rdataset('Robey', 'carData')
+        with open(Robey_pickle, 'wb') as Robey_fp:
+            pickle.dump(Robey_bundle, Robey_fp)
+    Robey_data = Robey_bundle.data
+    logger.info('Robey data has variables %s and has %d rows' % (list(Robey_data), len(Robey_data)))
+    Robey_title = Robey_bundle.title
+    logger.info('Robey data has title %s' % Robey_title)
+
+
     logger.info('loading water salinity data')
     salinity_pickle = data_folder + 'salinity.pkl'
     if exists(salinity_pickle):

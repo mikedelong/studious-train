@@ -1722,6 +1722,19 @@ if __name__ == '__main__':
     Robey_title = Robey_bundle.title
     logger.info('Robey data has title %s' % Robey_title)
 
+    logger.info('loading Mazulu agriculture data')
+    Sahlins_pickle = data_folder + 'Sahlins.pkl'
+    if exists(Sahlins_pickle):
+        with open(Sahlins_pickle, 'rb') as Sahlins_fp:
+            Sahlins_bundle = pickle.load(Sahlins_fp)
+    else:
+        Sahlins_bundle = get_rdataset('Sahlins', 'carData')
+        with open(Sahlins_pickle, 'wb') as Sahlins_fp:
+            pickle.dump(Sahlins_bundle, Sahlins_fp)
+    Sahlins_data = Sahlins_bundle.data
+    logger.info('Sahlins data has variables %s and has %d rows' % (list(Sahlins_data), len(Sahlins_data)))
+    Sahlins_title = Sahlins_bundle.title
+    logger.info('Sahlins data has title %s' % Sahlins_title)
 
     logger.info('loading water salinity data')
     salinity_pickle = data_folder + 'salinity.pkl'

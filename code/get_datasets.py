@@ -1736,6 +1736,20 @@ if __name__ == '__main__':
     Sahlins_title = Sahlins_bundle.title
     logger.info('Sahlins data has title %s' % Sahlins_title)
 
+    logger.info('loading professor salary data')
+    Salaries_pickle = data_folder + 'Salaries.pkl'
+    if exists(Salaries_pickle):
+        with open(Salaries_pickle, 'rb') as Salaries_fp:
+            Salaries_bundle = pickle.load(Salaries_fp)
+    else:
+        Salaries_bundle = get_rdataset('Salaries', 'carData')
+        with open(Salaries_pickle, 'wb') as Salaries_fp:
+            pickle.dump(Salaries_bundle, Salaries_fp)
+    Salaries_data = Salaries_bundle.data
+    logger.info('Salaries data has variables %s and has %d rows' % (list(Salaries_data), len(Salaries_data)))
+    Salaries_title = Salaries_bundle.title
+    logger.info('Salaries data has title %s' % Salaries_title)
+
     logger.info('loading water salinity data')
     salinity_pickle = data_folder + 'salinity.pkl'
     if exists(salinity_pickle):

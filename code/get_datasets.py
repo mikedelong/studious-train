@@ -1786,6 +1786,20 @@ if __name__ == '__main__':
     scotland_names = scotland_bunch['names']
     logger.info('scotland names: %s' % str(scotland_names))
 
+    logger.info('loading labor and income dynamics data')
+    SLID_pickle = data_folder + 'SLID.pkl'
+    if exists(SLID_pickle):
+        with open(SLID_pickle, 'rb') as SLID_fp:
+            SLID_bundle = pickle.load(SLID_fp)
+    else:
+        SLID_bundle = get_rdataset('SLID', 'carData')
+        with open(SLID_pickle, 'wb') as SLID_fp:
+            pickle.dump(SLID_bundle, SLID_fp)
+    SLID_data = SLID_bundle.data
+    logger.info('SLID data has variables %s and has %d rows' % (list(SLID_data), len(SLID_data)))
+    SLID_title = SLID_bundle.title
+    logger.info('SLID data has title %s' % SLID_title)
+
     logger.info('loading Spector and Mazzeo program effectiveness data')
     spector_pickle = data_folder + 'spector.pkl'
     if exists(spector_pickle):

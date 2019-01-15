@@ -1800,6 +1800,20 @@ if __name__ == '__main__':
     SLID_title = SLID_bundle.title
     logger.info('SLID data has title %s' % SLID_title)
 
+    logger.info('loading soil composition data')
+    Soils_pickle = data_folder + 'Soils.pkl'
+    if exists(Soils_pickle):
+        with open(Soils_pickle, 'rb') as Soils_fp:
+            Soils_bundle = pickle.load(Soils_fp)
+    else:
+        Soils_bundle = get_rdataset('Soils', 'carData')
+        with open(Soils_pickle, 'wb') as Soils_fp:
+            pickle.dump(Soils_bundle, Soils_fp)
+    Soils_data = Soils_bundle.data
+    logger.info('Soils data has variables %s and has %d rows' % (list(Soils_data), len(Soils_data)))
+    Soils_title = Soils_bundle.title
+    logger.info('Soils data has title %s' % Soils_title)
+
     logger.info('loading Spector and Mazzeo program effectiveness data')
     spector_pickle = data_folder + 'spector.pkl'
     if exists(spector_pickle):

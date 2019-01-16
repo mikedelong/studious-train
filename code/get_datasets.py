@@ -1870,6 +1870,20 @@ if __name__ == '__main__':
     statecrime_names = statecrime_bunch['names']
     logger.info('statecrime names: %s' % str(statecrime_names))
 
+    logger.info('loading education and related statistics data')
+    States_pickle = data_folder + 'States.pkl'
+    if exists(States_pickle):
+        with open(States_pickle, 'rb') as States_fp:
+            States_bundle = pickle.load(States_fp)
+    else:
+        States_bundle = get_rdataset('States', 'carData')
+        with open(States_pickle, 'wb') as States_fp:
+            pickle.dump(States_bundle, States_fp)
+    States_data = States_bundle.data
+    logger.info('States data has variables %s and has %d rows' % (list(States_data), len(States_data)))
+    States_title = States_bundle.title
+    logger.info('States data has title %s' % States_title)
+
     logger.info('loading US strike duration data')
     strikes_pickle = data_folder + 'strikes.pkl'
     if exists(strikes_pickle):

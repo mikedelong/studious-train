@@ -1951,7 +1951,7 @@ if __name__ == '__main__':
             pickle.dump(TitanicSurvival_bundle, TitanicSurvival_fp)
     TitanicSurvival_data = TitanicSurvival_bundle.data
     logger.info('TitanicSurvival data has variables %s and has %d rows' % (
-    list(TitanicSurvival_data), len(TitanicSurvival_data)))
+        list(TitanicSurvival_data), len(TitanicSurvival_data)))
     TitanicSurvival_title = TitanicSurvival_bundle.title
     logger.info('TitanicSurvival data has title %s' % TitanicSurvival_title)
 

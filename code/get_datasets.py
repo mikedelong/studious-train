@@ -1955,6 +1955,21 @@ if __name__ == '__main__':
     TitanicSurvival_title = TitanicSurvival_bundle.title
     logger.info('TitanicSurvival data has title %s' % TitanicSurvival_title)
 
+    logger.info('loading transaction data')
+    Transact_pickle = data_folder + 'Transact.pkl'
+    if exists(Transact_pickle):
+        with open(Transact_pickle, 'rb') as Transact_fp:
+            Transact_bundle = pickle.load(Transact_fp)
+    else:
+        Transact_bundle = get_rdataset('Transact', 'carData')
+        with open(Transact_pickle, 'wb') as Transact_fp:
+            pickle.dump(Transact_bundle, Transact_fp)
+    Transact_data = Transact_bundle.data
+    logger.info('Transact data has variables %s and has %d rows' % (
+        list(Transact_data), len(Transact_data)))
+    Transact_title = Transact_bundle.title
+    logger.info('Transact data has title %s' % Transact_title)
+
     logger.info('loading tuna sighting data')
     tuna_pickle = data_folder + 'tuna.pkl'
     if exists(tuna_pickle):

@@ -1984,6 +1984,21 @@ if __name__ == '__main__':
     tuna_title = tuna_bundle.title
     logger.info('tuna data has title %s' % tuna_title)
 
+    logger.info('loading UN national statistics data')
+    UN_pickle = data_folder + 'UN.pkl'
+    if exists(UN_pickle):
+        with open(UN_pickle, 'rb') as UN_fp:
+            UN_bundle = pickle.load(UN_fp)
+    else:
+        UN_bundle = get_rdataset('UN', 'carData')
+        with open(UN_pickle, 'wb') as UN_fp:
+            pickle.dump(UN_bundle, UN_fp)
+    UN_data = UN_bundle.data
+    logger.info('UN data has variables %s and has %d rows' % (
+        list(UN_data), len(UN_data)))
+    UN_title = UN_bundle.title
+    logger.info('UN data has title %s' % UN_title)
+
     logger.info('loading urine analysis data')
     urine_pickle = data_folder + 'urine.pkl'
     if exists(urine_pickle):

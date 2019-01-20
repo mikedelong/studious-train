@@ -1999,6 +1999,21 @@ if __name__ == '__main__':
     UN_title = UN_bundle.title
     logger.info('UN data has title %s' % UN_title)
 
+    logger.info('loading US population data')
+    USPop_pickle = data_folder + 'USPop.pkl'
+    if exists(USPop_pickle):
+        with open(USPop_pickle, 'rb') as USPop_fp:
+            USPop_bUSPopdle = pickle.load(USPop_fp)
+    else:
+        USPop_bUSPopdle = get_rdataset('USPop', 'carData')
+        with open(USPop_pickle, 'wb') as USPop_fp:
+            pickle.dump(USPop_bUSPopdle, USPop_fp)
+    USPop_data = USPop_bUSPopdle.data
+    logger.info('USPop data has variables %s and has %d rows' % (
+        list(USPop_data), len(USPop_data)))
+    USPop_title = USPop_bUSPopdle.title
+    logger.info('USPop data has title %s' % USPop_title)
+
     logger.info('loading urine analysis data')
     urine_pickle = data_folder + 'urine.pkl'
     if exists(urine_pickle):

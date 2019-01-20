@@ -1999,7 +1999,6 @@ if __name__ == '__main__':
     UN_title = UN_bundle.title
     logger.info('UN data has title %s' % UN_title)
 
-
     logger.info('loading urine analysis data')
     urine_pickle = data_folder + 'urine.pkl'
     if exists(urine_pickle):

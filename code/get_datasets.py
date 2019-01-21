@@ -2028,6 +2028,21 @@ if __name__ == '__main__':
     USPop_title = USPop_bundle.title
     logger.info('USPop data has title %s' % USPop_title)
 
+    logger.info('loading vocabulary and education data')
+    Vocab_pickle = data_folder + 'Vocab.pkl'
+    if exists(Vocab_pickle):
+        with open(Vocab_pickle, 'rb') as Vocab_fp:
+            Vocab_bundle = pickle.load(Vocab_fp)
+    else:
+        Vocab_bundle = get_rdataset('Vocab', 'carData')
+        with open(Vocab_pickle, 'wb') as Vocab_fp:
+            pickle.dump(Vocab_bundle, Vocab_fp)
+    Vocab_data = Vocab_bundle.data
+    logger.info('Vocab data has variables %s and has %d rows' % (
+        list(Vocab_data), len(Vocab_data)))
+    Vocab_title = Vocab_bundle.title
+    logger.info('Vocab data has title %s' % Vocab_title)
+
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)
     wine_data = wine_bunch['data']

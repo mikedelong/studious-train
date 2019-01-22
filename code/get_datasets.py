@@ -2043,6 +2043,21 @@ if __name__ == '__main__':
     Vocab_title = Vocab_bundle.title
     logger.info('Vocab data has title %s' % Vocab_title)
 
+    logger.info('loading weight loss data')
+    WeightLoss_pickle = data_folder + 'WeightLoss.pkl'
+    if exists(WeightLoss_pickle):
+        with open(WeightLoss_pickle, 'rb') as WeightLoss_fp:
+            WeightLoss_bundle = pickle.load(WeightLoss_fp)
+    else:
+        WeightLoss_bundle = get_rdataset('WeightLoss', 'carData')
+        with open(WeightLoss_pickle, 'wb') as WeightLoss_fp:
+            pickle.dump(WeightLoss_bundle, WeightLoss_fp)
+    WeightLoss_data = WeightLoss_bundle.data
+    logger.info('WeightLoss data has variables %s and has %d rows' % (
+        list(WeightLoss_data), len(WeightLoss_data)))
+    WeightLoss_title = WeightLoss_bundle.title
+    logger.info('WeightLoss data has title %s' % WeightLoss_title)
+
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)
     wine_data = wine_bunch['data']

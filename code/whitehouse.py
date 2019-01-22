@@ -26,7 +26,6 @@ if __name__ == '__main__':
     url = 'https://raw.githubusercontent.com/maxharlow/tutorials/master/' \
           'find-connections-with-fuzzy-matching/white-house-visitors.csv'
     csv_file = 'white-house-visitors.csv'
-    # todo does this introduce any extra columns etc?
     input_file = data_folder + csv_file
     if not exists(input_file):
         logger.info('reading data from URL {}'.format(url))

@@ -2058,6 +2058,21 @@ if __name__ == '__main__':
     WeightLoss_title = WeightLoss_bundle.title
     logger.info('WeightLoss data has title %s' % WeightLoss_title)
 
+    logger.info('loading Bangladeshi well data')
+    Wells_pickle = data_folder + 'Wells.pkl'
+    if exists(Wells_pickle):
+        with open(Wells_pickle, 'rb') as Wells_fp:
+            Wells_bundle = pickle.load(Wells_fp)
+    else:
+        Wells_bundle = get_rdataset('Wells', 'carData')
+        with open(Wells_pickle, 'wb') as Wells_fp:
+            pickle.dump(Wells_bundle, Wells_fp)
+    Wells_data = Wells_bundle.data
+    logger.info('Wells data has variables %s and has %d rows' % (
+        list(Wells_data), len(Wells_data)))
+    Wells_title = Wells_bundle.title
+    logger.info('Wells data has title %s' % Wells_title)
+
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)
     wine_data = wine_bunch['data']

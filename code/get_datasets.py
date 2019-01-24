@@ -2084,6 +2084,21 @@ if __name__ == '__main__':
     logger.info('wine feature names: %s' % wine_feature_names)
     wine_description = wine_bunch['DESCR']
 
+    logger.info('loading Women\'s labor force participation data')
+    Womenlf_pickle = data_folder + 'Womenlf.pkl'
+    if exists(Womenlf_pickle):
+        with open(Womenlf_pickle, 'rb') as Womenlf_fp:
+            Womenlf_bundle = pickle.load(Womenlf_fp)
+    else:
+        Womenlf_bundle = get_rdataset('Womenlf', 'carData')
+        with open(Womenlf_pickle, 'wb') as Womenlf_fp:
+            pickle.dump(Womenlf_bundle, Womenlf_fp)
+    Womenlf_data = Womenlf_bundle.data
+    logger.info('Womenlf data has variables %s and has %d rows' % (
+        list(Womenlf_data), len(Womenlf_data)))
+    Womenlf_title = Womenlf_bundle.title
+    logger.info('Womenlf data has title %s' % Womenlf_title)
+
     logger.info('loading Australian wool data')
     wool_pickle = data_folder + 'wool.pkl'
     if exists(wool_pickle):

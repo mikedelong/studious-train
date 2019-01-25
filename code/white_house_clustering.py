@@ -67,15 +67,10 @@ if __name__ == '__main__':
 
     hasher = FeatureHasher(input_type="string", n_features=25, dtype=np.int32)
 
-    hashes = []
-    for name in names:
-        shingles = ["".join(trigram) for trigram
-                    in nltk.trigrams([c for c in name])]
-        name_hash = hasher.transform([shingles]).toarray()
-        hashes.append(name_hash)
-        # print(keyword, keyword_hash)
-
-    # print("jaccard:", jaccard_similarity_score(hashes[0][0], hashes[1][0]))
+    hashes = [
+        hasher.transform([[''.join(trigram) for trigram in nltk.trigrams([c for c in name])]]).toarray()
+        for name in names
+    ]
 
     scores = [[jaccard_similarity_score(hashes[i][0], hashes[j][0])
                for i in range(len(names))] for j in range(len(names))]

@@ -2099,6 +2099,21 @@ if __name__ == '__main__':
     Womenlf_title = Womenlf_bundle.title
     logger.info('Womenlf data has title %s' % Womenlf_title)
 
+    logger.info('loading post-coma IQ recovery data')
+    Wong_pickle = data_folder + 'Wong.pkl'
+    if exists(Wong_pickle):
+        with open(Wong_pickle, 'rb') as Wong_fp:
+            Wong_bundle = pickle.load(Wong_fp)
+    else:
+        Wong_bundle = get_rdataset('Wong', 'carData')
+        with open(Wong_pickle, 'wb') as Wong_fp:
+            pickle.dump(Wong_bundle, Wong_fp)
+    Wong_data = Wong_bundle.data
+    logger.info('Wong data has variables %s and has %d rows' % (
+        list(Wong_data), len(Wong_data)))
+    Wong_title = Wong_bundle.title
+    logger.info('Wong data has title %s' % Wong_title)
+
     logger.info('loading Australian wool data')
     wool_pickle = data_folder + 'wool.pkl'
     if exists(wool_pickle):

@@ -1,3 +1,4 @@
+nltk
 Pillow
 bokeh
 dash

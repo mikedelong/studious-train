@@ -2143,6 +2143,21 @@ if __name__ == '__main__':
     wool_title = wool_bundle.title
     logger.info('wool data has title %s' % wool_title)
 
+    logger.info('loading World Values Survey data')
+    WVS_pickle = data_folder + 'WVS.pkl'
+    if exists(WVS_pickle):
+        with open(WVS_pickle, 'rb') as WVS_fp:
+            WVS_bundle = pickle.load(WVS_fp)
+    else:
+        WVS_bundle = get_rdataset('WVS', 'carData')
+        with open(WVS_pickle, 'wb') as WVS_fp:
+            pickle.dump(WVS_bundle, WVS_fp)
+    WVS_data = WVS_bundle.data
+    logger.info('WVS data has variables %s and has %d rows' % (
+        list(WVS_data), len(WVS_data)))
+    WVS_title = WVS_bundle.title
+    logger.info('WVS data has title %s' % WVS_title)
+
     logger.info('done')
 
     finish_time = time()

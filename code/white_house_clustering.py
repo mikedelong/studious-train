@@ -65,17 +65,17 @@ if __name__ == '__main__':
     logger.info(names)
     # http://sujitpal.blogspot.com/2018/08/keyword-deduplication-using-python.html
 
-    hasher = FeatureHasher(input_type="string", n_features=25, dtype=np.int32)
+    # for some reason fewer features means more clusters
+    n_features = 4
+    hasher = FeatureHasher(input_type="string", n_features=n_features, dtype=np.int32)
 
-    hashes = [
-        hasher.transform([[''.join(trigram) for trigram in nltk.trigrams([c for c in name])]]).toarray()
-        for name in names
-    ]
+    hashes = [hasher.transform([[''.join(trigram) for trigram in nltk.trigrams([c for c in name])]]).toarray() for name
+              in names]
 
-    scores = [[jaccard_similarity_score(hashes[i][0], hashes[j][0])
-               for i in range(len(names))] for j in range(len(names))]
+    # todo do we want the distance or the similarity?
+    scores = np.array([[1.0 - jaccard_similarity_score(hashes[i][0], hashes[j][0]) for i in range(len(names))] for j in
+                       range(len(names))])
 
-    scores = np.array(scores)
     scores_df = pd.DataFrame(data=scores, index=names, columns=names)
     pdist_result = pdist(scores)
     linkage_result = linkage(pdist_result, method='complete')

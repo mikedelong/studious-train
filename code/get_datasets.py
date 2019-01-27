@@ -97,6 +97,20 @@ if __name__ == '__main__':
     Adler_title = Adler_bundle.title
     logger.info('Adler data has title %s' % Adler_title)
 
+    logger.info('loading EU agriculture workforce data')
+    agriculture_pickle = data_folder + 'agriculture.pkl'
+    if exists(agriculture_pickle):
+        with open(agriculture_pickle, 'rb') as agriculture_fp:
+            agriculture_bundle = pickle.load(agriculture_fp)
+    else:
+        agriculture_bundle = get_rdataset('agriculture', 'cluster')
+        with open(agriculture_pickle, 'wb') as agriculture_fp:
+            pickle.dump(agriculture_bundle, agriculture_fp)
+    agriculture_data = agriculture_bundle.data
+    logger.info('agriculture data has variables %s and has %d rows' % (list(agriculture_data), len(agriculture_data)))
+    agriculture_title = agriculture_bundle.title
+    logger.info('agriculture data has title %s' % agriculture_title)
+
     logger.info('loading aids data')
     aids_pickle = data_folder + 'aids.pkl'
     if exists(aids_pickle):

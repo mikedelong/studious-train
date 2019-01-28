@@ -229,6 +229,20 @@ if __name__ == '__main__':
     Angell_title = Angell_bundle.title
     logger.info('Angell data has title %s' % Angell_title)
 
+    logger.info('loading animal attribute data')
+    animals_pickle = data_folder + 'animals.pkl'
+    if exists(animals_pickle):
+        with open(animals_pickle, 'rb') as animals_fp:
+            animals_bundle = pickle.load(animals_fp)
+    else:
+        animals_bundle = get_rdataset('animals', 'cluster')
+        with open(animals_pickle, 'wb') as animals_fp:
+            pickle.dump(animals_bundle, animals_fp)
+    animals_data = animals_bundle.data
+    logger.info('animals data has variables %s and has %d rows' % (list(animals_data), len(animals_data)))
+    animals_title = animals_bundle.title
+    logger.info('animals data has title %s' % animals_title)
+
     logger.info('loading US public school expenditure data')
     Anscombe_pickle = data_folder + 'Anscombe.pkl'
     if exists(Anscombe_pickle):

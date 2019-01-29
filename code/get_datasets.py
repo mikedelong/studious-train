@@ -618,6 +618,20 @@ if __name__ == '__main__':
     Chirot_title = Chirot_bundle.title
     logger.info('Chirot data has title %s' % Chirot_title)
 
+    logger.info('loading kola data')
+    chorSub_pickle = data_folder + 'chorSub.pkl'
+    if exists(chorSub_pickle):
+        with open(chorSub_pickle, 'rb') as chorSub_fp:
+            chorSub_bundle = pickle.load(chorSub_fp)
+    else:
+        chorSub_bundle = get_rdataset('chorSub', 'cluster')
+        with open(chorSub_pickle, 'wb') as chorSub_fp:
+            pickle.dump(chorSub_bundle, chorSub_fp)
+    chorSub_data = chorSub_bundle.data
+    logger.info('chorSub data has variables %s and has %d rows' % (list(chorSub_data), len(chorSub_data)))
+    chorSub_title = chorSub_bundle.title
+    logger.info('chorSub data has title %s' % chorSub_title)
+
     logger.info('loading US City population data')
     city_pickle = data_folder + 'city.pkl'
     if exists(city_pickle):

@@ -1007,6 +1007,20 @@ if __name__ == '__main__':
     Florida_title = Florida_bundle.title
     logger.info('Florida data has title %s' % Florida_title)
 
+    logger.info('loading flower characteristics data')
+    flower_pickle = data_folder + 'flower.pkl'
+    if exists(flower_pickle):
+        with open(flower_pickle, 'rb') as flower_fp:
+            flower_bundle = pickle.load(flower_fp)
+    else:
+        flower_bundle = get_rdataset('flower', 'cluster')
+        with open(flower_pickle, 'wb') as flower_fp:
+            pickle.dump(flower_bundle, flower_fp)
+    flower_data = flower_bundle.data
+    logger.info('flower data has variables %s and has %d rows' % (list(flower_data), len(flower_data)))
+    flower_title = flower_bundle.title
+    logger.info('flower data has title %s' % flower_title)
+
     logger.info('loading fraternal head size data')
     frets_pickle = data_folder + 'frets.pkl'
     if exists(frets_pickle):

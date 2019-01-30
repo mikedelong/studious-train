@@ -1,3 +1,4 @@
+# https://qbox.io/blog/building-an-elasticsearch-index-with-python
 import logging
 from time import time
 
@@ -17,6 +18,7 @@ if __name__ == '__main__':
 
     logger.info('started')
     ES_HOST = {'host': 'localhost', 'port': 9200}
+    # todo move index name to a setting
     INDEX_NAME = 'natinst'
     es = Elasticsearch(hosts=[ES_HOST])
     if es.indices.exists(INDEX_NAME):
@@ -24,12 +26,10 @@ if __name__ == '__main__':
         res = es.indices.delete(index=INDEX_NAME)
         logger.info('response: \'{}\''.format(res))
     # since we are running locally, use one shard and no replicas
-    request_body = {
-        'settings': {
-            'number_of_shards': 1,
-            'number_of_replicas': 0
-        }
-    }
+    request_body = dict(settings={
+        'number_of_shards': 1,
+        'number_of_replicas': 0
+    })
     logger.info('creating \'{}\' index'.format(INDEX_NAME))
     res = es.indices.create(index=INDEX_NAME, body=request_body)
     logger.info('response: \'{}\''.format(res))

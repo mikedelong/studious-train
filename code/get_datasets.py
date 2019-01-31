@@ -1656,6 +1656,20 @@ if __name__ == '__main__':
     paulsen_title = paulsen_bundle.title
     logger.info('paulsen data has title %s' % paulsen_title)
 
+    logger.info('loading plant species traits data')
+    plantTraits_pickle = data_folder + 'plantTraits.pkl'
+    if exists(plantTraits_pickle):
+        with open(plantTraits_pickle, 'rb') as plantTraits_fp:
+            plantTraits_bundle = pickle.load(plantTraits_fp)
+    else:
+        plantTraits_bundle = get_rdataset('plantTraits', 'cluster')
+        with open(plantTraits_pickle, 'wb') as plantTraits_fp:
+            pickle.dump(plantTraits_bundle, plantTraits_fp)
+    plantTraits_data = plantTraits_bundle.data
+    logger.info('plantTraits data has variables %s and has %d rows' % (list(plantTraits_data), len(plantTraits_data)))
+    plantTraits_title = plantTraits_bundle.title
+    logger.info('plantTraits data has title %s' % plantTraits_title)
+
     logger.info('loading animal poison data')
     poisons_pickle = data_folder + 'poisons.pkl'
     if exists(poisons_pickle):

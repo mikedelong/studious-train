@@ -1820,6 +1820,20 @@ if __name__ == '__main__':
     Robey_title = Robey_bundle.title
     logger.info('Robey data has title %s' % Robey_title)
 
+    logger.info('loading Ruspini data')
+    ruspini_pickle = data_folder + 'ruspini.pkl'
+    if exists(ruspini_pickle):
+        with open(ruspini_pickle, 'rb') as ruspini_fp:
+            ruspini_bundle = pickle.load(ruspini_fp)
+    else:
+        ruspini_bundle = get_rdataset('ruspini', 'cluster')
+        with open(ruspini_pickle, 'wb') as ruspini_fp:
+            pickle.dump(ruspini_bundle, ruspini_fp)
+    ruspini_data = ruspini_bundle.data
+    logger.info('ruspini data has variables %s and has %d rows' % (list(ruspini_data), len(ruspini_data)))
+    ruspini_title = ruspini_bundle.title
+    logger.info('ruspini data has title %s' % ruspini_title)
+
     logger.info('loading Mazulu agriculture data')
     Sahlins_pickle = data_folder + 'Sahlins.pkl'
     if exists(Sahlins_pickle):

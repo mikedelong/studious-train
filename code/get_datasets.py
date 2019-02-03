@@ -2155,6 +2155,20 @@ if __name__ == '__main__':
     Vocab_title = Vocab_bundle.title
     logger.info('Vocab data has title %s' % Vocab_title)
 
+    logger.info('loading Presidential Republican voting dat data')
+    votes_repub_pickle = data_folder + 'votes.repub.pkl'
+    if exists(votes_repub_pickle):
+        with open(votes_repub_pickle, 'rb') as votes_repub_fp:
+            votes_repub_bundle = pickle.load(votes_repub_fp)
+    else:
+        votes_repub_bundle = get_rdataset('votes.repub', 'cluster')
+        with open(votes_repub_pickle, 'wb') as votes_repub_fp:
+            pickle.dump(votes_repub_bundle, votes_repub_fp)
+    votes_repub_data = votes_repub_bundle.data
+    logger.info('votes.repub data has variables %s and has %d rows' % (list(votes_repub_data), len(votes_repub_data)))
+    votes_repub_title = votes_repub_bundle.title
+    logger.info('votes.repub data has title %s' % votes_repub_title)
+
     logger.info('loading weight loss data')
     WeightLoss_pickle = data_folder + 'WeightLoss.pkl'
     if exists(WeightLoss_pickle):

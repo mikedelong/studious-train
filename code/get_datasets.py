@@ -2284,6 +2284,20 @@ if __name__ == '__main__':
     WVS_title = WVS_bundle.title
     logger.info('WVS data has title %s' % WVS_title)
 
+    logger.info('loading bivariate three-cluster data')
+    xclara_pickle = data_folder + 'xclara.pkl'
+    if exists(xclara_pickle):
+        with open(xclara_pickle, 'rb') as xclara_fp:
+            xclara_bundle = pickle.load(xclara_fp)
+    else:
+        xclara_bundle = get_rdataset('xclara', 'cluster')
+        with open(xclara_pickle, 'wb') as xclara_fp:
+            pickle.dump(xclara_bundle, xclara_fp)
+    xclara_data = xclara_bundle.data
+    logger.info('xclara data has variables %s and has %d rows' % (list(xclara_data), len(xclara_data)))
+    xclara_title = xclara_bundle.title
+    logger.info('xclara data has title %s' % xclara_title)
+
     logger.info('done')
 
     finish_time = time()

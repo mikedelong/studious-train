@@ -285,6 +285,20 @@ if __name__ == '__main__':
     Arrests_title = Arrests_bundle.title
     logger.info('Arrests data has title %s' % Arrests_title)
 
+    logger.info('loading azcabgptca(?) data')
+    azcabgptca_pickle = data_folder + 'azcabgptca.pkl'
+    if exists(azcabgptca_pickle):
+        with open(azcabgptca_pickle, 'rb') as azcabgptca_fp:
+            azcabgptca_bundle = pickle.load(azcabgptca_fp)
+    else:
+        azcabgptca_bundle = get_rdataset('azcabgptca', 'COUNT')
+        with open(azcabgptca_pickle, 'wb') as azcabgptca_fp:
+            pickle.dump(azcabgptca_bundle, azcabgptca_fp)
+    azcabgptca_data = azcabgptca_bundle.data
+    logger.info('azcabgptca data has variables %s and has %d rows' % (list(azcabgptca_data), len(azcabgptca_data)))
+    azcabgptca_title = azcabgptca_bundle.title
+    logger.info('azcabgptca data has title %s' % azcabgptca_title)
+
     logger.info('loading reading comprehension data')
     Baumann_pickle = data_folder + 'Baumann.pkl'
     if exists(Baumann_pickle):

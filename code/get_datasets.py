@@ -299,6 +299,20 @@ if __name__ == '__main__':
     azcabgptca_title = azcabgptca_bundle.title
     logger.info('azcabgptca data has title %s' % azcabgptca_title)
 
+    logger.info('loading azdrg112(?) data')
+    azdrg112_pickle = data_folder + 'azdrg112.pkl'
+    if exists(azdrg112_pickle):
+        with open(azdrg112_pickle, 'rb') as azdrg112_fp:
+            azdrg112_bundle = pickle.load(azdrg112_fp)
+    else:
+        azdrg112_bundle = get_rdataset('azdrg112', 'COUNT')
+        with open(azdrg112_pickle, 'wb') as azdrg112_fp:
+            pickle.dump(azdrg112_bundle, azdrg112_fp)
+    azdrg112_data = azdrg112_bundle.data
+    logger.info('azdrg112 data has variables %s and has %d rows' % (list(azdrg112_data), len(azdrg112_data)))
+    azdrg112_title = azdrg112_bundle.title
+    logger.info('azdrg112 data has title %s' % azdrg112_title)
+
     logger.info('loading reading comprehension data')
     Baumann_pickle = data_folder + 'Baumann.pkl'
     if exists(Baumann_pickle):

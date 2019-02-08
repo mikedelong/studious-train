@@ -313,6 +313,20 @@ if __name__ == '__main__':
     azdrg112_title = azdrg112_bundle.title
     logger.info('azdrg112 data has title %s' % azdrg112_title)
 
+    logger.info('loading azpro data')
+    azpro_pickle = data_folder + 'azpro.pkl'
+    if exists(azpro_pickle):
+        with open(azpro_pickle, 'rb') as azpro_fp:
+            azpro_bundle = pickle.load(azpro_fp)
+    else:
+        azpro_bundle = get_rdataset('azpro', 'COUNT')
+        with open(azpro_pickle, 'wb') as azpro_fp:
+            pickle.dump(azpro_bundle, azpro_fp)
+    azpro_data = azpro_bundle.data
+    logger.info('azpro data has variables %s and has %d rows' % (list(azpro_data), len(azpro_data)))
+    azpro_title = azpro_bundle.title
+    logger.info('azpro data has title %s' % azpro_title)
+
     logger.info('loading reading comprehension data')
     Baumann_pickle = data_folder + 'Baumann.pkl'
     if exists(Baumann_pickle):

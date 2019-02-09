@@ -327,6 +327,20 @@ if __name__ == '__main__':
     azpro_title = azpro_bundle.title
     logger.info('azpro data has title %s' % azpro_title)
 
+    logger.info('loading azprocedure data')
+    azprocedure_pickle = data_folder + 'azprocedure.pkl'
+    if exists(azprocedure_pickle):
+        with open(azprocedure_pickle, 'rb') as azprocedure_fp:
+            azprocedure_bundle = pickle.load(azprocedure_fp)
+    else:
+        azprocedure_bundle = get_rdataset('azprocedure', 'COUNT')
+        with open(azprocedure_pickle, 'wb') as azprocedure_fp:
+            pickle.dump(azprocedure_bundle, azprocedure_fp)
+    azprocedure_data = azprocedure_bundle.data
+    logger.info('azprocedure data has variables %s and has %d rows' % (list(azprocedure_data), len(azprocedure_data)))
+    azprocedure_title = azprocedure_bundle.title
+    logger.info('azprocedure data has title %s' % azprocedure_title)
+
     logger.info('loading reading comprehension data')
     Baumann_pickle = data_folder + 'Baumann.pkl'
     if exists(Baumann_pickle):

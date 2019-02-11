@@ -1048,6 +1048,20 @@ if __name__ == '__main__':
     fair_raw_data = fair_bunch['raw_data']
     logger.info('fair raw data is %d x %d' % fair_raw_data.shape)
 
+    logger.info('loading fasttrakg data')
+    fasttrakg_pickle = data_folder + 'fasttrakg.pkl'
+    if exists(fasttrakg_pickle):
+        with open(fasttrakg_pickle, 'rb') as fasttrakg_fp:
+            fasttrakg_bundle = pickle.load(fasttrakg_fp)
+    else:
+        fasttrakg_bundle = get_rdataset('fasttrakg', 'COUNT')
+        with open(fasttrakg_pickle, 'wb') as fasttrakg_fp:
+            pickle.dump(fasttrakg_bundle, fasttrakg_fp)
+    fasttrakg_data = fasttrakg_bundle.data
+    logger.info('fasttrakg data has variables %s and has %d rows' % (list(fasttrakg_data), len(fasttrakg_data)))
+    fasttrakg_title = fasttrakg_bundle.title
+    logger.info('fasttrakg data has title %s' % fasttrakg_title)
+
     logger.info('loading fertility data')
     fertility_pickle = data_folder + 'fertility.pkl'
     if exists(fertility_pickle):

@@ -1090,6 +1090,20 @@ if __name__ == '__main__':
     fir_title = fir_bundle.title
     logger.info('fir data has title %s' % fir_title)
 
+    logger.info('loading fishing data')
+    fishing_pickle = data_folder + 'fishing.pkl'
+    if exists(fishing_pickle):
+        with open(fishing_pickle, 'rb') as fishing_fp:
+            fishing_bundle = pickle.load(fishing_fp)
+    else:
+        fishing_bundle = get_rdataset('fishing', 'COUNT')
+        with open(fishing_pickle, 'wb') as fishing_fp:
+            pickle.dump(fishing_bundle, fishing_fp)
+    fishing_data = fishing_bundle.data
+    logger.info('fishing data has variables %s and has %d rows' % (list(fishing_data), len(fishing_data)))
+    fishing_title = fishing_bundle.title
+    logger.info('fishing data has title %s' % fishing_title)
+
     logger.info('loading Florida voting data')
     Florida_pickle = data_folder + 'Florida.pkl'
     if exists(Florida_pickle):

@@ -1407,6 +1407,20 @@ if __name__ == '__main__':
     KosteckiDillon_title = KosteckiDillon_bundle.title
     logger.info('KosteckiDillon data has title %s' % KosteckiDillon_title)
 
+    logger.info('loading lbw data')
+    lbw_pickle = data_folder + 'lbw.pkl'
+    if exists(lbw_pickle):
+        with open(lbw_pickle, 'rb') as lbw_fp:
+            lbw_bundle = pickle.load(lbw_fp)
+    else:
+        lbw_bundle = get_rdataset('lbw', 'COUNT')
+        with open(lbw_pickle, 'wb') as lbw_fp:
+            pickle.dump(lbw_bundle, lbw_fp)
+    lbw_data = lbw_bundle.data
+    logger.info('lbw data has variables %s and has %d rows' % (list(lbw_data), len(lbw_data)))
+    lbw_title = lbw_bundle.title
+    logger.info('lbw data has title %s' % lbw_title)
+
     logger.info('loading infant mortality data')
     Leinhardt_pickle = data_folder + 'Leinhardt.pkl'
     if exists(Leinhardt_pickle):

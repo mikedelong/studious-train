@@ -1421,6 +1421,20 @@ if __name__ == '__main__':
     lbw_title = lbw_bundle.title
     logger.info('lbw data has title %s' % lbw_title)
 
+    logger.info('loading lbwgrp data')
+    lbwgrp_pickle = data_folder + 'lbwgrp.pkl'
+    if exists(lbwgrp_pickle):
+        with open(lbwgrp_pickle, 'rb') as lbwgrp_fp:
+            lbwgrp_bundle = pickle.load(lbwgrp_fp)
+    else:
+        lbwgrp_bundle = get_rdataset('lbwgrp', 'COUNT')
+        with open(lbwgrp_pickle, 'wb') as lbwgrp_fp:
+            pickle.dump(lbwgrp_bundle, lbwgrp_fp)
+    lbwgrp_data = lbwgrp_bundle.data
+    logger.info('lbwgrp data has variables %s and has %d rows' % (list(lbwgrp_data), len(lbwgrp_data)))
+    lbwgrp_title = lbwgrp_bundle.title
+    logger.info('lbwgrp data has title %s' % lbwgrp_title)
+
     logger.info('loading infant mortality data')
     Leinhardt_pickle = data_folder + 'Leinhardt.pkl'
     if exists(Leinhardt_pickle):

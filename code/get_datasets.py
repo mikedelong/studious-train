@@ -1509,6 +1509,20 @@ if __name__ == '__main__':
     longley_names = longley_bunch['names']
     logger.info('longley names: %s' % str(longley_names))
 
+    logger.info('loading loomis data')
+    loomis_pickle = data_folder + 'loomis.pkl'
+    if exists(loomis_pickle):
+        with open(loomis_pickle, 'rb') as loomis_fp:
+            loomis_bundle = pickle.load(loomis_fp)
+    else:
+        loomis_bundle = get_rdataset('loomis', 'COUNT')
+        with open(loomis_pickle, 'wb') as loomis_fp:
+            pickle.dump(loomis_bundle, loomis_fp)
+    loomis_data = loomis_bundle.data
+    logger.info('loomis data has variables %s and has %d rows' % (list(loomis_data), len(loomis_data)))
+    loomis_title = loomis_bundle.title
+    logger.info('loomis data has title %s' % loomis_title)
+
     logger.info('loading US macroeconomic data')
     macrodata_pickle = data_folder + 'macrodata.pkl'
     if exists(macrodata_pickle):

@@ -1566,6 +1566,20 @@ if __name__ == '__main__':
     Mandel_title = Mandel_bundle.title
     logger.info('Mandel data has title %s' % Mandel_title)
 
+    logger.info('loading mdavis data')
+    mdavis_pickle = data_folder + 'mdavis.pkl'
+    if exists(mdavis_pickle):
+        with open(mdavis_pickle, 'rb') as mdavis_fp:
+            mdavis_bundle = pickle.load(mdavis_fp)
+    else:
+        mdavis_bundle = get_rdataset('mdavis', 'COUNT')
+        with open(mdavis_pickle, 'wb') as mdavis_fp:
+            pickle.dump(mdavis_bundle, mdavis_fp)
+    mdavis_data = mdavis_bundle.data
+    logger.info('mdavis data has variables %s and has %d rows' % (list(mdavis_data), len(mdavis_data)))
+    mdavis_title = mdavis_bundle.title
+    logger.info('mdavis data has title %s' % mdavis_title)
+
     logger.info('loading melanoma survival data')
     melanoma_pickle = data_folder + 'melanoma.pkl'
     if exists(melanoma_pickle):

@@ -1580,6 +1580,20 @@ if __name__ == '__main__':
     mdvis_title = mdvis_bundle.title
     logger.info('mdvis data has title %s' % mdvis_title)
 
+    logger.info('loading medpar data')
+    medpar_pickle = data_folder + 'medpar.pkl'
+    if exists(medpar_pickle):
+        with open(medpar_pickle, 'rb') as medpar_fp:
+            medpar_bundle = pickle.load(medpar_fp)
+    else:
+        medpar_bundle = get_rdataset('medpar', 'COUNT')
+        with open(medpar_pickle, 'wb') as medpar_fp:
+            pickle.dump(medpar_bundle, medpar_fp)
+    medpar_data = medpar_bundle.data
+    logger.info('medpar data has variables %s and has %d rows' % (list(medpar_data), len(medpar_data)))
+    medpar_title = medpar_bundle.title
+    logger.info('medpar data has title %s' % medpar_title)
+
     logger.info('loading melanoma survival data')
     melanoma_pickle = data_folder + 'melanoma.pkl'
     if exists(melanoma_pickle):

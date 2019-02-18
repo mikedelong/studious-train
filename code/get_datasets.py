@@ -2030,6 +2030,20 @@ if __name__ == '__main__':
     ruspini_title = ruspini_bundle.title
     logger.info('ruspini data has title %s' % ruspini_title)
 
+    logger.info('loading rwm data')
+    rwm_pickle = data_folder + 'rwm.pkl'
+    if exists(rwm_pickle):
+        with open(rwm_pickle, 'rb') as rwm_fp:
+            rwm_bundle = pickle.load(rwm_fp)
+    else:
+        rwm_bundle = get_rdataset('rwm', 'COUNT')
+        with open(rwm_pickle, 'wb') as rwm_fp:
+            pickle.dump(rwm_bundle, rwm_fp)
+    rwm_data = rwm_bundle.data
+    logger.info('rwm data has variables %s and has %d rows' % (list(rwm_data), len(rwm_data)))
+    rwm_title = rwm_bundle.title
+    logger.info('rwm data has title %s' % rwm_title)
+
     logger.info('loading Mazulu agriculture data')
     Sahlins_pickle = data_folder + 'Sahlins.pkl'
     if exists(Sahlins_pickle):

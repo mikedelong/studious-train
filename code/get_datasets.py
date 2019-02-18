@@ -1788,6 +1788,20 @@ if __name__ == '__main__':
     nuclear_title = nuclear_bundle.title
     logger.info('nuclear data has title %s' % nuclear_title)
 
+    logger.info('loading nuts data')
+    nuts_pickle = data_folder + 'nuts.pkl'
+    if exists(nuts_pickle):
+        with open(nuts_pickle, 'rb') as nuts_fp:
+            nuts_bundle = pickle.load(nuts_fp)
+    else:
+        nuts_bundle = get_rdataset('nuts', 'COUNT')
+        with open(nuts_pickle, 'wb') as nuts_fp:
+            pickle.dump(nuts_bundle, nuts_fp)
+    nuts_data = nuts_bundle.data
+    logger.info('nuts data has variables %s and has %d rows' % (list(nuts_data), len(nuts_data)))
+    nuts_title = nuts_bundle.title
+    logger.info('nuts data has title %s' % nuts_title)
+
     logger.info('loading repeated measures data')
     OBrienKaiser_pickle = data_folder + 'OBrienKaiser.pkl'
     if exists(OBrienKaiser_pickle):

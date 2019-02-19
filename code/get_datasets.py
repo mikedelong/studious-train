@@ -2058,6 +2058,20 @@ if __name__ == '__main__':
     rwm1984_title = rwm1984_bundle.title
     logger.info('rwm1984 data has title %s' % rwm1984_title)
 
+    logger.info('loading rwm5yr data')
+    rwm5yr_pickle = data_folder + 'rwm5yr.pkl'
+    if exists(rwm5yr_pickle):
+        with open(rwm5yr_pickle, 'rb') as rwm5yr_fp:
+            rwm5yr_bundle = pickle.load(rwm5yr_fp)
+    else:
+        rwm5yr_bundle = get_rdataset('rwm5yr', 'COUNT')
+        with open(rwm5yr_pickle, 'wb') as rwm5yr_fp:
+            pickle.dump(rwm5yr_bundle, rwm5yr_fp)
+    rwm5yr_data = rwm5yr_bundle.data
+    logger.info('rwm5yr data has variables %s and has %d rows' % (list(rwm5yr_data), len(rwm5yr_data)))
+    rwm5yr_title = rwm5yr_bundle.title
+    logger.info('rwm5yr data has title %s' % rwm5yr_title)
+
     logger.info('loading Mazulu agriculture data')
     Sahlins_pickle = data_folder + 'Sahlins.pkl'
     if exists(Sahlins_pickle):

@@ -2044,6 +2044,20 @@ if __name__ == '__main__':
     rwm_title = rwm_bundle.title
     logger.info('rwm data has title %s' % rwm_title)
 
+    logger.info('loading rwm1984 data')
+    rwm1984_pickle = data_folder + 'rwm1984.pkl'
+    if exists(rwm1984_pickle):
+        with open(rwm1984_pickle, 'rb') as rwm1984_fp:
+            rwm1984_bundle = pickle.load(rwm1984_fp)
+    else:
+        rwm1984_bundle = get_rdataset('rwm1984', 'COUNT')
+        with open(rwm1984_pickle, 'wb') as rwm1984_fp:
+            pickle.dump(rwm1984_bundle, rwm1984_fp)
+    rwm1984_data = rwm1984_bundle.data
+    logger.info('rwm1984 data has variables %s and has %d rows' % (list(rwm1984_data), len(rwm1984_data)))
+    rwm1984_title = rwm1984_bundle.title
+    logger.info('rwm1984 data has title %s' % rwm1984_title)
+
     logger.info('loading Mazulu agriculture data')
     Sahlins_pickle = data_folder + 'Sahlins.pkl'
     if exists(Sahlins_pickle):

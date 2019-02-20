@@ -2136,6 +2136,20 @@ if __name__ == '__main__':
     scotland_names = scotland_bunch['names']
     logger.info('scotland names: %s' % str(scotland_names))
 
+    logger.info('loading ships data')
+    ships_pickle = data_folder + 'ships.pkl'
+    if exists(ships_pickle):
+        with open(ships_pickle, 'rb') as ships_fp:
+            ships_bundle = pickle.load(ships_fp)
+    else:
+        ships_bundle = get_rdataset('ships', 'COUNT')
+        with open(ships_pickle, 'wb') as ships_fp:
+            pickle.dump(ships_bundle, ships_fp)
+    ships_data = ships_bundle.data
+    logger.info('ships data has variables %s and has %d rows' % (list(ships_data), len(ships_data)))
+    ships_title = ships_bundle.title
+    logger.info('ships data has title %s' % ships_title)
+
     logger.info('loading labor and income dynamics data')
     SLID_pickle = data_folder + 'SLID.pkl'
     if exists(SLID_pickle):

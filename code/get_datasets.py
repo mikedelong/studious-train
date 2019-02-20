@@ -2164,6 +2164,20 @@ if __name__ == '__main__':
     SLID_title = SLID_bundle.title
     logger.info('SLID data has title %s' % SLID_title)
 
+    logger.info('loading smoking data')
+    smoking_pickle = data_folder + 'smoking.pkl'
+    if exists(smoking_pickle):
+        with open(smoking_pickle, 'rb') as smoking_fp:
+            smoking_bundle = pickle.load(smoking_fp)
+    else:
+        smoking_bundle = get_rdataset('smoking', 'COUNT')
+        with open(smoking_pickle, 'wb') as smoking_fp:
+            pickle.dump(smoking_bundle, smoking_fp)
+    smoking_data = smoking_bundle.data
+    logger.info('smoking data has variables %s and has %d rows' % (list(smoking_data), len(smoking_data)))
+    smoking_title = smoking_bundle.title
+    logger.info('smoking data has title %s' % smoking_title)
+
     logger.info('loading soil composition data')
     Soils_pickle = data_folder + 'Soils.pkl'
     if exists(Soils_pickle):

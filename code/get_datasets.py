@@ -2318,6 +2318,20 @@ if __name__ == '__main__':
     tau_title = tau_bundle.title
     logger.info('tau data has title %s' % tau_title)
 
+    logger.info('loading titanic data')
+    titanic_pickle = data_folder + 'titanic.pkl'
+    if exists(titanic_pickle):
+        with open(titanic_pickle, 'rb') as titanic_fp:
+            titanic_bundle = pickle.load(titanic_fp)
+    else:
+        titanic_bundle = get_rdataset('titanic', 'COUNT')
+        with open(titanic_pickle, 'wb') as titanic_fp:
+            pickle.dump(titanic_bundle, titanic_fp)
+    titanic_data = titanic_bundle.data
+    logger.info('titanic data has variables %s and has %d rows' % (list(titanic_data), len(titanic_data)))
+    titanic_title = titanic_bundle.title
+    logger.info('titanic data has title %s' % titanic_title)
+
     logger.info('loading HMS Titanic survival data')
     TitanicSurvival_pickle = data_folder + 'TitanicSurvival.pkl'
     if exists(TitanicSurvival_pickle):

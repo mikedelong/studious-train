@@ -68,6 +68,21 @@ if __name__ == '__main__':
     output_folder = '../output/'
     return_X_y = False
 
+    logger.info('loading ACF1 data')
+    ACF1_pickle = data_folder + 'ACF1.pkl'
+    if exists(ACF1_pickle):
+        with open(ACF1_pickle, 'rb') as ACF1_fp:
+            ACF1_bundle = pickle.load(ACF1_fp)
+    else:
+        ACF1_bundle = get_rdataset('ACF1', 'DAAG')
+        with open(ACF1_pickle, 'wb') as ACF1_fp:
+            pickle.dump(ACF1_bundle, ACF1_fp)
+    ACF1_data = ACF1_bundle.data
+    logger.info('ACF1 data has variables %s' % list(ACF1_data))
+    logger.info('ACF1 data has %d rows and %d variables' % ACF1_data.shape)
+    ACF1_title = ACF1_bundle.title
+    logger.info('ACF1 data has title %s' % ACF1_title)
+
     logger.info('loading acme data')
     acme_pickle = data_folder + 'acme.pkl'
     if exists(acme_pickle):

@@ -2332,6 +2332,20 @@ if __name__ == '__main__':
     titanic_title = titanic_bundle.title
     logger.info('titanic data has title %s' % titanic_title)
 
+    logger.info('loading titanicgrp data')
+    titanicgrp_pickle = data_folder + 'titanicgrp.pkl'
+    if exists(titanicgrp_pickle):
+        with open(titanicgrp_pickle, 'rb') as titanicgrp_fp:
+            titanicgrp_bundle = pickle.load(titanicgrp_fp)
+    else:
+        titanicgrp_bundle = get_rdataset('titanicgrp', 'COUNT')
+        with open(titanicgrp_pickle, 'wb') as titanicgrp_fp:
+            pickle.dump(titanicgrp_bundle, titanicgrp_fp)
+    titanicgrp_data = titanicgrp_bundle.data
+    logger.info('titanicgrp data has variables %s and has %d rows' % (list(titanicgrp_data), len(titanicgrp_data)))
+    titanicgrp_title = titanicgrp_bundle.title
+    logger.info('titanicgrp data has title %s' % titanicgrp_title)
+
     logger.info('loading HMS Titanic survival data')
     TitanicSurvival_pickle = data_folder + 'TitanicSurvival.pkl'
     if exists(TitanicSurvival_pickle):

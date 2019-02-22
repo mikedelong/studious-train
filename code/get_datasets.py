@@ -185,6 +185,21 @@ if __name__ == '__main__':
     aircondit7_title = aircondit7_bundle.title
     logger.info('aircondit7 data has title %s' % aircondit7_title)
 
+    logger.info('loading ais data')
+    ais_pickle = data_folder + 'ais.pkl'
+    if exists(ais_pickle):
+        with open(ais_pickle, 'rb') as ais_fp:
+            ais_bundle = pickle.load(ais_fp)
+    else:
+        ais_bundle = get_rdataset('ais', 'DAAG')
+        with open(ais_pickle, 'wb') as ais_fp:
+            pickle.dump(ais_bundle, ais_fp)
+    ais_data = ais_bundle.data
+    logger.info('ais data has variables %s' % list(ais_data))
+    logger.info('ais data has %d rows and %d variables' % ais_data.shape)
+    ais_title = ais_bundle.title
+    logger.info('ais data has title %s' % ais_title)
+
     logger.info('loading car speeding and warning sign data')
     amis_pickle = data_folder + 'amis.pkl'
     if exists(amis_pickle):

@@ -185,7 +185,7 @@ if __name__ == '__main__':
     aircondit7_title = aircondit7_bundle.title
     logger.info('aircondit7 data has title %s' % aircondit7_title)
 
-    logger.info('loading ais data')
+    logger.info('loading Australian athletic data')
     ais_pickle = data_folder + 'ais.pkl'
     if exists(ais_pickle):
         with open(ais_pickle, 'rb') as ais_fp:
@@ -200,7 +200,7 @@ if __name__ == '__main__':
     ais_title = ais_bundle.title
     logger.info('ais data has title %s' % ais_title)
 
-    logger.info('loading allbacks data')
+    logger.info('loading books data')
     allbacks_pickle = data_folder + 'allbacks.pkl'
     if exists(allbacks_pickle):
         with open(allbacks_pickle, 'rb') as allbacks_fp:

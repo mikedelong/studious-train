@@ -274,7 +274,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-
     logger.info('loading city integration data')
     Angell_pickle = data_folder + 'Angell.pkl'
     if exists(Angell_pickle):
@@ -331,6 +330,21 @@ if __name__ == '__main__':
     logger.info('Anscombe data has variables %s and has %d rows' % (list(Anscombe_data), len(Anscombe_data)))
     Anscombe_title = Anscombe_bundle.title
     logger.info('Anscombe data has title %s' % Anscombe_title)
+
+    logger.info('loading corn yields/block 111 data')
+    ant111b_pickle = data_folder + 'ant111b.pkl'
+    if exists(ant111b_pickle):
+        with open(ant111b_pickle, 'rb') as ant111b_fp:
+            ant111b_bundle = pickle.load(ant111b_fp)
+    else:
+        ant111b_bundle = get_rdataset('ant111b', 'DAAG')
+        with open(ant111b_pickle, 'wb') as ant111b_fp:
+            pickle.dump(ant111b_bundle, ant111b_fp)
+    ant111b_data = ant111b_bundle.data
+    logger.info('ant111b data has variables %s' % list(ant111b_data))
+    logger.info('ant111b data has %d rows and %d variables' % ant111b_data.shape)
+    ant111b_title = ant111b_bundle.title
+    logger.info('ant111b data has title %s' % ant111b_title)
 
     logger.info('loading marijuana arrest data')
     Arrests_pickle = data_folder + 'Arrests.pkl'

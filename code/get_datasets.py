@@ -274,20 +274,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    logger.info('loading anesthetic effectiveness data')
-    anesthetic_pickle = data_folder + 'anesthetic.pkl'
-    if exists(anesthetic_pickle):
-        with open(anesthetic_pickle, 'rb') as anesthetic_fp:
-            anesthetic_bundle = pickle.load(anesthetic_fp)
-    else:
-        anesthetic_bundle = get_rdataset('anesthetic', 'DAAG')
-        with open(anesthetic_pickle, 'wb') as anesthetic_fp:
-            pickle.dump(anesthetic_bundle, anesthetic_fp)
-    anesthetic_data = anesthetic_bundle.data
-    logger.info('anesthetic data has variables %s' % list(anesthetic_data))
-    logger.info('anesthetic data has %d rows and %d variables' % anesthetic_data.shape)
-    anesthetic_title = anesthetic_bundle.title
-    logger.info('anesthetic data has title %s' % anesthetic_title)
 
     logger.info('loading city integration data')
     Angell_pickle = data_folder + 'Angell.pkl'
@@ -302,6 +288,21 @@ if __name__ == '__main__':
     logger.info('Angell data has variables %s and has %d rows' % (list(Angell_data), len(Angell_data)))
     Angell_title = Angell_bundle.title
     logger.info('Angell data has title %s' % Angell_title)
+
+    logger.info('loading anesthetic effectiveness data')
+    anesthetic_pickle = data_folder + 'anesthetic.pkl'
+    if exists(anesthetic_pickle):
+        with open(anesthetic_pickle, 'rb') as anesthetic_fp:
+            anesthetic_bundle = pickle.load(anesthetic_fp)
+    else:
+        anesthetic_bundle = get_rdataset('anesthetic', 'DAAG')
+        with open(anesthetic_pickle, 'wb') as anesthetic_fp:
+            pickle.dump(anesthetic_bundle, anesthetic_fp)
+    anesthetic_data = anesthetic_bundle.data
+    logger.info('anesthetic data has variables %s' % list(anesthetic_data))
+    logger.info('anesthetic data has %d rows and %d variables' % anesthetic_data.shape)
+    anesthetic_title = anesthetic_bundle.title
+    logger.info('anesthetic data has title %s' % anesthetic_title)
 
     logger.info('loading animal attribute data')
     animals_pickle = data_folder + 'animals.pkl'

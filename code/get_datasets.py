@@ -361,6 +361,21 @@ if __name__ == '__main__':
     antigua_title = antigua_bundle.title
     logger.info('antigua data has title %s' % antigua_title)
 
+    logger.info('loading apple taste data')
+    appletaste_pickle = data_folder + 'appletaste.pkl'
+    if exists(appletaste_pickle):
+        with open(appletaste_pickle, 'rb') as appletaste_fp:
+            appletaste_bundle = pickle.load(appletaste_fp)
+    else:
+        appletaste_bundle = get_rdataset('appletaste', 'DAAG')
+        with open(appletaste_pickle, 'wb') as appletaste_fp:
+            pickle.dump(appletaste_bundle, appletaste_fp)
+    appletaste_data = appletaste_bundle.data
+    logger.info('appletaste data has variables %s' % list(appletaste_data))
+    logger.info('appletaste data has %d rows and %d variables' % appletaste_data.shape)
+    appletaste_title = appletaste_bundle.title
+    logger.info('appletaste data has title %s' % appletaste_title)
+
     logger.info('loading marijuana arrest data')
     Arrests_pickle = data_folder + 'Arrests.pkl'
     if exists(Arrests_pickle):

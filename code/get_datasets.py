@@ -346,6 +346,21 @@ if __name__ == '__main__':
     ant111b_title = ant111b_bundle.title
     logger.info('ant111b data has title %s' % ant111b_title)
 
+    logger.info('loading Antigua corn yield data')
+    antigua_pickle = data_folder + 'antigua.pkl'
+    if exists(antigua_pickle):
+        with open(antigua_pickle, 'rb') as antigua_fp:
+            antigua_bundle = pickle.load(antigua_fp)
+    else:
+        antigua_bundle = get_rdataset('antigua', 'DAAG')
+        with open(antigua_pickle, 'wb') as antigua_fp:
+            pickle.dump(antigua_bundle, antigua_fp)
+    antigua_data = antigua_bundle.data
+    logger.info('antigua data has variables %s' % list(antigua_data))
+    logger.info('antigua data has %d rows and %d variables' % antigua_data.shape)
+    antigua_title = antigua_bundle.title
+    logger.info('antigua data has title %s' % antigua_title)
+
     logger.info('loading marijuana arrest data')
     Arrests_pickle = data_folder + 'Arrests.pkl'
     if exists(Arrests_pickle):

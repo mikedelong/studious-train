@@ -405,6 +405,21 @@ if __name__ == '__main__':
     aulatlong_title = aulatlong_bundle.title
     logger.info('aulatlong data has title %s' % aulatlong_title)
 
+    logger.info('loading Australian population data')
+    austpop_pickle = data_folder + 'austpop.pkl'
+    if exists(austpop_pickle):
+        with open(austpop_pickle, 'rb') as austpop_fp:
+            austpop_bundle = pickle.load(austpop_fp)
+    else:
+        austpop_bundle = get_rdataset('austpop', 'DAAG')
+        with open(austpop_pickle, 'wb') as austpop_fp:
+            pickle.dump(austpop_bundle, austpop_fp)
+    austpop_data = austpop_bundle.data
+    logger.info('austpop data has variables %s' % list(austpop_data))
+    logger.info('austpop data has %d rows and %d variables' % austpop_data.shape)
+    austpop_title = austpop_bundle.title
+    logger.info('austpop data has title %s' % austpop_title)
+
     logger.info('loading azcabgptca(?) data')
     azcabgptca_pickle = data_folder + 'azcabgptca.pkl'
     if exists(azcabgptca_pickle):

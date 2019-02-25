@@ -390,6 +390,21 @@ if __name__ == '__main__':
     Arrests_title = Arrests_bundle.title
     logger.info('Arrests data has title %s' % Arrests_title)
 
+    logger.info('loading Australian lat/lon data')
+    aulatlong_pickle = data_folder + 'aulatlong.pkl'
+    if exists(aulatlong_pickle):
+        with open(aulatlong_pickle, 'rb') as aulatlong_fp:
+            aulatlong_bundle = pickle.load(aulatlong_fp)
+    else:
+        aulatlong_bundle = get_rdataset('aulatlong', 'DAAG')
+        with open(aulatlong_pickle, 'wb') as aulatlong_fp:
+            pickle.dump(aulatlong_bundle, aulatlong_fp)
+    aulatlong_data = aulatlong_bundle.data
+    logger.info('aulatlong data has variables %s' % list(aulatlong_data))
+    logger.info('aulatlong data has %d rows and %d variables' % aulatlong_data.shape)
+    aulatlong_title = aulatlong_bundle.title
+    logger.info('aulatlong data has title %s' % aulatlong_title)
+
     logger.info('loading azcabgptca(?) data')
     azcabgptca_pickle = data_folder + 'azcabgptca.pkl'
     if exists(azcabgptca_pickle):

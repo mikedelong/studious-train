@@ -589,6 +589,21 @@ if __name__ == '__main__':
     Blackmore_title = Blackmore_bundle.title
     logger.info('Blackmore data has title %s' % Blackmore_title)
 
+    logger.info('loading Australian annual climate data')
+    bomregions_pickle = data_folder + 'bomregions.pkl'
+    if exists(bomregions_pickle):
+        with open(bomregions_pickle, 'rb') as bomregions_fp:
+            bomregions_bundle = pickle.load(bomregions_fp)
+    else:
+        bomregions_bundle = get_rdataset('bomregions', 'DAAG')
+        with open(bomregions_pickle, 'wb') as bomregions_fp:
+            pickle.dump(bomregions_bundle, bomregions_fp)
+    bomregions_data = bomregions_bundle.data
+    logger.info('bomregions data has variables %s' % list(bomregions_data))
+    logger.info('bomregions data has %d rows and %d variables' % bomregions_data.shape)
+    bomregions_title = bomregions_bundle.title
+    logger.info('bomregions data has title %s' % bomregions_title)
+
     logger.info('loading boston data')
     boston_bunch = load_boston(return_X_y=return_X_y)
     boston_data = boston_bunch.data

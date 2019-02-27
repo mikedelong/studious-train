@@ -619,6 +619,21 @@ if __name__ == '__main__':
     bomregions2011_title = bomregions2011_bundle.title
     logger.info('bomregions2011 data has title %s' % bomregions2011_title)
 
+    logger.info('loading Australian regional 2012 annual climate data')
+    bomregions2012_pickle = data_folder + 'bomregions2012.pkl'
+    if exists(bomregions2012_pickle):
+        with open(bomregions2012_pickle, 'rb') as bomregions2012_fp:
+            bomregions2012_bundle = pickle.load(bomregions2012_fp)
+    else:
+        bomregions2012_bundle = get_rdataset('bomregions2012', 'DAAG')
+        with open(bomregions2012_pickle, 'wb') as bomregions2012_fp:
+            pickle.dump(bomregions2012_bundle, bomregions2012_fp)
+    bomregions2012_data = bomregions2012_bundle.data
+    logger.info('bomregions2012 data has variables %s' % list(bomregions2012_data))
+    logger.info('bomregions2012 data has %d rows and %d variables' % bomregions2012_data.shape)
+    bomregions2012_title = bomregions2012_bundle.title
+    logger.info('bomregions2012 data has title %s' % bomregions2012_title)
+
     logger.info('loading boston data')
     boston_bunch = load_boston(return_X_y=return_X_y)
     boston_data = boston_bunch.data

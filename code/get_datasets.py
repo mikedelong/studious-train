@@ -634,6 +634,21 @@ if __name__ == '__main__':
     bomregions2012_title = bomregions2012_bundle.title
     logger.info('bomregions2012 data has title %s' % bomregions2012_title)
 
+    logger.info('loading Southern Oscillation index data')
+    bomsoi_pickle = data_folder + 'bomsoi.pkl'
+    if exists(bomsoi_pickle):
+        with open(bomsoi_pickle, 'rb') as bomsoi_fp:
+            bomsoi_bundle = pickle.load(bomsoi_fp)
+    else:
+        bomsoi_bundle = get_rdataset('bomsoi', 'DAAG')
+        with open(bomsoi_pickle, 'wb') as bomsoi_fp:
+            pickle.dump(bomsoi_bundle, bomsoi_fp)
+    bomsoi_data = bomsoi_bundle.data
+    logger.info('bomsoi data has variables %s' % list(bomsoi_data))
+    logger.info('bomsoi data has %d rows and %d variables' % bomsoi_data.shape)
+    bomsoi_title = bomsoi_bundle.title
+    logger.info('bomsoi data has title %s' % bomsoi_title)
+
     logger.info('loading boston data')
     boston_bunch = load_boston(return_X_y=return_X_y)
     boston_data = boston_bunch.data

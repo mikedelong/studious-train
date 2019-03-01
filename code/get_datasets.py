@@ -815,6 +815,21 @@ if __name__ == '__main__':
     capability_title = capability_bundle.title
     logger.info('capability data has title %s' % capability_title)
 
+    logger.info('loading US car price data')
+    carprice_pickle = data_folder + 'carprice.pkl'
+    if exists(carprice_pickle):
+        with open(carprice_pickle, 'rb') as carprice_fp:
+            carprice_bundle = pickle.load(carprice_fp)
+    else:
+        carprice_bundle = get_rdataset('carprice', 'DAAG')
+        with open(carprice_pickle, 'wb') as carprice_fp:
+            pickle.dump(carprice_bundle, carprice_fp)
+    carprice_data = carprice_bundle.data
+    logger.info('carprice data has variables %s' % list(carprice_data))
+    logger.info('carprice data has %d rows and %d variables' % carprice_data.shape)
+    carprice_title = carprice_bundle.title
+    logger.info('carprice data has title %s' % carprice_title)
+
     logger.info('loading domestic cat weight data')
     catsM_pickle = data_folder + 'catsM.pkl'
     if exists(catsM_pickle):

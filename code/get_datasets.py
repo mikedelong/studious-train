@@ -918,6 +918,21 @@ if __name__ == '__main__':
     cd4_nested_title = cd4_nested_bundle.title
     logger.info('cd4.nested data has title %s' % cd4_nested_title)
 
+    logger.info('loading breakfast cereal sugar data')
+    cerealsugar_pickle = data_folder + 'cerealsugar.pkl'
+    if exists(cerealsugar_pickle):
+        with open(cerealsugar_pickle, 'rb') as cerealsugar_fp:
+            cerealsugar_bundle = pickle.load(cerealsugar_fp)
+    else:
+        cerealsugar_bundle = get_rdataset('cerealsugar', 'DAAG')
+        with open(cerealsugar_pickle, 'wb') as cerealsugar_fp:
+            pickle.dump(cerealsugar_bundle, cerealsugar_fp)
+    cerealsugar_data = cerealsugar_bundle.data
+    logger.info('cerealsugar data has variables %s' % list(cerealsugar_data))
+    logger.info('cerealsugar data has %d rows and %d variables' % cerealsugar_data.shape)
+    cerealsugar_title = cerealsugar_bundle.title
+    logger.info('cerealsugar data has title %s' % cerealsugar_title)
+
     logger.info('loading Channing House data')
     channing_pickle = data_folder + 'channing.pkl'
     if exists(channing_pickle):

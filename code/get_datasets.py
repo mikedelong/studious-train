@@ -1017,6 +1017,21 @@ if __name__ == '__main__':
     chorSub_title = chorSub_bundle.title
     logger.info('chorSub data has title %s' % chorSub_title)
 
+    logger.info('loading Canadian major city population data')
+    cities_pickle = data_folder + 'cities.pkl'
+    if exists(cities_pickle):
+        with open(cities_pickle, 'rb') as cities_fp:
+            cities_bundle = pickle.load(cities_fp)
+    else:
+        cities_bundle = get_rdataset('cities', 'DAAG')
+        with open(cities_pickle, 'wb') as cities_fp:
+            pickle.dump(cities_bundle, cities_fp)
+    cities_data = cities_bundle.data
+    logger.info('cities data has variables %s' % list(cities_data))
+    logger.info('cities data has %d rows and %d variables' % cities_data.shape)
+    cities_title = cities_bundle.title
+    logger.info('cities data has title %s' % cities_title)
+
     logger.info('loading US City population data')
     city_pickle = data_folder + 'city.pkl'
     if exists(city_pickle):

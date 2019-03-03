@@ -948,7 +948,6 @@ if __name__ == '__main__':
     cfseal_title = cfseal_bundle.title
     logger.info('cfseal data has title %s' % cfseal_title)
 
-
     logger.info('loading Channing House data')
     channing_pickle = data_folder + 'channing.pkl'
     if exists(channing_pickle):

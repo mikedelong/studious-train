@@ -933,6 +933,22 @@ if __name__ == '__main__':
     cerealsugar_title = cerealsugar_bundle.title
     logger.info('cerealsugar data has title %s' % cerealsugar_title)
 
+    logger.info('loading Cape fur seal data')
+    cfseal_pickle = data_folder + 'cfseal.pkl'
+    if exists(cfseal_pickle):
+        with open(cfseal_pickle, 'rb') as cfseal_fp:
+            cfseal_bundle = pickle.load(cfseal_fp)
+    else:
+        cfseal_bundle = get_rdataset('cfseal', 'DAAG')
+        with open(cfseal_pickle, 'wb') as cfseal_fp:
+            pickle.dump(cfseal_bundle, cfseal_fp)
+    cfseal_data = cfseal_bundle.data
+    logger.info('cfseal data has variables %s' % list(cfseal_data))
+    logger.info('cfseal data has %d rows and %d variables' % cfseal_data.shape)
+    cfseal_title = cfseal_bundle.title
+    logger.info('cfseal data has title %s' % cfseal_title)
+
+
     logger.info('loading Channing House data')
     channing_pickle = data_folder + 'channing.pkl'
     if exists(channing_pickle):

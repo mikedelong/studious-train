@@ -1165,6 +1165,21 @@ if __name__ == '__main__':
     co_transfer_title = co_transfer_bundle.title
     logger.info('co.transfer data has title %s' % co_transfer_title)
 
+    logger.info('loading British cotton workers data')
+    cottonworkers_pickle = data_folder + 'cottonworkers.pkl'
+    if exists(cottonworkers_pickle):
+        with open(cottonworkers_pickle, 'rb') as cottonworkers_fp:
+            cottonworkers_bundle = pickle.load(cottonworkers_fp)
+    else:
+        cottonworkers_bundle = get_rdataset('cottonworkers', 'DAAG')
+        with open(cottonworkers_pickle, 'wb') as cottonworkers_fp:
+            pickle.dump(cottonworkers_bundle, cottonworkers_fp)
+    cottonworkers_data = cottonworkers_bundle.data
+    logger.info('cottonworkers data has variables %s' % list(cottonworkers_data))
+    logger.info('cottonworkers data has %d rows and %d variables' % cottonworkers_data.shape)
+    cottonworkers_title = cottonworkers_bundle.title
+    logger.info('cottonworkers data has title %s' % cottonworkers_title)
+
     logger.info('loading volunteering data')
     Cowles_pickle = data_folder + 'Cowles.pkl'
     if exists(Cowles_pickle):

@@ -1209,6 +1209,36 @@ if __name__ == '__main__':
     cps1_title = cps1_bundle.title
     logger.info('cps1 data has title %s' % cps1_title)
 
+    logger.info('loading labor training evaluation data')
+    cps1_pickle = data_folder + 'cps1.pkl'
+    if exists(cps1_pickle):
+        with open(cps1_pickle, 'rb') as cps1_fp:
+            cps1_bundle = pickle.load(cps1_fp)
+    else:
+        cps1_bundle = get_rdataset('cps1', 'DAAG')
+        with open(cps1_pickle, 'wb') as cps1_fp:
+            pickle.dump(cps1_bundle, cps1_fp)
+    cps1_data = cps1_bundle.data
+    logger.info('cps1 data has variables %s' % list(cps1_data))
+    logger.info('cps1 data has %d rows and %d variables' % cps1_data.shape)
+    cps1_title = cps1_bundle.title
+    logger.info('cps1 data has title %s' % cps1_title)
+
+    logger.info('loading labor training evaluation data')
+    cps2_pickle = data_folder + 'cps2.pkl'
+    if exists(cps2_pickle):
+        with open(cps2_pickle, 'rb') as cps2_fp:
+            cps2_bundle = pickle.load(cps2_fp)
+    else:
+        cps2_bundle = get_rdataset('cps2', 'DAAG')
+        with open(cps2_pickle, 'wb') as cps2_fp:
+            pickle.dump(cps2_bundle, cps2_fp)
+    cps2_data = cps2_bundle.data
+    logger.info('cps2 data has variables %s' % list(cps2_data))
+    logger.info('cps2 data has %d rows and %d variables' % cps2_data.shape)
+    cps2_title = cps2_bundle.title
+    logger.info('cps2 data has title %s' % cps2_title)
+
     logger.info('loading capital punishment data')
     cpunish_pickle = data_folder + 'cpunish.pkl'
     if exists(cpunish_pickle):

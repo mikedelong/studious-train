@@ -1239,6 +1239,21 @@ if __name__ == '__main__':
     cps2_title = cps2_bundle.title
     logger.info('cps2 data has title %s' % cps2_title)
 
+    logger.info('loading labor training evaluation data')
+    cps3_pickle = data_folder + 'cps3.pkl'
+    if exists(cps3_pickle):
+        with open(cps3_pickle, 'rb') as cps3_fp:
+            cps3_bundle = pickle.load(cps3_fp)
+    else:
+        cps3_bundle = get_rdataset('cps3', 'DAAG')
+        with open(cps3_pickle, 'wb') as cps3_fp:
+            pickle.dump(cps3_bundle, cps3_fp)
+    cps3_data = cps3_bundle.data
+    logger.info('cps3 data has variables %s' % list(cps3_data))
+    logger.info('cps3 data has %d rows and %d variables' % cps3_data.shape)
+    cps3_title = cps3_bundle.title
+    logger.info('cps3 data has title %s' % cps3_title)
+
     logger.info('loading capital punishment data')
     cpunish_pickle = data_folder + 'cpunish.pkl'
     if exists(cpunish_pickle):

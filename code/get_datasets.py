@@ -1270,6 +1270,21 @@ if __name__ == '__main__':
     cpunish_raw_data = cpunish_bunch['raw_data']
     logger.info('cpunish raw data is %d x %d' % cpunish_raw_data.shape)
 
+    logger.info('loading cricketer lifespan data')
+    cricketer_pickle = data_folder + 'cricketer.pkl'
+    if exists(cricketer_pickle):
+        with open(cricketer_pickle, 'rb') as cricketer_fp:
+            cricketer_bundle = pickle.load(cricketer_fp)
+    else:
+        cricketer_bundle = get_rdataset('cricketer', 'DAAG')
+        with open(cricketer_pickle, 'wb') as cricketer_fp:
+            pickle.dump(cricketer_bundle, cricketer_fp)
+    cricketer_data = cricketer_bundle.data
+    logger.info('cricketer data has variables %s' % list(cricketer_data))
+    logger.info('cricketer data has %d rows and %d variables' % cricketer_data.shape)
+    cricketer_title = cricketer_bundle.title
+    logger.info('cricketer data has title %s' % cricketer_title)
+
     logger.info("loading Darwin's plant height data")
     darwin_pickle = data_folder + 'darwin.pkl'
     if exists(darwin_pickle):

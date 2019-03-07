@@ -1387,6 +1387,21 @@ if __name__ == '__main__':
     Depredations_title = Depredations_bundle.title
     logger.info('Depredations data has title %s' % Depredations_title)
 
+    logger.info('loading dewpoint data')
+    dewpoint_pickle = data_folder + 'dewpoint.pkl'
+    if exists(dewpoint_pickle):
+        with open(dewpoint_pickle, 'rb') as dewpoint_fp:
+            dewpoint_bundle = pickle.load(dewpoint_fp)
+    else:
+        dewpoint_bundle = get_rdataset('dewpoint', 'DAAG')
+        with open(dewpoint_pickle, 'wb') as dewpoint_fp:
+            pickle.dump(dewpoint_bundle, dewpoint_fp)
+    dewpoint_data = dewpoint_bundle.data
+    logger.info('dewpoint data has variables %s' % list(dewpoint_data))
+    logger.info('dewpoint data has %d rows and %d variables' % dewpoint_data.shape)
+    dewpoint_title = dewpoint_bundle.title
+    logger.info('dewpoint data has title %s' % dewpoint_title)
+
     logger.info('loading diabetes data')
     diabetes_bunch = load_diabetes(return_X_y=return_X_y)
     diabetes_data = diabetes_bunch['data']

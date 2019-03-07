@@ -1437,6 +1437,21 @@ if __name__ == '__main__':
     dogs_title = dogs_bundle.title
     logger.info('dogs data has title %s' % dogs_title)
 
+    logger.info('loading droughts data')
+    droughts_pickle = data_folder + 'droughts.pkl'
+    if exists(droughts_pickle):
+        with open(droughts_pickle, 'rb') as droughts_fp:
+            droughts_bundle = pickle.load(droughts_fp)
+    else:
+        droughts_bundle = get_rdataset('droughts', 'DAAG')
+        with open(droughts_pickle, 'wb') as droughts_fp:
+            pickle.dump(droughts_bundle, droughts_fp)
+    droughts_data = droughts_bundle.data
+    logger.info('droughts data has variables %s' % list(droughts_data))
+    logger.info('droughts data has %d rows and %d variables' % droughts_data.shape)
+    droughts_title = droughts_bundle.title
+    logger.info('droughts data has title %s' % droughts_title)
+
     logger.info('loading hybrid duck data')
     ducks_pickle = data_folder + 'ducks.pkl'
     if exists(ducks_pickle):

@@ -1357,6 +1357,21 @@ if __name__ == '__main__':
     DavisThin_title = DavisThin_bundle.title
     logger.info('DavisThin data has title %s' % DavisThin_title)
 
+    logger.info('loading regional dengue fever data')
+    dengue_pickle = data_folder + 'dengue.pkl'
+    if exists(dengue_pickle):
+        with open(dengue_pickle, 'rb') as dengue_fp:
+            dengue_bundle = pickle.load(dengue_fp)
+    else:
+        dengue_bundle = get_rdataset('dengue', 'DAAG')
+        with open(dengue_pickle, 'wb') as dengue_fp:
+            pickle.dump(dengue_bundle, dengue_fp)
+    dengue_data = dengue_bundle.data
+    logger.info('dengue data has variables %s' % list(dengue_data))
+    logger.info('dengue data has %d rows and %d variables' % dengue_data.shape)
+    dengue_title = dengue_bundle.title
+    logger.info('dengue data has title %s' % dengue_title)
+
     logger.info('loading Minnesota wolf data')
     Depredations_pickle = data_folder + 'Depredations.pkl'
     if exists(Depredations_pickle):

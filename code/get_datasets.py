@@ -1300,6 +1300,21 @@ if __name__ == '__main__':
     cuckoohosts_title = cuckoohosts_bundle.title
     logger.info('cuckoohosts data has title %s' % cuckoohosts_title)
 
+    logger.info('loading cuckoo egg data')
+    cuckoos_pickle = data_folder + 'cuckoos.pkl'
+    if exists(cuckoos_pickle):
+        with open(cuckoos_pickle, 'rb') as cuckoos_fp:
+            cuckoos_bundle = pickle.load(cuckoos_fp)
+    else:
+        cuckoos_bundle = get_rdataset('cuckoos', 'DAAG')
+        with open(cuckoos_pickle, 'wb') as cuckoos_fp:
+            pickle.dump(cuckoos_bundle, cuckoos_fp)
+    cuckoos_data = cuckoos_bundle.data
+    logger.info('cuckoos data has variables %s' % list(cuckoos_data))
+    logger.info('cuckoos data has %d rows and %d variables' % cuckoos_data.shape)
+    cuckoos_title = cuckoos_bundle.title
+    logger.info('cuckoos data has title %s' % cuckoos_title)
+
     logger.info("loading Darwin's plant height data")
     darwin_pickle = data_folder + 'darwin.pkl'
     if exists(darwin_pickle):

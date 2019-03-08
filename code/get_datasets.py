@@ -1496,6 +1496,21 @@ if __name__ == '__main__':
     edcCO2_title = edcCO2_bundle.title
     logger.info('edcCO2 data has title %s' % edcCO2_title)
 
+    logger.info('loading EPICA temperature data')
+    edcT_pickle = data_folder + 'edcT.pkl'
+    if exists(edcT_pickle):
+        with open(edcT_pickle, 'rb') as edcT_fp:
+            edcT_bundle = pickle.load(edcT_fp)
+    else:
+        edcT_bundle = get_rdataset('edcT', 'DAAG')
+        with open(edcT_pickle, 'wb') as edcT_fp:
+            pickle.dump(edcT_bundle, edcT_fp)
+    edcT_data = edcT_bundle.data
+    logger.info('edcT data has variables %s' % list(edcT_data))
+    logger.info('edcT data has %d rows and %d variables' % edcT_data.shape)
+    edcT_title = edcT_bundle.title
+    logger.info('edcT data has title %s' % edcT_title)
+
     logger.info('loading el nino data')
     elnino_pickle = data_folder + 'elnino.pkl'
     if exists(elnino_pickle):

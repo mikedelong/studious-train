@@ -1481,6 +1481,21 @@ if __name__ == '__main__':
     Duncan_title = Duncan_bundle.title
     logger.info('Duncan data has title %s' % Duncan_title)
 
+    logger.info('loading EPICA CO2 data')
+    edcCO2_pickle = data_folder + 'edcCO2.pkl'
+    if exists(edcCO2_pickle):
+        with open(edcCO2_pickle, 'rb') as edcCO2_fp:
+            edcCO2_bundle = pickle.load(edcCO2_fp)
+    else:
+        edcCO2_bundle = get_rdataset('edcCO2', 'DAAG')
+        with open(edcCO2_pickle, 'wb') as edcCO2_fp:
+            pickle.dump(edcCO2_bundle, edcCO2_fp)
+    edcCO2_data = edcCO2_bundle.data
+    logger.info('edcCO2 data has variables %s' % list(edcCO2_data))
+    logger.info('edcCO2 data has %d rows and %d variables' % edcCO2_data.shape)
+    edcCO2_title = edcCO2_bundle.title
+    logger.info('edcCO2 data has title %s' % edcCO2_title)
+
     logger.info('loading el nino data')
     elnino_pickle = data_folder + 'elnino.pkl'
     if exists(elnino_pickle):

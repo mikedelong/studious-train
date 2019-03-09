@@ -1541,6 +1541,21 @@ if __name__ == '__main__':
     elastic2_title = elastic2_bundle.title
     logger.info('elastic2 data has title %s' % elastic2_title)
 
+    logger.info('loading elastic band data')
+    elasticband_pickle = data_folder + 'elasticband.pkl'
+    if exists(elasticband_pickle):
+        with open(elasticband_pickle, 'rb') as elasticband_fp:
+            elasticband_bundle = pickle.load(elasticband_fp)
+    else:
+        elasticband_bundle = get_rdataset('elasticband', 'DAAG')
+        with open(elasticband_pickle, 'wb') as elasticband_fp:
+            pickle.dump(elasticband_bundle, elasticband_fp)
+    elasticband_data = elasticband_bundle.data
+    logger.info('elasticband data has variables %s' % list(elasticband_data))
+    logger.info('elasticband data has %d rows and %d variables' % elasticband_data.shape)
+    elasticband_title = elasticband_bundle.title
+    logger.info('elasticband data has title %s' % elasticband_title)
+
     logger.info('loading el nino data')
     elnino_pickle = data_folder + 'elnino.pkl'
     if exists(elnino_pickle):

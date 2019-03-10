@@ -1778,6 +1778,21 @@ if __name__ == '__main__':
     Friendly_title = Friendly_bundle.title
     logger.info('Friendly data has title %s' % Friendly_title)
 
+    logger.info('loading frogs data')
+    frogs_pickle = data_folder + 'frogs.pkl'
+    if exists(frogs_pickle):
+        with open(frogs_pickle, 'rb') as frogs_fp:
+            frogs_bundle = pickle.load(frogs_fp)
+    else:
+        frogs_bundle = get_rdataset('frogs', 'DAAG')
+        with open(frogs_pickle, 'wb') as frogs_fp:
+            pickle.dump(frogs_bundle, frogs_fp)
+    frogs_data = frogs_bundle.data
+    logger.info('frogs data has variables %s' % list(frogs_data))
+    logger.info('frogs data has %d rows and %d variables' % frogs_data.shape)
+    frogs_title = frogs_bundle.title
+    logger.info('frogs data has title %s' % frogs_title)
+
     logger.info('loading depression data')
     Ginzberg_pickle = data_folder + 'Ginzberg.pkl'
     if exists(Ginzberg_pickle):

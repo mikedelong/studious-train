@@ -1793,6 +1793,21 @@ if __name__ == '__main__':
     frogs_title = frogs_bundle.title
     logger.info('frogs data has title %s' % frogs_title)
 
+    logger.info('loading Frosted Flakes data')
+    frostedflakes_pickle = data_folder + 'frostedflakes.pkl'
+    if exists(frostedflakes_pickle):
+        with open(frostedflakes_pickle, 'rb') as frostedflakes_fp:
+            frostedflakes_bundle = pickle.load(frostedflakes_fp)
+    else:
+        frostedflakes_bundle = get_rdataset('frostedflakes', 'DAAG')
+        with open(frostedflakes_pickle, 'wb') as frostedflakes_fp:
+            pickle.dump(frostedflakes_bundle, frostedflakes_fp)
+    frostedflakes_data = frostedflakes_bundle.data
+    logger.info('frostedflakes data has variables %s' % list(frostedflakes_data))
+    logger.info('frostedflakes data has %d rows and %d variables' % frostedflakes_data.shape)
+    frostedflakes_title = frostedflakes_bundle.title
+    logger.info('frostedflakes data has title %s' % frostedflakes_title)
+
     logger.info('loading depression data')
     Ginzberg_pickle = data_folder + 'Ginzberg.pkl'
     if exists(Ginzberg_pickle):

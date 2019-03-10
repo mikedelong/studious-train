@@ -1719,6 +1719,21 @@ if __name__ == '__main__':
     fossilfuel_title = fossilfuel_bundle.title
     logger.info('fossilfuel data has title %s' % fossilfuel_title)
 
+    logger.info('loading female possum data')
+    fossum_pickle = data_folder + 'fossum.pkl'
+    if exists(fossum_pickle):
+        with open(fossum_pickle, 'rb') as fossum_fp:
+            fossum_bundle = pickle.load(fossum_fp)
+    else:
+        fossum_bundle = get_rdataset('fossum', 'DAAG')
+        with open(fossum_pickle, 'wb') as fossum_fp:
+            pickle.dump(fossum_bundle, fossum_fp)
+    fossum_data = fossum_bundle.data
+    logger.info('fossum data has variables %s' % list(fossum_data))
+    logger.info('fossum data has %d rows and %d variables' % fossum_data.shape)
+    fossum_title = fossum_bundle.title
+    logger.info('fossum data has title %s' % fossum_title)
+
     logger.info('loading fraternal head size data')
     frets_pickle = data_folder + 'frets.pkl'
     if exists(frets_pickle):

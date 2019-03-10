@@ -1704,6 +1704,21 @@ if __name__ == '__main__':
     flower_title = flower_bundle.title
     logger.info('flower data has title %s' % flower_title)
 
+    logger.info('loading fossil fuel data')
+    fossilfuel_pickle = data_folder + 'fossilfuel.pkl'
+    if exists(fossilfuel_pickle):
+        with open(fossilfuel_pickle, 'rb') as fossilfuel_fp:
+            fossilfuel_bundle = pickle.load(fossilfuel_fp)
+    else:
+        fossilfuel_bundle = get_rdataset('fossilfuel', 'DAAG')
+        with open(fossilfuel_pickle, 'wb') as fossilfuel_fp:
+            pickle.dump(fossilfuel_bundle, fossilfuel_fp)
+    fossilfuel_data = fossilfuel_bundle.data
+    logger.info('fossilfuel data has variables %s' % list(fossilfuel_data))
+    logger.info('fossilfuel data has %d rows and %d variables' % fossilfuel_data.shape)
+    fossilfuel_title = fossilfuel_bundle.title
+    logger.info('fossilfuel data has title %s' % fossilfuel_title)
+
     logger.info('loading fraternal head size data')
     frets_pickle = data_folder + 'frets.pkl'
     if exists(frets_pickle):

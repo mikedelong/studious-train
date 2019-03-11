@@ -1823,6 +1823,21 @@ if __name__ == '__main__':
     fruitohms_title = fruitohms_bundle.title
     logger.info('fruitohms data has title %s' % fruitohms_title)
 
+    logger.info('loading pentazocine effect data')
+    gaba_pickle = data_folder + 'gaba.pkl'
+    if exists(gaba_pickle):
+        with open(gaba_pickle, 'rb') as gaba_fp:
+            gaba_bundle = pickle.load(gaba_fp)
+    else:
+        gaba_bundle = get_rdataset('gaba', 'DAAG')
+        with open(gaba_pickle, 'wb') as gaba_fp:
+            pickle.dump(gaba_bundle, gaba_fp)
+    gaba_data = gaba_bundle.data
+    logger.info('gaba data has variables %s' % list(gaba_data))
+    logger.info('gaba data has %d rows and %d variables' % gaba_data.shape)
+    gaba_title = gaba_bundle.title
+    logger.info('gaba data has title %s' % gaba_title)
+
     logger.info('loading depression data')
     Ginzberg_pickle = data_folder + 'Ginzberg.pkl'
     if exists(Ginzberg_pickle):

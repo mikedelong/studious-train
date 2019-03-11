@@ -1809,19 +1809,19 @@ if __name__ == '__main__':
     logger.info('frostedflakes data has title %s' % frostedflakes_title)
 
     logger.info('loading electrical resistance of kiwifruit data')
-    frostedflakes_pickle = data_folder + 'frostedflakes.pkl'
-    if exists(frostedflakes_pickle):
-        with open(frostedflakes_pickle, 'rb') as frostedflakes_fp:
-            frostedflakes_bundle = pickle.load(frostedflakes_fp)
+    fruitohms_pickle = data_folder + 'fruitohms.pkl'
+    if exists(fruitohms_pickle):
+        with open(fruitohms_pickle, 'rb') as fruitohms_fp:
+            fruitohms_bundle = pickle.load(fruitohms_fp)
     else:
-        frostedflakes_bundle = get_rdataset('frostedflakes', 'DAAG')
-        with open(frostedflakes_pickle, 'wb') as frostedflakes_fp:
-            pickle.dump(frostedflakes_bundle, frostedflakes_fp)
-    frostedflakes_data = frostedflakes_bundle.data
-    logger.info('frostedflakes data has variables %s' % list(frostedflakes_data))
-    logger.info('frostedflakes data has %d rows and %d variables' % frostedflakes_data.shape)
-    frostedflakes_title = frostedflakes_bundle.title
-    logger.info('frostedflakes data has title %s' % frostedflakes_title)
+        fruitohms_bundle = get_rdataset('fruitohms', 'DAAG')
+        with open(fruitohms_pickle, 'wb') as fruitohms_fp:
+            pickle.dump(fruitohms_bundle, fruitohms_fp)
+    fruitohms_data = fruitohms_bundle.data
+    logger.info('fruitohms data has variables %s' % list(fruitohms_data))
+    logger.info('fruitohms data has %d rows and %d variables' % fruitohms_data.shape)
+    fruitohms_title = fruitohms_bundle.title
+    logger.info('fruitohms data has title %s' % fruitohms_title)
 
     logger.info('loading depression data')
     Ginzberg_pickle = data_folder + 'Ginzberg.pkl'

@@ -1853,21 +1853,6 @@ if __name__ == '__main__':
     geophones_title = geophones_bundle.title
     logger.info('geophones data has title %s' % geophones_title)
 
-    logger.info('loading great lakes yearly average height data')
-    greatLakes_pickle = data_folder + 'greatLakes.pkl'
-    if exists(greatLakes_pickle):
-        with open(greatLakes_pickle, 'rb') as greatLakes_fp:
-            greatLakes_bundle = pickle.load(greatLakes_fp)
-    else:
-        greatLakes_bundle = get_rdataset('greatLakes', 'DAAG')
-        with open(greatLakes_pickle, 'wb') as greatLakes_fp:
-            pickle.dump(greatLakes_bundle, greatLakes_fp)
-    greatLakes_data = greatLakes_bundle.data
-    logger.info('greatLakes data has variables %s' % list(greatLakes_data))
-    logger.info('greatLakes data has %d rows and %d variables' % greatLakes_data.shape)
-    greatLakes_title = greatLakes_bundle.title
-    logger.info('greatLakes data has title %s' % greatLakes_title)
-
     logger.info('loading depression data')
     Ginzberg_pickle = data_folder + 'Ginzberg.pkl'
     if exists(Ginzberg_pickle):
@@ -1910,6 +1895,36 @@ if __name__ == '__main__':
     logger.info('gravity data has variables %s and has %d rows' % (list(gravity_data), len(gravity_data)))
     gravity_title = gravity_bundle.title
     logger.info('gravity data has title %s' % gravity_title)
+
+    logger.info('loading great lakes yearly average height data')
+    greatLakes_pickle = data_folder + 'greatLakes.pkl'
+    if exists(greatLakes_pickle):
+        with open(greatLakes_pickle, 'rb') as greatLakes_fp:
+            greatLakes_bundle = pickle.load(greatLakes_fp)
+    else:
+        greatLakes_bundle = get_rdataset('greatLakes', 'DAAG')
+        with open(greatLakes_pickle, 'wb') as greatLakes_fp:
+            pickle.dump(greatLakes_bundle, greatLakes_fp)
+    greatLakes_data = greatLakes_bundle.data
+    logger.info('greatLakes data has variables %s' % list(greatLakes_data))
+    logger.info('greatLakes data has %d rows and %d variables' % greatLakes_data.shape)
+    greatLakes_title = greatLakes_bundle.title
+    logger.info('greatLakes data has title %s' % greatLakes_title)
+
+    logger.info('loading AUS/NZ alcohol consumption data')
+    grog_pickle = data_folder + 'grog.pkl'
+    if exists(grog_pickle):
+        with open(grog_pickle, 'rb') as grog_fp:
+            grog_bundle = pickle.load(grog_fp)
+    else:
+        grog_bundle = get_rdataset('grog', 'DAAG')
+        with open(grog_pickle, 'wb') as grog_fp:
+            pickle.dump(grog_bundle, grog_fp)
+    grog_data = grog_bundle.data
+    logger.info('grog data has variables %s' % list(grog_data))
+    logger.info('grog data has %d rows and %d variables' % grog_data.shape)
+    grog_title = grog_bundle.title
+    logger.info('grog data has title %s' % grog_title)
 
     logger.info('loading refugee appeals data')
     Greene_pickle = data_folder + 'Greene.pkl'

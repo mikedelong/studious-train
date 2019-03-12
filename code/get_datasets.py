@@ -1838,6 +1838,21 @@ if __name__ == '__main__':
     gaba_title = gaba_bundle.title
     logger.info('gaba data has title %s' % gaba_title)
 
+    logger.info('loading seismic timing data')
+    geophones_pickle = data_folder + 'geophones.pkl'
+    if exists(geophones_pickle):
+        with open(geophones_pickle, 'rb') as geophones_fp:
+            geophones_bundle = pickle.load(geophones_fp)
+    else:
+        geophones_bundle = get_rdataset('geophones', 'DAAG')
+        with open(geophones_pickle, 'wb') as geophones_fp:
+            pickle.dump(geophones_bundle, geophones_fp)
+    geophones_data = geophones_bundle.data
+    logger.info('geophones data has variables %s' % list(geophones_data))
+    logger.info('geophones data has %d rows and %d variables' % geophones_data.shape)
+    geophones_title = geophones_bundle.title
+    logger.info('geophones data has title %s' % geophones_title)
+
     logger.info('loading depression data')
     Ginzberg_pickle = data_folder + 'Ginzberg.pkl'
     if exists(Ginzberg_pickle):

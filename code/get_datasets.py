@@ -2015,6 +2015,21 @@ if __name__ == '__main__':
     headinjury1_title = headinjury1_bundle.title
     logger.info('headinjury1 data has title %s' % headinjury1_title)
 
+    logger.info('loading Scottish hill races data')
+    hills_pickle = data_folder + 'hills.pkl'
+    if exists(hills_pickle):
+        with open(hills_pickle, 'rb') as hills_fp:
+            hills_bundle = pickle.load(hills_fp)
+    else:
+        hills_bundle = get_rdataset('hills', 'DAAG')
+        with open(hills_pickle, 'wb') as hills_fp:
+            pickle.dump(hills_bundle, hills_fp)
+    hills_data = hills_bundle.data
+    logger.info('hills data has variables %s' % list(hills_data))
+    logger.info('hills data has %d rows and %d variables' % hills_data.shape)
+    hills_title = hills_bundle.title
+    logger.info('hills data has title %s' % hills_title)
+
     logger.info('loading heart transplant data')
     heart_pickle = data_folder + 'heart.pkl'
     if exists(heart_pickle):

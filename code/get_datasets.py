@@ -2030,6 +2030,21 @@ if __name__ == '__main__':
     hills_title = hills_bundle.title
     logger.info('hills data has title %s' % hills_title)
 
+    logger.info('loading Scottish hill races (2000) data')
+    hills2000_pickle = data_folder + 'hills2000.pkl'
+    if exists(hills2000_pickle):
+        with open(hills2000_pickle, 'rb') as hills2000_fp:
+            hills2000_bundle = pickle.load(hills2000_fp)
+    else:
+        hills2000_bundle = get_rdataset('hills2000', 'DAAG')
+        with open(hills2000_pickle, 'wb') as hills2000_fp:
+            pickle.dump(hills2000_bundle, hills2000_fp)
+    hills2000_data = hills2000_bundle.data
+    logger.info('hills2000 data has variables %s' % list(hills2000_data))
+    logger.info('hills2000 data has %d rows and %d variables' % hills2000_data.shape)
+    hills2000_title = hills2000_bundle.title
+    logger.info('hills2000 data has title %s' % hills2000_title)
+
     logger.info('loading heart transplant data')
     heart_pickle = data_folder + 'heart.pkl'
     if exists(heart_pickle):

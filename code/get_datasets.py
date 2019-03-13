@@ -2000,6 +2000,21 @@ if __name__ == '__main__':
     Hartnagel_title = Hartnagel_bundle.title
     logger.info('Hartnagel data has title %s' % Hartnagel_title)
 
+    logger.info('loading simulated minor head injury data')
+    headinjury1_pickle = data_folder + 'headinjury1.pkl'
+    if exists(headinjury1_pickle):
+        with open(headinjury1_pickle, 'rb') as headinjury1_fp:
+            headinjury1_bundle = pickle.load(headinjury1_fp)
+    else:
+        headinjury1_bundle = get_rdataset('headInjury', 'DAAG')
+        with open(headinjury1_pickle, 'wb') as headinjury1_fp:
+            pickle.dump(headinjury1_bundle, headinjury1_fp)
+    headinjury1_data = headinjury1_bundle.data
+    logger.info('headinjury1 data has variables %s' % list(headinjury1_data))
+    logger.info('headinjury1 data has %d rows and %d variables' % headinjury1_data.shape)
+    headinjury1_title = headinjury1_bundle.title
+    logger.info('headinjury1 data has title %s' % headinjury1_title)
+
     logger.info('loading heart transplant data')
     heart_pickle = data_folder + 'heart.pkl'
     if exists(heart_pickle):

@@ -2088,7 +2088,7 @@ if __name__ == '__main__':
     hirose_title = hirose_bundle.title
     logger.info('hirose data has title %s' % hirose_title)
 
-    logger.info('loading Hawaiian Potassium-Argon age data data')
+    logger.info('loading Hawaiian Potassium-Argon age data')
     hotspots_pickle = data_folder + 'hotspots.pkl'
     if exists(hotspots_pickle):
         with open(hotspots_pickle, 'rb') as hotspots_fp:

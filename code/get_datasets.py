@@ -2015,6 +2015,35 @@ if __name__ == '__main__':
     headinjury1_title = headinjury1_bundle.title
     logger.info('headinjury1 data has title %s' % headinjury1_title)
 
+    logger.info('loading heart transplant data')
+    heart_pickle = data_folder + 'heart.pkl'
+    if exists(heart_pickle):
+        with open(heart_pickle, 'rb') as heart_fp:
+            heart_bunch = pickle.load(heart_fp)
+    else:
+        heart_bunch = heart.load()
+        with open(heart_pickle, 'wb') as heart_fp:
+            pickle.dump(heart_bunch, heart_fp)
+    heart_data = heart_bunch['data']
+    logger.info('heart data has %d rows' % len(heart_data))
+    heart_names = heart_bunch['names']
+    logger.info('heart names: %s' % str(heart_names))
+
+    logger.info('loading highway accident data')
+    Highway1_pickle = data_folder + 'Highway1.pkl'
+    if exists(Highway1_pickle):
+        with open(Highway1_pickle, 'rb') as Highway1_fp:
+            Highway1_bundle = pickle.load(Highway1_fp)
+    else:
+        Highway1_bundle = get_rdataset('Highway1', 'carData')
+        with open(Highway1_pickle, 'wb') as Highway1_fp:
+            pickle.dump(Highway1_bundle, Highway1_fp)
+    Highway1_data = Highway1_bundle.data
+    logger.info(
+        'Highway1 data has variables %s and has %d rows' % (list(Highway1_data), len(Highway1_data)))
+    Highway1_title = Highway1_bundle.title
+    logger.info('Highway1 data has title %s' % Highway1_title)
+
     logger.info('loading Scottish hill races data')
     hills_pickle = data_folder + 'hills.pkl'
     if exists(hills_pickle):
@@ -2044,35 +2073,6 @@ if __name__ == '__main__':
     logger.info('hills2000 data has %d rows and %d variables' % hills2000_data.shape)
     hills2000_title = hills2000_bundle.title
     logger.info('hills2000 data has title %s' % hills2000_title)
-
-    logger.info('loading heart transplant data')
-    heart_pickle = data_folder + 'heart.pkl'
-    if exists(heart_pickle):
-        with open(heart_pickle, 'rb') as heart_fp:
-            heart_bunch = pickle.load(heart_fp)
-    else:
-        heart_bunch = heart.load()
-        with open(heart_pickle, 'wb') as heart_fp:
-            pickle.dump(heart_bunch, heart_fp)
-    heart_data = heart_bunch['data']
-    logger.info('heart data has %d rows' % len(heart_data))
-    heart_names = heart_bunch['names']
-    logger.info('heart names: %s' % str(heart_names))
-
-    logger.info('loading highway accident data')
-    Highway1_pickle = data_folder + 'Highway1.pkl'
-    if exists(Highway1_pickle):
-        with open(Highway1_pickle, 'rb') as Highway1_fp:
-            Highway1_bundle = pickle.load(Highway1_fp)
-    else:
-        Highway1_bundle = get_rdataset('Highway1', 'carData')
-        with open(Highway1_pickle, 'wb') as Highway1_fp:
-            pickle.dump(Highway1_bundle, Highway1_fp)
-    Highway1_data = Highway1_bundle.data
-    logger.info(
-        'Highway1 data has variables %s and has %d rows' % (list(Highway1_data), len(Highway1_data)))
-    Highway1_title = Highway1_bundle.title
-    logger.info('Highway1 data has title %s' % Highway1_title)
 
     logger.info('loading failure time of PET film data')
     hirose_pickle = data_folder + 'hirose.pkl'

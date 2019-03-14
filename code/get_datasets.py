@@ -2103,6 +2103,21 @@ if __name__ == '__main__':
     hotspots_title = hotspots_bundle.title
     logger.info('hotspots data has title %s' % hotspots_title)
 
+    logger.info('loading Hawaiian Argon-Argon age data')
+    hotspots2006_pickle = data_folder + 'hotspots2006.pkl'
+    if exists(hotspots2006_pickle):
+        with open(hotspots2006_pickle, 'rb') as hotspots2006_fp:
+            hotspots2006_bundle = pickle.load(hotspots2006_fp)
+    else:
+        hotspots2006_bundle = get_rdataset('hotspots2006', 'DAAG')
+        with open(hotspots2006_pickle, 'wb') as hotspots2006_fp:
+            pickle.dump(hotspots2006_bundle, hotspots2006_fp)
+    hotspots2006_data = hotspots2006_bundle.data
+    logger.info('hotspots2006 data has variables %s' % list(hotspots2006_data))
+    logger.info('hotspots2006 data has %d rows and %d variables' % hotspots2006_data.shape)
+    hotspots2006_title = hotspots2006_bundle.title
+    logger.info('hotspots2006 data has title %s' % hotspots2006_title)
+
     logger.info('loading West German interest and inflation rate data')
     interest_inflation_pickle = data_folder + 'interest_inflation.pkl'
     if exists(interest_inflation_pickle):

@@ -2088,6 +2088,21 @@ if __name__ == '__main__':
     hirose_title = hirose_bundle.title
     logger.info('hirose data has title %s' % hirose_title)
 
+    logger.info('loading Hawaiian Potassium-Argon age data data')
+    hotspots_pickle = data_folder + 'hotspots.pkl'
+    if exists(hotspots_pickle):
+        with open(hotspots_pickle, 'rb') as hotspots_fp:
+            hotspots_bundle = pickle.load(hotspots_fp)
+    else:
+        hotspots_bundle = get_rdataset('hotspots', 'DAAG')
+        with open(hotspots_pickle, 'wb') as hotspots_fp:
+            pickle.dump(hotspots_bundle, hotspots_fp)
+    hotspots_data = hotspots_bundle.data
+    logger.info('hotspots data has variables %s' % list(hotspots_data))
+    logger.info('hotspots data has %d rows and %d variables' % hotspots_data.shape)
+    hotspots_title = hotspots_bundle.title
+    logger.info('hotspots data has title %s' % hotspots_title)
+
     logger.info('loading West German interest and inflation rate data')
     interest_inflation_pickle = data_folder + 'interest_inflation.pkl'
     if exists(interest_inflation_pickle):

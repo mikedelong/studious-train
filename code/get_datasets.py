@@ -2118,6 +2118,21 @@ if __name__ == '__main__':
     hotspots2006_title = hotspots2006_bundle.title
     logger.info('hotspots2006 data has title %s' % hotspots2006_title)
 
+    logger.info('loading Aranda house price data')
+    houseprices_pickle = data_folder + 'houseprices.pkl'
+    if exists(houseprices_pickle):
+        with open(houseprices_pickle, 'rb') as houseprices_fp:
+            houseprices_bundle = pickle.load(houseprices_fp)
+    else:
+        houseprices_bundle = get_rdataset('houseprices', 'DAAG')
+        with open(houseprices_pickle, 'wb') as houseprices_fp:
+            pickle.dump(houseprices_bundle, houseprices_fp)
+    houseprices_data = houseprices_bundle.data
+    logger.info('houseprices data has variables %s' % list(houseprices_data))
+    logger.info('houseprices data has %d rows and %d variables' % houseprices_data.shape)
+    houseprices_title = houseprices_bundle.title
+    logger.info('houseprices data has title %s' % houseprices_title)
+
     logger.info('loading West German interest and inflation rate data')
     interest_inflation_pickle = data_folder + 'interest_inflation.pkl'
     if exists(interest_inflation_pickle):

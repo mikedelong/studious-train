@@ -2133,7 +2133,7 @@ if __name__ == '__main__':
     houseprices_title = houseprices_bundle.title
     logger.info('houseprices data has title %s' % houseprices_title)
 
-    logger.info('loading Oxygen update vs power output part 1 data')
+    logger.info('loading Oxygen uptake vs power output part 1 data')
     humanpower1_pickle = data_folder + 'humanpower1.pkl'
     if exists(humanpower1_pickle):
         with open(humanpower1_pickle, 'rb') as humanpower1_fp:
@@ -2148,7 +2148,7 @@ if __name__ == '__main__':
     humanpower1_title = humanpower1_bundle.title
     logger.info('humanpower1 data has title %s' % humanpower1_title)
 
-    logger.info('loading Oxygen update vs power output part 2 data')
+    logger.info('loading Oxygen uptake vs power output part 2 data')
     humanpower2_pickle = data_folder + 'humanpower2.pkl'
     if exists(humanpower2_pickle):
         with open(humanpower2_pickle, 'rb') as humanpower2_fp:

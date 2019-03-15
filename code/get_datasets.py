@@ -2133,6 +2133,21 @@ if __name__ == '__main__':
     houseprices_title = houseprices_bundle.title
     logger.info('houseprices data has title %s' % houseprices_title)
 
+    logger.info('loading Oxygen update vs power output part 1 data')
+    humanpower1_pickle = data_folder + 'humanpower1.pkl'
+    if exists(humanpower1_pickle):
+        with open(humanpower1_pickle, 'rb') as humanpower1_fp:
+            humanpower1_bundle = pickle.load(humanpower1_fp)
+    else:
+        humanpower1_bundle = get_rdataset('humanpower1', 'DAAG')
+        with open(humanpower1_pickle, 'wb') as humanpower1_fp:
+            pickle.dump(humanpower1_bundle, humanpower1_fp)
+    humanpower1_data = humanpower1_bundle.data
+    logger.info('humanpower1 data has variables %s' % list(humanpower1_data))
+    logger.info('humanpower1 data has %d rows and %d variables' % humanpower1_data.shape)
+    humanpower1_title = humanpower1_bundle.title
+    logger.info('humanpower1 data has title %s' % humanpower1_title)
+
     logger.info('loading West German interest and inflation rate data')
     interest_inflation_pickle = data_folder + 'interest_inflation.pkl'
     if exists(interest_inflation_pickle):

@@ -2148,20 +2148,20 @@ if __name__ == '__main__':
     humanpower1_title = humanpower1_bundle.title
     logger.info('humanpower1 data has title %s' % humanpower1_title)
 
-    logger.info('loading Oxygen uptake vs power output part 2 data')
-    humanpower2_pickle = data_folder + 'humanpower2.pkl'
-    if exists(humanpower2_pickle):
-        with open(humanpower2_pickle, 'rb') as humanpower2_fp:
-            humanpower2_bundle = pickle.load(humanpower2_fp)
+    logger.info('loading named US Atlantic storm data')
+    hurricNamed_pickle = data_folder + 'hurricNamed.pkl'
+    if exists(hurricNamed_pickle):
+        with open(hurricNamed_pickle, 'rb') as hurricNamed_fp:
+            hurricNamed_bundle = pickle.load(hurricNamed_fp)
     else:
-        humanpower2_bundle = get_rdataset('humanpower2', 'DAAG')
-        with open(humanpower2_pickle, 'wb') as humanpower2_fp:
-            pickle.dump(humanpower2_bundle, humanpower2_fp)
-    humanpower2_data = humanpower2_bundle.data
-    logger.info('humanpower2 data has variables %s' % list(humanpower2_data))
-    logger.info('humanpower2 data has %d rows and %d variables' % humanpower2_data.shape)
-    humanpower2_title = humanpower2_bundle.title
-    logger.info('humanpower2 data has title %s' % humanpower2_title)
+        hurricNamed_bundle = get_rdataset('hurricNamed', 'DAAG')
+        with open(hurricNamed_pickle, 'wb') as hurricNamed_fp:
+            pickle.dump(hurricNamed_bundle, hurricNamed_fp)
+    hurricNamed_data = hurricNamed_bundle.data
+    logger.info('hurricNamed data has variables %s' % list(hurricNamed_data))
+    logger.info('hurricNamed data has %d rows and %d variables' % hurricNamed_data.shape)
+    hurricNamed_title = hurricNamed_bundle.title
+    logger.info('hurricNamed data has title %s' % hurricNamed_title)
 
     logger.info('loading West German interest and inflation rate data')
     interest_inflation_pickle = data_folder + 'interest_inflation.pkl'

@@ -49,6 +49,7 @@ from statsmodels.datasets import statecrime
 from statsmodels.datasets import strikes
 from statsmodels.datasets import sunspots
 
+from pandas import read_csv
 if __name__ == '__main__':
     start_time = time()
 
@@ -66,6 +67,28 @@ if __name__ == '__main__':
 
     data_folder = '../data/'
     output_folder = '../output/'
+
+    documentation_file = '../documentation/datasets.csv'
+    datasets_usecols = ['Package','Item']
+    datasets_df = read_csv(documentation_file, usecols=datasets_usecols)
+    logger.info(datasets_df.shape)
+    for index, row in datasets_df.iterrows():
+        if '.' not in row['Item']:
+            logger.info('loading {} / {} data'.format(row['Package'], row['Item']))
+            current_pickle = data_folder + row['Item'] + '.pkl'
+            if exists(current_pickle):
+                with open(current_pickle, 'rb') as current_fp:
+                    current_bundle = pickle.load(current_fp)
+            else:
+                current_bundle = get_rdataset(row['Item'], row['Package'])
+                with open(current_pickle, 'wb') as current_fp:
+                    pickle.dump(current_bundle, current_fp)
+            current_data = current_bundle.data
+            logger.info('{} data has variables {}' .format(row['Item'], list(current_data)))
+            logger.info('{} data has %d rows and %d variables'.format(row['Item'],  current_data.shape))
+            current_title = current_bundle.title
+            logger.info('{} data has title {}'.format(row['Item'], current_title))
+
     return_X_y = False
 
     logger.info('loading ACF1 data')

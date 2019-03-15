@@ -7,6 +7,7 @@ from time import time
 from warnings import catch_warnings
 from warnings import filterwarnings
 
+from pandas import read_csv
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.datasets import fetch_kddcup99
 from sklearn.datasets import fetch_lfw_people
@@ -49,7 +50,6 @@ from statsmodels.datasets import statecrime
 from statsmodels.datasets import strikes
 from statsmodels.datasets import sunspots
 
-from pandas import read_csv
 if __name__ == '__main__':
     start_time = time()
 
@@ -69,7 +69,7 @@ if __name__ == '__main__':
     output_folder = '../output/'
 
     documentation_file = '../documentation/datasets.csv'
-    datasets_usecols = ['Package','Item']
+    datasets_usecols = ['Package', 'Item']
     datasets_df = read_csv(documentation_file, usecols=datasets_usecols)
     logger.info(datasets_df.shape)
     for index, row in datasets_df.iterrows():
@@ -84,10 +84,13 @@ if __name__ == '__main__':
                 with open(current_pickle, 'wb') as current_fp:
                     pickle.dump(current_bundle, current_fp)
             current_data = current_bundle.data
-            logger.info('{} data has variables {}' .format(row['Item'], list(current_data)))
-            logger.info('{} data has %d rows and %d variables'.format(row['Item'],  current_data.shape))
-            current_title = current_bundle.title
-            logger.info('{} data has title {}'.format(row['Item'], current_title))
+            logger.info('{} data has variables {}'.format(row['Item'], list(current_data)))
+            if len(current_data.shape) > 1:
+                logger.info('{} data has {} rows and {} variables'.format(row['Item'], current_data.shape[0],
+                                                                          current_data.shape[1]))
+            if 'title' in current_bundle.keys():
+                current_title = current_bundle.title
+                logger.info('{} data has title {}'.format(row['Item'], current_title))
 
     return_X_y = False
 

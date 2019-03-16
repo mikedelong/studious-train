@@ -94,35 +94,6 @@ if __name__ == '__main__':
 
     return_X_y = False
 
-    logger.info('loading acme data')
-    acme_pickle = data_folder + 'acme.pkl'
-    if exists(acme_pickle):
-        with open(acme_pickle, 'rb') as acme_fp:
-            acme_bundle = pickle.load(acme_fp)
-    else:
-        acme_bundle = get_rdataset('acme', 'boot')
-        with open(acme_pickle, 'wb') as acme_fp:
-            pickle.dump(acme_bundle, acme_fp)
-    acme_data = acme_bundle.data
-    logger.info('acme data has variables %s' % list(acme_data))
-    logger.info('acme data has %d rows and %d variables' % acme_data.shape)
-    acme_title = acme_bundle.title
-    logger.info('acme data has title %s' % acme_title)
-
-    logger.info('loading experimenter expectations data')
-    Adler_pickle = data_folder + 'Adler.pkl'
-    if exists(Adler_pickle):
-        with open(Adler_pickle, 'rb') as Adler_fp:
-            Adler_bundle = pickle.load(Adler_fp)
-    else:
-        Adler_bundle = get_rdataset('Adler', 'carData')
-        with open(Adler_pickle, 'wb') as Adler_fp:
-            pickle.dump(Adler_bundle, Adler_fp)
-    Adler_data = Adler_bundle.data
-    logger.info('Adler data has variables %s and has %d rows' % (list(Adler_data), len(Adler_data)))
-    Adler_title = Adler_bundle.title
-    logger.info('Adler data has title %s' % Adler_title)
-
     logger.info('loading affairs data')
     affairs_pickle = data_folder + 'affairs.pkl'
     if exists(affairs_pickle):

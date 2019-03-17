@@ -94,21 +94,6 @@ if __name__ == '__main__':
 
     return_X_y = False
 
-    logger.info('loading aids data')
-    aids_pickle = data_folder + 'aids.pkl'
-    if exists(aids_pickle):
-        with open(aids_pickle, 'rb') as aids_fp:
-            aids_bundle = pickle.load(aids_fp)
-    else:
-        aids_bundle = get_rdataset('aids', 'boot')
-        with open(aids_pickle, 'wb') as aids_fp:
-            pickle.dump(aids_bundle, aids_fp)
-    aids_data = aids_bundle.data
-    logger.info('aids data has variables %s' % list(aids_data))
-    logger.info('aids data has %d rows and %d variables' % aids_data.shape)
-    aids_title = aids_bundle.title
-    logger.info('aids data has title %s' % aids_title)
-
     logger.info('loading air conditioning failure data')
     aircondit_pickle = data_folder + 'aircondit.pkl'
     if exists(aircondit_pickle):

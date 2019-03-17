@@ -94,20 +94,6 @@ if __name__ == '__main__':
 
     return_X_y = False
 
-    logger.info('loading affairs data')
-    affairs_pickle = data_folder + 'affairs.pkl'
-    if exists(affairs_pickle):
-        with open(affairs_pickle, 'rb') as affairs_fp:
-            affairs_bundle = pickle.load(affairs_fp)
-    else:
-        affairs_bundle = get_rdataset('affairs', 'COUNT')
-        with open(affairs_pickle, 'wb') as affairs_fp:
-            pickle.dump(affairs_bundle, affairs_fp)
-    affairs_data = affairs_bundle.data
-    logger.info('affairs data has variables %s and has %d rows' % (list(affairs_data), len(affairs_data)))
-    affairs_title = affairs_bundle.title
-    logger.info('affairs data has title %s' % affairs_title)
-
     logger.info('loading EU agriculture workforce data')
     agriculture_pickle = data_folder + 'agriculture.pkl'
     if exists(agriculture_pickle):

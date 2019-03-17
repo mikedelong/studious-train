@@ -94,36 +94,6 @@ if __name__ == '__main__':
 
     return_X_y = False
 
-    logger.info('loading air conditioning failure data')
-    aircondit_pickle = data_folder + 'aircondit.pkl'
-    if exists(aircondit_pickle):
-        with open(aircondit_pickle, 'rb') as aircondit_fp:
-            aircondit_bundle = pickle.load(aircondit_fp)
-    else:
-        aircondit_bundle = get_rdataset('aircondit', 'boot')
-        with open(aircondit_pickle, 'wb') as aircondit_fp:
-            pickle.dump(aircondit_bundle, aircondit_fp)
-    aircondit_data = aircondit_bundle.data
-    logger.info('aircondit data has variables %s' % list(aircondit_data))
-    logger.info('aircondit data has %d rows and %d variables' % aircondit_data.shape)
-    aircondit_title = aircondit_bundle.title
-    logger.info('aircondit data has title %s' % aircondit_title)
-
-    logger.info('loading air conditioning 7 failure data')
-    aircondit7_pickle = data_folder + 'aircondit7.pkl'
-    if exists(aircondit7_pickle):
-        with open(aircondit7_pickle, 'rb') as aircondit7_fp:
-            aircondit7_bundle = pickle.load(aircondit7_fp)
-    else:
-        aircondit7_bundle = get_rdataset('aircondit7', 'boot')
-        with open(aircondit7_pickle, 'wb') as aircondit7_fp:
-            pickle.dump(aircondit7_bundle, aircondit7_fp)
-    aircondit7_data = aircondit7_bundle.data
-    logger.info('aircondit7 data has variables %s' % list(aircondit7_data))
-    logger.info('aircondit7 data has %d rows and %d variables' % aircondit7_data.shape)
-    aircondit7_title = aircondit7_bundle.title
-    logger.info('aircondit7 data has title %s' % aircondit7_title)
-
     logger.info('loading Australian athletic data')
     ais_pickle = data_folder + 'ais.pkl'
     if exists(ais_pickle):

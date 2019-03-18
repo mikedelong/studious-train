@@ -94,48 +94,6 @@ if __name__ == '__main__':
 
     return_X_y = False
 
-    logger.info('loading car speeding and warning sign data')
-    amis_pickle = data_folder + 'amis.pkl'
-    if exists(amis_pickle):
-        with open(amis_pickle, 'rb') as amis_fp:
-            amis_bundle = pickle.load(amis_fp)
-    else:
-        amis_bundle = get_rdataset('amis', 'boot')
-        with open(amis_pickle, 'wb') as amis_fp:
-            pickle.dump(amis_bundle, amis_fp)
-    amis_data = amis_bundle.data
-    logger.info('amis data has variables %s' % list(amis_data))
-    amis_title = amis_bundle.title
-    logger.info('amis data has title %s' % amis_title)
-
-    logger.info('loading remission time for Acute Myelogenous Leukemia data')
-    aml_pickle = data_folder + 'aml.pkl'
-    if exists(aml_pickle):
-        with open(aml_pickle, 'rb') as aml_fp:
-            aml_bundle = pickle.load(aml_fp)
-    else:
-        aml_bundle = get_rdataset('aml', 'boot')
-        with open(aml_pickle, 'wb') as aml_fp:
-            pickle.dump(aml_bundle, aml_fp)
-    aml_data = aml_bundle.data
-    logger.info('aml data has variables %s' % list(aml_data))
-    aml_title = aml_bundle.title
-    logger.info('aml data has title %s' % aml_title)
-
-    logger.info('loading AMS survey data')
-    AMSsurvey_pickle = data_folder + 'AMSsurvey.pkl'
-    if exists(AMSsurvey_pickle):
-        with open(AMSsurvey_pickle, 'rb') as AMSsurvey_fp:
-            AMSsurvey_bundle = pickle.load(AMSsurvey_fp)
-    else:
-        AMSsurvey_bundle = get_rdataset('AMSsurvey', 'carData')
-        with open(AMSsurvey_pickle, 'wb') as AMSsurvey_fp:
-            pickle.dump(AMSsurvey_bundle, AMSsurvey_fp)
-    AMSsurvey_data = AMSsurvey_bundle.data
-    logger.info('AMSsurvey data has variables %s and has %d rows' % (list(AMSsurvey_data), len(AMSsurvey_data)))
-    AMSsurvey_title = AMSsurvey_bundle.title
-    logger.info('AMSsurvey data has title %s' % AMSsurvey_title)
-
     logger.info('loading ANES96 data')
     anes96_pickle = data_folder + 'anes96.pkl'
     if exists(anes96_pickle):
@@ -152,49 +110,6 @@ if __name__ == '__main__':
     logger.info('ANES96 endogengous variable is %s' % anes96_endog)
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
-
-    logger.info('loading city integration data')
-    Angell_pickle = data_folder + 'Angell.pkl'
-    if exists(Angell_pickle):
-        with open(Angell_pickle, 'rb') as Angell_fp:
-            Angell_bundle = pickle.load(Angell_fp)
-    else:
-        Angell_bundle = get_rdataset('Angell', 'carData')
-        with open(Angell_pickle, 'wb') as Angell_fp:
-            pickle.dump(Angell_bundle, Angell_fp)
-    Angell_data = Angell_bundle.data
-    logger.info('Angell data has variables %s and has %d rows' % (list(Angell_data), len(Angell_data)))
-    Angell_title = Angell_bundle.title
-    logger.info('Angell data has title %s' % Angell_title)
-
-    logger.info('loading anesthetic effectiveness data')
-    anesthetic_pickle = data_folder + 'anesthetic.pkl'
-    if exists(anesthetic_pickle):
-        with open(anesthetic_pickle, 'rb') as anesthetic_fp:
-            anesthetic_bundle = pickle.load(anesthetic_fp)
-    else:
-        anesthetic_bundle = get_rdataset('anesthetic', 'DAAG')
-        with open(anesthetic_pickle, 'wb') as anesthetic_fp:
-            pickle.dump(anesthetic_bundle, anesthetic_fp)
-    anesthetic_data = anesthetic_bundle.data
-    logger.info('anesthetic data has variables %s' % list(anesthetic_data))
-    logger.info('anesthetic data has %d rows and %d variables' % anesthetic_data.shape)
-    anesthetic_title = anesthetic_bundle.title
-    logger.info('anesthetic data has title %s' % anesthetic_title)
-
-    logger.info('loading animal attribute data')
-    animals_pickle = data_folder + 'animals.pkl'
-    if exists(animals_pickle):
-        with open(animals_pickle, 'rb') as animals_fp:
-            animals_bundle = pickle.load(animals_fp)
-    else:
-        animals_bundle = get_rdataset('animals', 'cluster')
-        with open(animals_pickle, 'wb') as animals_fp:
-            pickle.dump(animals_bundle, animals_fp)
-    animals_data = animals_bundle.data
-    logger.info('animals data has variables %s and has %d rows' % (list(animals_data), len(animals_data)))
-    animals_title = animals_bundle.title
-    logger.info('animals data has title %s' % animals_title)
 
     logger.info('loading US public school expenditure data')
     Anscombe_pickle = data_folder + 'Anscombe.pkl'

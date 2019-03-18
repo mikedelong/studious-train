@@ -94,36 +94,6 @@ if __name__ == '__main__':
 
     return_X_y = False
 
-    logger.info('loading Australian athletic data')
-    ais_pickle = data_folder + 'ais.pkl'
-    if exists(ais_pickle):
-        with open(ais_pickle, 'rb') as ais_fp:
-            ais_bundle = pickle.load(ais_fp)
-    else:
-        ais_bundle = get_rdataset('ais', 'DAAG')
-        with open(ais_pickle, 'wb') as ais_fp:
-            pickle.dump(ais_bundle, ais_fp)
-    ais_data = ais_bundle.data
-    logger.info('ais data has variables %s' % list(ais_data))
-    logger.info('ais data has %d rows and %d variables' % ais_data.shape)
-    ais_title = ais_bundle.title
-    logger.info('ais data has title %s' % ais_title)
-
-    logger.info('loading books data')
-    allbacks_pickle = data_folder + 'allbacks.pkl'
-    if exists(allbacks_pickle):
-        with open(allbacks_pickle, 'rb') as allbacks_fp:
-            allbacks_bundle = pickle.load(allbacks_fp)
-    else:
-        allbacks_bundle = get_rdataset('allbacks', 'DAAG')
-        with open(allbacks_pickle, 'wb') as allbacks_fp:
-            pickle.dump(allbacks_bundle, allbacks_fp)
-    allbacks_data = allbacks_bundle.data
-    logger.info('allbacks data has variables %s' % list(allbacks_data))
-    logger.info('allbacks data has %d rows and %d variables' % allbacks_data.shape)
-    allbacks_title = allbacks_bundle.title
-    logger.info('allbacks data has title %s' % allbacks_title)
-
     logger.info('loading car speeding and warning sign data')
     amis_pickle = data_folder + 'amis.pkl'
     if exists(amis_pickle):

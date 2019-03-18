@@ -111,50 +111,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    logger.info('loading US public school expenditure data')
-    Anscombe_pickle = data_folder + 'Anscombe.pkl'
-    if exists(Anscombe_pickle):
-        with open(Anscombe_pickle, 'rb') as Anscombe_fp:
-            Anscombe_bundle = pickle.load(Anscombe_fp)
-    else:
-        Anscombe_bundle = get_rdataset('Anscombe', 'carData')
-        with open(Anscombe_pickle, 'wb') as Anscombe_fp:
-            pickle.dump(Anscombe_bundle, Anscombe_fp)
-    Anscombe_data = Anscombe_bundle.data
-    logger.info('Anscombe data has variables %s and has %d rows' % (list(Anscombe_data), len(Anscombe_data)))
-    Anscombe_title = Anscombe_bundle.title
-    logger.info('Anscombe data has title %s' % Anscombe_title)
-
-    logger.info('loading corn yields/block 111 data')
-    ant111b_pickle = data_folder + 'ant111b.pkl'
-    if exists(ant111b_pickle):
-        with open(ant111b_pickle, 'rb') as ant111b_fp:
-            ant111b_bundle = pickle.load(ant111b_fp)
-    else:
-        ant111b_bundle = get_rdataset('ant111b', 'DAAG')
-        with open(ant111b_pickle, 'wb') as ant111b_fp:
-            pickle.dump(ant111b_bundle, ant111b_fp)
-    ant111b_data = ant111b_bundle.data
-    logger.info('ant111b data has variables %s' % list(ant111b_data))
-    logger.info('ant111b data has %d rows and %d variables' % ant111b_data.shape)
-    ant111b_title = ant111b_bundle.title
-    logger.info('ant111b data has title %s' % ant111b_title)
-
-    logger.info('loading Antigua corn yield data')
-    antigua_pickle = data_folder + 'antigua.pkl'
-    if exists(antigua_pickle):
-        with open(antigua_pickle, 'rb') as antigua_fp:
-            antigua_bundle = pickle.load(antigua_fp)
-    else:
-        antigua_bundle = get_rdataset('antigua', 'DAAG')
-        with open(antigua_pickle, 'wb') as antigua_fp:
-            pickle.dump(antigua_bundle, antigua_fp)
-    antigua_data = antigua_bundle.data
-    logger.info('antigua data has variables %s' % list(antigua_data))
-    logger.info('antigua data has %d rows and %d variables' % antigua_data.shape)
-    antigua_title = antigua_bundle.title
-    logger.info('antigua data has title %s' % antigua_title)
-
     logger.info('loading apple taste data')
     appletaste_pickle = data_folder + 'appletaste.pkl'
     if exists(appletaste_pickle):

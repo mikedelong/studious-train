@@ -111,20 +111,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    logger.info('loading marijuana arrest data')
-    Arrests_pickle = data_folder + 'Arrests.pkl'
-    if exists(Arrests_pickle):
-        with open(Arrests_pickle, 'rb') as Arrests_fp:
-            Arrests_bundle = pickle.load(Arrests_fp)
-    else:
-        Arrests_bundle = get_rdataset('Arrests', 'carData')
-        with open(Arrests_pickle, 'wb') as Arrests_fp:
-            pickle.dump(Arrests_bundle, Arrests_fp)
-    Arrests_data = Arrests_bundle.data
-    logger.info('Arrests data has variables %s and has %d rows' % (list(Arrests_data), len(Arrests_data)))
-    Arrests_title = Arrests_bundle.title
-    logger.info('Arrests data has title %s' % Arrests_title)
-
     logger.info('loading Australian lat/lon data')
     aulatlong_pickle = data_folder + 'aulatlong.pkl'
     if exists(aulatlong_pickle):

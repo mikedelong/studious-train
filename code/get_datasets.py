@@ -111,21 +111,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    logger.info('loading apple taste data')
-    appletaste_pickle = data_folder + 'appletaste.pkl'
-    if exists(appletaste_pickle):
-        with open(appletaste_pickle, 'rb') as appletaste_fp:
-            appletaste_bundle = pickle.load(appletaste_fp)
-    else:
-        appletaste_bundle = get_rdataset('appletaste', 'DAAG')
-        with open(appletaste_pickle, 'wb') as appletaste_fp:
-            pickle.dump(appletaste_bundle, appletaste_fp)
-    appletaste_data = appletaste_bundle.data
-    logger.info('appletaste data has variables %s' % list(appletaste_data))
-    logger.info('appletaste data has %d rows and %d variables' % appletaste_data.shape)
-    appletaste_title = appletaste_bundle.title
-    logger.info('appletaste data has title %s' % appletaste_title)
-
     logger.info('loading marijuana arrest data')
     Arrests_pickle = data_folder + 'Arrests.pkl'
     if exists(Arrests_pickle):

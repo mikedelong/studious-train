@@ -111,36 +111,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    logger.info('loading Australian lat/lon data')
-    aulatlong_pickle = data_folder + 'aulatlong.pkl'
-    if exists(aulatlong_pickle):
-        with open(aulatlong_pickle, 'rb') as aulatlong_fp:
-            aulatlong_bundle = pickle.load(aulatlong_fp)
-    else:
-        aulatlong_bundle = get_rdataset('aulatlong', 'DAAG')
-        with open(aulatlong_pickle, 'wb') as aulatlong_fp:
-            pickle.dump(aulatlong_bundle, aulatlong_fp)
-    aulatlong_data = aulatlong_bundle.data
-    logger.info('aulatlong data has variables %s' % list(aulatlong_data))
-    logger.info('aulatlong data has %d rows and %d variables' % aulatlong_data.shape)
-    aulatlong_title = aulatlong_bundle.title
-    logger.info('aulatlong data has title %s' % aulatlong_title)
-
-    logger.info('loading Australian population data')
-    austpop_pickle = data_folder + 'austpop.pkl'
-    if exists(austpop_pickle):
-        with open(austpop_pickle, 'rb') as austpop_fp:
-            austpop_bundle = pickle.load(austpop_fp)
-    else:
-        austpop_bundle = get_rdataset('austpop', 'DAAG')
-        with open(austpop_pickle, 'wb') as austpop_fp:
-            pickle.dump(austpop_bundle, austpop_fp)
-    austpop_data = austpop_bundle.data
-    logger.info('austpop data has variables %s' % list(austpop_data))
-    logger.info('austpop data has %d rows and %d variables' % austpop_data.shape)
-    austpop_title = austpop_bundle.title
-    logger.info('austpop data has title %s' % austpop_title)
-
     logger.info('loading azcabgptca(?) data')
     azcabgptca_pickle = data_folder + 'azcabgptca.pkl'
     if exists(azcabgptca_pickle):

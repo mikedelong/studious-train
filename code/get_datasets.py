@@ -111,62 +111,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    logger.info('loading azcabgptca(?) data')
-    azcabgptca_pickle = data_folder + 'azcabgptca.pkl'
-    if exists(azcabgptca_pickle):
-        with open(azcabgptca_pickle, 'rb') as azcabgptca_fp:
-            azcabgptca_bundle = pickle.load(azcabgptca_fp)
-    else:
-        azcabgptca_bundle = get_rdataset('azcabgptca', 'COUNT')
-        with open(azcabgptca_pickle, 'wb') as azcabgptca_fp:
-            pickle.dump(azcabgptca_bundle, azcabgptca_fp)
-    azcabgptca_data = azcabgptca_bundle.data
-    logger.info('azcabgptca data has variables %s and has %d rows' % (list(azcabgptca_data), len(azcabgptca_data)))
-    azcabgptca_title = azcabgptca_bundle.title
-    logger.info('azcabgptca data has title %s' % azcabgptca_title)
-
-    logger.info('loading azdrg112(?) data')
-    azdrg112_pickle = data_folder + 'azdrg112.pkl'
-    if exists(azdrg112_pickle):
-        with open(azdrg112_pickle, 'rb') as azdrg112_fp:
-            azdrg112_bundle = pickle.load(azdrg112_fp)
-    else:
-        azdrg112_bundle = get_rdataset('azdrg112', 'COUNT')
-        with open(azdrg112_pickle, 'wb') as azdrg112_fp:
-            pickle.dump(azdrg112_bundle, azdrg112_fp)
-    azdrg112_data = azdrg112_bundle.data
-    logger.info('azdrg112 data has variables %s and has %d rows' % (list(azdrg112_data), len(azdrg112_data)))
-    azdrg112_title = azdrg112_bundle.title
-    logger.info('azdrg112 data has title %s' % azdrg112_title)
-
-    logger.info('loading azpro data')
-    azpro_pickle = data_folder + 'azpro.pkl'
-    if exists(azpro_pickle):
-        with open(azpro_pickle, 'rb') as azpro_fp:
-            azpro_bundle = pickle.load(azpro_fp)
-    else:
-        azpro_bundle = get_rdataset('azpro', 'COUNT')
-        with open(azpro_pickle, 'wb') as azpro_fp:
-            pickle.dump(azpro_bundle, azpro_fp)
-    azpro_data = azpro_bundle.data
-    logger.info('azpro data has variables %s and has %d rows' % (list(azpro_data), len(azpro_data)))
-    azpro_title = azpro_bundle.title
-    logger.info('azpro data has title %s' % azpro_title)
-
-    logger.info('loading azprocedure data')
-    azprocedure_pickle = data_folder + 'azprocedure.pkl'
-    if exists(azprocedure_pickle):
-        with open(azprocedure_pickle, 'rb') as azprocedure_fp:
-            azprocedure_bundle = pickle.load(azprocedure_fp)
-    else:
-        azprocedure_bundle = get_rdataset('azprocedure', 'COUNT')
-        with open(azprocedure_pickle, 'wb') as azprocedure_fp:
-            pickle.dump(azprocedure_bundle, azprocedure_fp)
-    azprocedure_data = azprocedure_bundle.data
-    logger.info('azprocedure data has variables %s and has %d rows' % (list(azprocedure_data), len(azprocedure_data)))
-    azprocedure_title = azprocedure_bundle.title
-    logger.info('azprocedure data has title %s' % azprocedure_title)
-
     logger.info('loading badhealth data')
     badhealth_pickle = data_folder + 'badhealth.pkl'
     if exists(badhealth_pickle):

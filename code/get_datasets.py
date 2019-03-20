@@ -111,20 +111,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    logger.info('loading badhealth data')
-    badhealth_pickle = data_folder + 'badhealth.pkl'
-    if exists(badhealth_pickle):
-        with open(badhealth_pickle, 'rb') as badhealth_fp:
-            badhealth_bundle = pickle.load(badhealth_fp)
-    else:
-        badhealth_bundle = get_rdataset('badhealth', 'COUNT')
-        with open(badhealth_pickle, 'wb') as badhealth_fp:
-            pickle.dump(badhealth_bundle, badhealth_fp)
-    badhealth_data = badhealth_bundle.data
-    logger.info('badhealth data has variables %s and has %d rows' % (list(badhealth_data), len(badhealth_data)))
-    badhealth_title = badhealth_bundle.title
-    logger.info('badhealth data has title %s' % badhealth_title)
-
     logger.info('loading reading comprehension data')
     Baumann_pickle = data_folder + 'Baumann.pkl'
     if exists(Baumann_pickle):

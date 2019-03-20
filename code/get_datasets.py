@@ -111,20 +111,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    logger.info('loading beaver body temperature data')
-    beaver_pickle = data_folder + 'beaver.pkl'
-    if exists(beaver_pickle):
-        with open(beaver_pickle, 'rb') as beaver_fp:
-            beaver_bundle = pickle.load(beaver_fp)
-    else:
-        beaver_bundle = get_rdataset('beaver', 'boot')
-        with open(beaver_pickle, 'wb') as beaver_fp:
-            pickle.dump(beaver_bundle, beaver_fp)
-    beaver_data = beaver_bundle.data
-    logger.info('beaver data has variables %s' % list(beaver_data))
-    beaver_title = beaver_bundle.title
-    logger.info('beaver data has title %s' % beaver_title)
-
     logger.info('loading British elections data')
     BEPS_pickle = data_folder + 'BEPS.pkl'
     if exists(BEPS_pickle):

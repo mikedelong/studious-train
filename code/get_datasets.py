@@ -111,20 +111,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    logger.info('loading reading comprehension data')
-    Baumann_pickle = data_folder + 'Baumann.pkl'
-    if exists(Baumann_pickle):
-        with open(Baumann_pickle, 'rb') as Baumann_fp:
-            Baumann_bundle = pickle.load(Baumann_fp)
-    else:
-        Baumann_bundle = get_rdataset('Baumann', 'carData')
-        with open(Baumann_pickle, 'wb') as Baumann_fp:
-            pickle.dump(Baumann_bundle, Baumann_fp)
-    Baumann_data = Baumann_bundle.data
-    logger.info('Baumann data has variables %s and has %d rows' % (list(Baumann_data), len(Baumann_data)))
-    Baumann_title = Baumann_bundle.title
-    logger.info('Baumann data has title %s' % Baumann_title)
-
     logger.info('loading beaver body temperature data')
     beaver_pickle = data_folder + 'beaver.pkl'
     if exists(beaver_pickle):

@@ -111,21 +111,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    logger.info('loading biomass data')
-    biomass_pickle = data_folder + 'biomass.pkl'
-    if exists(biomass_pickle):
-        with open(biomass_pickle, 'rb') as biomass_fp:
-            biomass_bundle = pickle.load(biomass_fp)
-    else:
-        biomass_bundle = get_rdataset('biomass', 'DAAG')
-        with open(biomass_pickle, 'wb') as biomass_fp:
-            pickle.dump(biomass_bundle, biomass_fp)
-    biomass_data = biomass_bundle.data
-    logger.info('biomass data has variables %s' % list(biomass_data))
-    logger.info('biomass data has %d rows and %d variables' % biomass_data.shape)
-    biomass_title = biomass_bundle.title
-    logger.info('biomass data has title %s' % biomass_title)
-
     logger.info('loading eating disorder exercise data')
     Blackmore_pickle = data_folder + 'Blackmore.pkl'
     if exists(Blackmore_pickle):

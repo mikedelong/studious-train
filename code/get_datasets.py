@@ -111,20 +111,6 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    logger.info('loading big city population data')
-    bigcity_pickle = data_folder + 'bigcity.pkl'
-    if exists(bigcity_pickle):
-        with open(bigcity_pickle, 'rb') as bigcity_fp:
-            bigcity_bundle = pickle.load(bigcity_fp)
-    else:
-        bigcity_bundle = get_rdataset('bigcity', 'boot')
-        with open(bigcity_pickle, 'wb') as bigcity_fp:
-            pickle.dump(bigcity_bundle, bigcity_fp)
-    bigcity_data = bigcity_bundle.data
-    logger.info('bigcity data has variables %s' % list(bigcity_data))
-    bigcity_title = bigcity_bundle.title
-    logger.info('bigcity data has title %s' % bigcity_title)
-
     logger.info('loading biomass data')
     biomass_pickle = data_folder + 'biomass.pkl'
     if exists(biomass_pickle):

@@ -132,34 +132,6 @@ if __name__ == '__main__':
     breast_cancer_description = breast_cancer_bunch['DESCR']
     logger.debug('cancer description: %s' % breast_cancer_description)
 
-    logger.info('loading smoking deaths among doctors data')
-    breslow_pickle = data_folder + 'breslow.pkl'
-    if exists(breslow_pickle):
-        with open(breslow_pickle, 'rb') as breslow_fp:
-            breslow_bundle = pickle.load(breslow_fp)
-    else:
-        breslow_bundle = get_rdataset('breslow', 'boot')
-        with open(breslow_pickle, 'wb') as breslow_fp:
-            pickle.dump(breslow_bundle, breslow_fp)
-    breslow_data = breslow_bundle.data
-    logger.info('breslow data has variables %s' % list(breslow_data))
-    breslow_title = breslow_bundle.title
-    logger.info('breslow data has title %s' % breslow_title)
-
-    logger.info('loading fake twins data')
-    Burt_pickle = data_folder + 'Burt.pkl'
-    if exists(Burt_pickle):
-        with open(Burt_pickle, 'rb') as Burt_fp:
-            Burt_bundle = pickle.load(Burt_fp)
-    else:
-        Burt_bundle = get_rdataset('Burt', 'carData')
-        with open(Burt_pickle, 'wb') as Burt_fp:
-            pickle.dump(Burt_bundle, Burt_fp)
-    Burt_data = Burt_bundle.data
-    logger.info('Burt data has variables %s and has %d rows' % (list(Burt_data), len(Burt_data)))
-    Burt_title = Burt_bundle.title
-    logger.info('Burt data has title %s' % Burt_title)
-
     logger.info('loading calcium uptake data')
     calcium_pickle = data_folder + 'calcium.pkl'
     if exists(calcium_pickle):

@@ -122,21 +122,6 @@ if __name__ == '__main__':
     boston_description = boston_bunch.DESCR
     logger.debug('boston description: %s' % boston_description)
 
-    logger.info('loading corrected Boston housing data')
-    bostonc_pickle = data_folder + 'bostonc.pkl'
-    if exists(bostonc_pickle):
-        with open(bostonc_pickle, 'rb') as bostonc_fp:
-            bostonc_bundle = pickle.load(bostonc_fp)
-    else:
-        bostonc_bundle = get_rdataset('bostonc', 'DAAG')
-        with open(bostonc_pickle, 'wb') as bostonc_fp:
-            pickle.dump(bostonc_bundle, bostonc_fp)
-    bostonc_data = bostonc_bundle.data
-    logger.info('bostonc data has variables %s' % list(bostonc_data))
-    logger.info('bostonc data has %d rows and %d variables' % bostonc_data.shape)
-    bostonc_title = bostonc_bundle.title
-    logger.info('bostonc data has title %s' % bostonc_title)
-
     logger.info('loading fake twins data')
     Burt_pickle = data_folder + 'Burt.pkl'
     if exists(Burt_pickle):

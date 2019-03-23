@@ -132,20 +132,6 @@ if __name__ == '__main__':
     breast_cancer_description = breast_cancer_bunch['DESCR']
     logger.debug('cancer description: %s' % breast_cancer_description)
 
-    logger.info('loading calcium uptake data')
-    calcium_pickle = data_folder + 'calcium.pkl'
-    if exists(calcium_pickle):
-        with open(calcium_pickle, 'rb') as calcium_fp:
-            calcium_bundle = pickle.load(calcium_fp)
-    else:
-        calcium_bundle = get_rdataset('calcium', 'boot')
-        with open(calcium_pickle, 'wb') as calcium_fp:
-            pickle.dump(calcium_bundle, calcium_fp)
-    calcium_data = calcium_bundle.data
-    logger.info('calcium data has variables %s' % list(calcium_data))
-    calcium_title = calcium_bundle.title
-    logger.info('calcium data has title %s' % calcium_title)
-
     logger.info('loading cancer data')
     cancer_pickle = data_folder + 'cancer.pkl'
     if exists(cancer_pickle):

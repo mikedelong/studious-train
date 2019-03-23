@@ -149,48 +149,6 @@ if __name__ == '__main__':
     cancer_exog = cancer_bunch['exog_name']
     logger.info('Cancer exogenous variable is %s' % cancer_exog)
 
-    logger.info('loading sugar-cane disease data')
-    cane_pickle = data_folder + 'cane.pkl'
-    if exists(cane_pickle):
-        with open(cane_pickle, 'rb') as cane_fp:
-            cane_bundle = pickle.load(cane_fp)
-    else:
-        cane_bundle = get_rdataset('cane', 'boot')
-        with open(cane_pickle, 'wb') as cane_fp:
-            pickle.dump(cane_bundle, cane_fp)
-    cane_data = cane_bundle.data
-    logger.info('cane data has variables %s' % list(cane_data))
-    cane_title = cane_bundle.title
-    logger.info('cane data has title %s' % cane_title)
-
-    logger.info('loading Canadian population data')
-    CanPop_pickle = data_folder + 'CanPop.pkl'
-    if exists(CanPop_pickle):
-        with open(CanPop_pickle, 'rb') as CanPop_fp:
-            CanPop_bundle = pickle.load(CanPop_fp)
-    else:
-        CanPop_bundle = get_rdataset('CanPop', 'carData')
-        with open(CanPop_pickle, 'wb') as CanPop_fp:
-            pickle.dump(CanPop_bundle, CanPop_fp)
-    CanPop_data = CanPop_bundle.data
-    logger.info('CanPop data has variables %s and has %d rows' % (list(CanPop_data), len(CanPop_data)))
-    CanPop_title = CanPop_bundle.title
-    logger.info('CanPop data has title %s' % CanPop_title)
-
-    logger.info('loading simulated manufacturing process data')
-    capability_pickle = data_folder + 'capability.pkl'
-    if exists(capability_pickle):
-        with open(capability_pickle, 'rb') as capability_fp:
-            capability_bundle = pickle.load(capability_fp)
-    else:
-        capability_bundle = get_rdataset('capability', 'boot')
-        with open(capability_pickle, 'wb') as capability_fp:
-            pickle.dump(capability_bundle, capability_fp)
-    capability_data = capability_bundle.data
-    logger.info('capability data has variables %s' % list(capability_data))
-    capability_title = capability_bundle.title
-    logger.info('capability data has title %s' % capability_title)
-
     logger.info('loading US car price data')
     carprice_pickle = data_folder + 'carprice.pkl'
     if exists(carprice_pickle):

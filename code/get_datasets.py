@@ -149,21 +149,6 @@ if __name__ == '__main__':
     cancer_exog = cancer_bunch['exog_name']
     logger.info('Cancer exogenous variable is %s' % cancer_exog)
 
-    logger.info('loading US car price data')
-    carprice_pickle = data_folder + 'carprice.pkl'
-    if exists(carprice_pickle):
-        with open(carprice_pickle, 'rb') as carprice_fp:
-            carprice_bundle = pickle.load(carprice_fp)
-    else:
-        carprice_bundle = get_rdataset('carprice', 'DAAG')
-        with open(carprice_pickle, 'wb') as carprice_fp:
-            pickle.dump(carprice_bundle, carprice_fp)
-    carprice_data = carprice_bundle.data
-    logger.info('carprice data has variables %s' % list(carprice_data))
-    logger.info('carprice data has %d rows and %d variables' % carprice_data.shape)
-    carprice_title = carprice_bundle.title
-    logger.info('carprice data has title %s' % carprice_title)
-
     logger.info('loading Car93 data')
     Cars93_pickle = data_folder + 'Cars93.pkl'
     if exists(Cars93_pickle):

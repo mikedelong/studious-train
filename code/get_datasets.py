@@ -149,51 +149,6 @@ if __name__ == '__main__':
     cancer_exog = cancer_bunch['exog_name']
     logger.info('Cancer exogenous variable is %s' % cancer_exog)
 
-    logger.info('loading credit card data')
-    ccard_pickle = data_folder + 'ccard.pkl'
-    if exists(ccard_pickle):
-        with open(ccard_pickle, 'rb') as ccard_fp:
-            ccard_bunch = pickle.load(ccard_fp)
-    else:
-        ccard_bunch = ccard.load_pandas()
-        with open(ccard_pickle, 'wb') as ccard_fp:
-            pickle.dump(ccard_bunch, ccard_fp)
-    ccard_data = ccard_bunch['data']
-    logger.info('Credit card data is %d x %d' % ccard_data.shape)
-    ccard_names = ccard_bunch['names']
-    ccard_endog = ccard_bunch['endog_name']
-    logger.info('Credit card endogenous variable is %s' % ccard_endog)
-    ccard_exog = ccard_bunch['exog_name']
-    logger.info('Credit card exogenous variable is %s' % ccard_exog)
-
-    logger.info('loading AIDS patient CD4 count data')
-    cd4_pickle = data_folder + 'cd4.pkl'
-    if exists(cd4_pickle):
-        with open(cd4_pickle, 'rb') as cd4_fp:
-            cd4_bundle = pickle.load(cd4_fp)
-    else:
-        cd4_bundle = get_rdataset('cd4', 'boot')
-        with open(cd4_pickle, 'wb') as cd4_fp:
-            pickle.dump(cd4_bundle, cd4_fp)
-    cd4_data = cd4_bundle.data
-    logger.info('cd4 data has variables %s' % list(cd4_data))
-    cd4_title = cd4_bundle.title
-    logger.info('cd4 data has title %s' % cd4_title)
-
-    logger.info('loading nested bootstrap of CD4 data')
-    cd4_nested_pickle = data_folder + 'cd4.nested.pkl'
-    if exists(cd4_nested_pickle):
-        with open(cd4_nested_pickle, 'rb') as cd4_nested_fp:
-            cd4_nested_bundle = pickle.load(cd4_nested_fp)
-    else:
-        cd4_nested_bundle = get_rdataset('cd4.nested', 'boot')
-        with open(cd4_nested_pickle, 'wb') as cd4_nested_fp:
-            pickle.dump(cd4_nested_bundle, cd4_nested_fp)
-    cd4_nested_data = cd4_nested_bundle.data
-    logger.info('cd4.nested data has variables %s' % list(cd4_nested_data))
-    cd4_nested_title = cd4_nested_bundle.title
-    logger.info('cd4.nested data has title %s' % cd4_nested_title)
-
     logger.info('loading breakfast cereal sugar data')
     cerealsugar_pickle = data_folder + 'cerealsugar.pkl'
     if exists(cerealsugar_pickle):

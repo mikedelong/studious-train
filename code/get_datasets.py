@@ -73,24 +73,23 @@ if __name__ == '__main__':
     datasets_df = read_csv(documentation_file, usecols=datasets_usecols)
     logger.info(datasets_df.shape)
     for index, row in datasets_df.iterrows():
-        if '.' not in row['Item']:
-            logger.info('loading {} / {} data'.format(row['Package'], row['Item']))
-            current_pickle = data_folder + row['Item'] + '.pkl'
-            if exists(current_pickle):
-                with open(current_pickle, 'rb') as current_fp:
-                    current_bundle = pickle.load(current_fp)
-            else:
-                current_bundle = get_rdataset(row['Item'], row['Package'])
-                with open(current_pickle, 'wb') as current_fp:
-                    pickle.dump(current_bundle, current_fp)
-            current_data = current_bundle.data
-            logger.info('{} data has variables {}'.format(row['Item'], list(current_data)))
-            if len(current_data.shape) > 1:
-                logger.info('{} data has {} rows and {} variables'.format(row['Item'], current_data.shape[0],
-                                                                          current_data.shape[1]))
-            if 'title' in current_bundle.keys():
-                current_title = current_bundle.title
-                logger.info('{} data has title {}'.format(row['Item'], current_title))
+        logger.info('loading {} / {} data'.format(row['Package'], row['Item']))
+        current_pickle = data_folder + row['Item'] + '.pkl'
+        if exists(current_pickle):
+            with open(current_pickle, 'rb') as current_fp:
+                current_bundle = pickle.load(current_fp)
+        else:
+            current_bundle = get_rdataset(row['Item'], row['Package'])
+            with open(current_pickle, 'wb') as current_fp:
+                pickle.dump(current_bundle, current_fp)
+        current_data = current_bundle.data
+        logger.info('{} data has variables {}'.format(row['Item'], list(current_data)))
+        if len(current_data.shape) > 1:
+            logger.info('{} data has {} rows and {} variables'.format(row['Item'], current_data.shape[0],
+                                                                      current_data.shape[1]))
+        if 'title' in current_bundle.keys():
+            current_title = current_bundle.title
+            logger.info('{} data has title {}'.format(row['Item'], current_title))
 
     return_X_y = False
 
@@ -148,21 +147,6 @@ if __name__ == '__main__':
     logger.info('Cancer endogenous variable is %s' % cancer_endog)
     cancer_exog = cancer_bunch['exog_name']
     logger.info('Cancer exogenous variable is %s' % cancer_exog)
-
-    logger.info('loading breakfast cereal sugar data')
-    cerealsugar_pickle = data_folder + 'cerealsugar.pkl'
-    if exists(cerealsugar_pickle):
-        with open(cerealsugar_pickle, 'rb') as cerealsugar_fp:
-            cerealsugar_bundle = pickle.load(cerealsugar_fp)
-    else:
-        cerealsugar_bundle = get_rdataset('cerealsugar', 'DAAG')
-        with open(cerealsugar_pickle, 'wb') as cerealsugar_fp:
-            pickle.dump(cerealsugar_bundle, cerealsugar_fp)
-    cerealsugar_data = cerealsugar_bundle.data
-    logger.info('cerealsugar data has variables %s' % list(cerealsugar_data))
-    logger.info('cerealsugar data has %d rows and %d variables' % cerealsugar_data.shape)
-    cerealsugar_title = cerealsugar_bundle.title
-    logger.info('cerealsugar data has title %s' % cerealsugar_title)
 
     logger.info('loading Cape fur seal data')
     cfseal_pickle = data_folder + 'cfseal.pkl'

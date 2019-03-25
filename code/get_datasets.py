@@ -164,20 +164,6 @@ if __name__ == '__main__':
     co2_raw_data = co2_bunch['raw_data']
     logger.info('CO2 raw data is %d x %d' % co2_raw_data.shape)
 
-    logger.info('loading coal mining disaster date data')
-    coal_pickle = data_folder + 'coal.pkl'
-    if exists(coal_pickle):
-        with open(coal_pickle, 'rb') as coal_fp:
-            coal_bundle = pickle.load(coal_fp)
-    else:
-        coal_bundle = get_rdataset('coal', 'boot')
-        with open(coal_pickle, 'wb') as coal_fp:
-            pickle.dump(coal_bundle, coal_fp)
-    coal_data = coal_bundle.data
-    logger.info('coal data has variables %s' % list(coal_data))
-    coal_title = coal_bundle.title
-    logger.info('coal data has title %s' % coal_title)
-
     logger.info('loading codling moth dose data')
     codling_pickle = data_folder + 'codling.pkl'
     if exists(codling_pickle):

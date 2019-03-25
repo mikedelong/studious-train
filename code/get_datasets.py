@@ -148,35 +148,6 @@ if __name__ == '__main__':
     cancer_exog = cancer_bunch['exog_name']
     logger.info('Cancer exogenous variable is %s' % cancer_exog)
 
-    logger.info('loading Cape fur seal data')
-    cfseal_pickle = data_folder + 'cfseal.pkl'
-    if exists(cfseal_pickle):
-        with open(cfseal_pickle, 'rb') as cfseal_fp:
-            cfseal_bundle = pickle.load(cfseal_fp)
-    else:
-        cfseal_bundle = get_rdataset('cfseal', 'DAAG')
-        with open(cfseal_pickle, 'wb') as cfseal_fp:
-            pickle.dump(cfseal_bundle, cfseal_fp)
-    cfseal_data = cfseal_bundle.data
-    logger.info('cfseal data has variables %s' % list(cfseal_data))
-    logger.info('cfseal data has %d rows and %d variables' % cfseal_data.shape)
-    cfseal_title = cfseal_bundle.title
-    logger.info('cfseal data has title %s' % cfseal_title)
-
-    logger.info('loading Channing House data')
-    channing_pickle = data_folder + 'channing.pkl'
-    if exists(channing_pickle):
-        with open(channing_pickle, 'rb') as channing_fp:
-            channing_bundle = pickle.load(channing_fp)
-    else:
-        channing_bundle = get_rdataset('channing', 'boot')
-        with open(channing_pickle, 'wb') as channing_fp:
-            pickle.dump(channing_bundle, channing_fp)
-    channing_data = channing_bundle.data
-    logger.info('channing data has variables %s' % list(channing_data))
-    channing_title = channing_bundle.title
-    logger.info('channing data has title %s' % channing_title)
-
     logger.info('loading Chilean voting data')
     Chile_pickle = data_folder + 'Chile.pkl'
     if exists(Chile_pickle):

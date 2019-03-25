@@ -148,61 +148,6 @@ if __name__ == '__main__':
     cancer_exog = cancer_bunch['exog_name']
     logger.info('Cancer exogenous variable is %s' % cancer_exog)
 
-    logger.info('loading Chilean voting data')
-    Chile_pickle = data_folder + 'Chile.pkl'
-    if exists(Chile_pickle):
-        with open(Chile_pickle, 'rb') as Chile_fp:
-            Chile_bundle = pickle.load(Chile_fp)
-    else:
-        Chile_bundle = get_rdataset('Chile', 'carData')
-        with open(Chile_pickle, 'wb') as Chile_fp:
-            pickle.dump(Chile_bundle, Chile_fp)
-    Chile_data = Chile_bundle.data
-    logger.info('Chile data has variables %s and has %d rows' % (list(Chile_data), len(Chile_data)))
-    Chile_title = Chile_bundle.title
-    logger.info('Chile data has title %s' % Chile_title)
-
-    logger.info('loading China smoking data')
-    china_smoking_pickle = data_folder + 'china_smoking.pkl'
-    if exists(china_smoking_pickle):
-        with open(china_smoking_pickle, 'rb') as china_smoking_fp:
-            china_smoking_bunch = pickle.load(china_smoking_fp)
-    else:
-        china_smoking_bunch = china_smoking.load_pandas()
-        with open(china_smoking_pickle, 'wb') as china_smoking_fp:
-            pickle.dump(china_smoking_bunch, china_smoking_fp)
-    china_smoking_data = china_smoking_bunch['data']
-    logger.info('China smoking data is %d x %d' % china_smoking_data.shape)
-    china_smoking_title = china_smoking_bunch['title']
-
-    logger.info('loading Romanian peasant revolt data')
-    Chirot_pickle = data_folder + 'Chirot.pkl'
-    if exists(Chirot_pickle):
-        with open(Chirot_pickle, 'rb') as Chirot_fp:
-            Chirot_bundle = pickle.load(Chirot_fp)
-    else:
-        Chirot_bundle = get_rdataset('Chirot', 'carData')
-        with open(Chirot_pickle, 'wb') as Chirot_fp:
-            pickle.dump(Chirot_bundle, Chirot_fp)
-    Chirot_data = Chirot_bundle.data
-    logger.info('Chirot data has variables %s and has %d rows' % (list(Chirot_data), len(Chirot_data)))
-    Chirot_title = Chirot_bundle.title
-    logger.info('Chirot data has title %s' % Chirot_title)
-
-    logger.info('loading kola data')
-    chorSub_pickle = data_folder + 'chorSub.pkl'
-    if exists(chorSub_pickle):
-        with open(chorSub_pickle, 'rb') as chorSub_fp:
-            chorSub_bundle = pickle.load(chorSub_fp)
-    else:
-        chorSub_bundle = get_rdataset('chorSub', 'cluster')
-        with open(chorSub_pickle, 'wb') as chorSub_fp:
-            pickle.dump(chorSub_bundle, chorSub_fp)
-    chorSub_data = chorSub_bundle.data
-    logger.info('chorSub data has variables %s and has %d rows' % (list(chorSub_data), len(chorSub_data)))
-    chorSub_title = chorSub_bundle.title
-    logger.info('chorSub data has title %s' % chorSub_title)
-
     logger.info('loading Canadian major city population data')
     cities_pickle = data_folder + 'cities.pkl'
     if exists(cities_pickle):

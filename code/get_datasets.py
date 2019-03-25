@@ -148,63 +148,6 @@ if __name__ == '__main__':
     cancer_exog = cancer_bunch['exog_name']
     logger.info('Cancer exogenous variable is %s' % cancer_exog)
 
-    logger.info('loading Canadian major city population data')
-    cities_pickle = data_folder + 'cities.pkl'
-    if exists(cities_pickle):
-        with open(cities_pickle, 'rb') as cities_fp:
-            cities_bundle = pickle.load(cities_fp)
-    else:
-        cities_bundle = get_rdataset('cities', 'DAAG')
-        with open(cities_pickle, 'wb') as cities_fp:
-            pickle.dump(cities_bundle, cities_fp)
-    cities_data = cities_bundle.data
-    logger.info('cities data has variables %s' % list(cities_data))
-    logger.info('cities data has %d rows and %d variables' % cities_data.shape)
-    cities_title = cities_bundle.title
-    logger.info('cities data has title %s' % cities_title)
-
-    logger.info('loading US City population data')
-    city_pickle = data_folder + 'city.pkl'
-    if exists(city_pickle):
-        with open(city_pickle, 'rb') as city_fp:
-            city_bundle = pickle.load(city_fp)
-    else:
-        city_bundle = get_rdataset('city', 'boot')
-        with open(city_pickle, 'wb') as city_fp:
-            pickle.dump(city_bundle, city_fp)
-    city_data = city_bundle.data
-    logger.info('city data has variables %s' % list(city_data))
-    city_title = city_bundle.title
-    logger.info('city data has title %s' % city_title)
-
-    logger.info('loading Claridge left-handedness data')
-    claridge_pickle = data_folder + 'claridge.pkl'
-    if exists(claridge_pickle):
-        with open(claridge_pickle, 'rb') as claridge_fp:
-            claridge_bundle = pickle.load(claridge_fp)
-    else:
-        claridge_bundle = get_rdataset('claridge', 'boot')
-        with open(claridge_pickle, 'wb') as claridge_fp:
-            pickle.dump(claridge_bundle, claridge_fp)
-    claridge_data = claridge_bundle.data
-    logger.info('claridge data has variables %s' % list(claridge_data))
-    claridge_title = claridge_bundle.title
-    logger.info('claridge data has title %s' % claridge_title)
-
-    logger.info('loading cloth defect data')
-    cloth_pickle = data_folder + 'cloth.pkl'
-    if exists(cloth_pickle):
-        with open(cloth_pickle, 'rb') as cloth_fp:
-            cloth_bundle = pickle.load(cloth_fp)
-    else:
-        cloth_bundle = get_rdataset('cloth', 'boot')
-        with open(cloth_pickle, 'wb') as cloth_fp:
-            pickle.dump(cloth_bundle, cloth_fp)
-    cloth_data = cloth_bundle.data
-    logger.info('cloth data has variables %s' % list(cloth_data))
-    cloth_title = cloth_bundle.title
-    logger.info('cloth data has title %s' % cloth_title)
-
     logger.info('loading CO2 data')
     co2_pickle = data_folder + 'co2.pkl'
     if exists(co2_pickle):

@@ -375,20 +375,6 @@ if __name__ == '__main__':
     iris_description = iris_bunch['DESCR']
     logger.debug('iris description: %s' % iris_description)
 
-    logger.info('loading Islay quartzite data')
-    islay_pickle = data_folder + 'islay.pkl'
-    if exists(islay_pickle):
-        with open(islay_pickle, 'rb') as islay_fp:
-            islay_bundle = pickle.load(islay_fp)
-    else:
-        islay_bundle = get_rdataset('islay', 'boot')
-        with open(islay_pickle, 'wb') as islay_fp:
-            pickle.dump(islay_bundle, islay_fp)
-    islay_data = islay_bundle.data
-    logger.info('islay data has variables %s and has %d rows' % (list(islay_data), len(islay_data)))
-    islay_title = islay_bundle.title
-    logger.info('islay data has title %s' % islay_title)
-
     logger.info('loading KDD data')
     random_state = 1
     kdd_pickle = data_folder + 'kddcup99.pkl'
@@ -403,64 +389,6 @@ if __name__ == '__main__':
     logger.info('KDD data is %d x %d' % kdd_data.shape)
     kdd_target = kdd_bunch['target']
     logger.info('KDD target unique values: %s' % list(set(kdd_target)))
-
-    logger.info('loading migraine headache treatment data')
-    KosteckiDillon_pickle = data_folder + 'KosteckiDillon.pkl'
-    if exists(KosteckiDillon_pickle):
-        with open(KosteckiDillon_pickle, 'rb') as KosteckiDillon_fp:
-            KosteckiDillon_bundle = pickle.load(KosteckiDillon_fp)
-    else:
-        KosteckiDillon_bundle = get_rdataset('KosteckiDillon', 'carData')
-        with open(KosteckiDillon_pickle, 'wb') as KosteckiDillon_fp:
-            pickle.dump(KosteckiDillon_bundle, KosteckiDillon_fp)
-    KosteckiDillon_data = KosteckiDillon_bundle.data
-    logger.info(
-        'KosteckiDillon data has variables %s and has %d rows' % (list(KosteckiDillon_data), len(KosteckiDillon_data)))
-    KosteckiDillon_title = KosteckiDillon_bundle.title
-    logger.info('KosteckiDillon data has title %s' % KosteckiDillon_title)
-
-    logger.info('loading lbw data')
-    lbw_pickle = data_folder + 'lbw.pkl'
-    if exists(lbw_pickle):
-        with open(lbw_pickle, 'rb') as lbw_fp:
-            lbw_bundle = pickle.load(lbw_fp)
-    else:
-        lbw_bundle = get_rdataset('lbw', 'COUNT')
-        with open(lbw_pickle, 'wb') as lbw_fp:
-            pickle.dump(lbw_bundle, lbw_fp)
-    lbw_data = lbw_bundle.data
-    logger.info('lbw data has variables %s and has %d rows' % (list(lbw_data), len(lbw_data)))
-    lbw_title = lbw_bundle.title
-    logger.info('lbw data has title %s' % lbw_title)
-
-    logger.info('loading lbwgrp data')
-    lbwgrp_pickle = data_folder + 'lbwgrp.pkl'
-    if exists(lbwgrp_pickle):
-        with open(lbwgrp_pickle, 'rb') as lbwgrp_fp:
-            lbwgrp_bundle = pickle.load(lbwgrp_fp)
-    else:
-        lbwgrp_bundle = get_rdataset('lbwgrp', 'COUNT')
-        with open(lbwgrp_pickle, 'wb') as lbwgrp_fp:
-            pickle.dump(lbwgrp_bundle, lbwgrp_fp)
-    lbwgrp_data = lbwgrp_bundle.data
-    logger.info('lbwgrp data has variables %s and has %d rows' % (list(lbwgrp_data), len(lbwgrp_data)))
-    lbwgrp_title = lbwgrp_bundle.title
-    logger.info('lbwgrp data has title %s' % lbwgrp_title)
-
-    logger.info('loading infant mortality data')
-    Leinhardt_pickle = data_folder + 'Leinhardt.pkl'
-    if exists(Leinhardt_pickle):
-        with open(Leinhardt_pickle, 'rb') as Leinhardt_fp:
-            Leinhardt_bundle = pickle.load(Leinhardt_fp)
-    else:
-        Leinhardt_bundle = get_rdataset('Leinhardt', 'carData')
-        with open(Leinhardt_pickle, 'wb') as Leinhardt_fp:
-            pickle.dump(Leinhardt_bundle, Leinhardt_fp)
-    Leinhardt_data = Leinhardt_bundle.data
-    logger.info(
-        'Leinhardt data has variables %s and has %d rows' % (list(Leinhardt_data), len(Leinhardt_data)))
-    Leinhardt_title = Leinhardt_bundle.title
-    logger.info('Leinhardt data has title %s' % Leinhardt_title)
 
     min_faces_per_person = 0
     lfw_resize = None
@@ -492,21 +420,6 @@ if __name__ == '__main__':
     linnerud_target_names = linnerud_bunch['target_names']
     linnerud_description = linnerud_bunch['DESCR']
 
-    logger.info('loading cancer drug (skew power distribution) data')
-    LoBD_pickle = data_folder + 'LoBD.pkl'
-    if exists(LoBD_pickle):
-        with open(LoBD_pickle, 'rb') as LoBD_fp:
-            LoBD_bundle = pickle.load(LoBD_fp)
-    else:
-        LoBD_bundle = get_rdataset('LoBD', 'carData')
-        with open(LoBD_pickle, 'wb') as LoBD_fp:
-            pickle.dump(LoBD_bundle, LoBD_fp)
-    LoBD_data = LoBD_bundle.data
-    logger.info(
-        'LoBD data has variables %s and has %d rows' % (list(LoBD_data), len(LoBD_data)))
-    LoBD_title = LoBD_bundle.title
-    logger.info('LoBD data has title %s' % LoBD_title)
-
     logger.info('loading Longley macroeconomic data')
     longley_pickle = data_folder + 'longley.pkl'
     if exists(longley_pickle):
@@ -520,20 +433,6 @@ if __name__ == '__main__':
     logger.info('longley data has %d rows ' % len(longley_data))
     longley_names = longley_bunch['names']
     logger.info('longley names: %s' % str(longley_names))
-
-    logger.info('loading loomis data')
-    loomis_pickle = data_folder + 'loomis.pkl'
-    if exists(loomis_pickle):
-        with open(loomis_pickle, 'rb') as loomis_fp:
-            loomis_bundle = pickle.load(loomis_fp)
-    else:
-        loomis_bundle = get_rdataset('loomis', 'COUNT')
-        with open(loomis_pickle, 'wb') as loomis_fp:
-            pickle.dump(loomis_bundle, loomis_fp)
-    loomis_data = loomis_bundle.data
-    logger.info('loomis data has variables %s and has %d rows' % (list(loomis_data), len(loomis_data)))
-    loomis_title = loomis_bundle.title
-    logger.info('loomis data has title %s' % loomis_title)
 
     logger.info('loading US macroeconomic data')
     macrodata_pickle = data_folder + 'macrodata.pkl'
@@ -549,92 +448,6 @@ if __name__ == '__main__':
     macrodata_names = macrodata_bunch['names']
     logger.info('macrodata names: %s' % str(macrodata_names))
 
-    logger.info('loading Manaus river height data')
-    manaus_pickle = data_folder + 'manaus.pkl'
-    if exists(manaus_pickle):
-        with open(manaus_pickle, 'rb') as manaus_fp:
-            manaus_bundle = pickle.load(manaus_fp)
-    else:
-        manaus_bundle = get_rdataset('manaus', 'boot')
-        with open(manaus_pickle, 'wb') as manaus_fp:
-            pickle.dump(manaus_bundle, manaus_fp)
-    manaus_data = manaus_bundle.data
-    logger.info('manaus data has variables %s and has %d rows' % (list(manaus_data), len(manaus_data)))
-    manaus_title = manaus_bundle.title
-    logger.info('manaus data has title %s' % manaus_title)
-
-    logger.info('loading contrived collinear data')
-    Mandel_pickle = data_folder + 'Mandel.pkl'
-    if exists(Mandel_pickle):
-        with open(Mandel_pickle, 'rb') as Mandel_fp:
-            Mandel_bundle = pickle.load(Mandel_fp)
-    else:
-        Mandel_bundle = get_rdataset('Mandel', 'carData')
-        with open(Mandel_pickle, 'wb') as Mandel_fp:
-            pickle.dump(Mandel_bundle, Mandel_fp)
-    Mandel_data = Mandel_bundle.data
-    logger.info(
-        'Mandel data has variables %s and has %d rows' % (list(Mandel_data), len(Mandel_data)))
-    Mandel_title = Mandel_bundle.title
-    logger.info('Mandel data has title %s' % Mandel_title)
-
-    logger.info('loading mdvis data')
-    mdvis_pickle = data_folder + 'mdvis.pkl'
-    if exists(mdvis_pickle):
-        with open(mdvis_pickle, 'rb') as mdvis_fp:
-            mdvis_bundle = pickle.load(mdvis_fp)
-    else:
-        mdvis_bundle = get_rdataset('mdvis', 'COUNT')
-        with open(mdvis_pickle, 'wb') as mdvis_fp:
-            pickle.dump(mdvis_bundle, mdvis_fp)
-    mdvis_data = mdvis_bundle.data
-    logger.info('mdvis data has variables %s and has %d rows' % (list(mdvis_data), len(mdvis_data)))
-    mdvis_title = mdvis_bundle.title
-    logger.info('mdvis data has title %s' % mdvis_title)
-
-    logger.info('loading medpar data')
-    medpar_pickle = data_folder + 'medpar.pkl'
-    if exists(medpar_pickle):
-        with open(medpar_pickle, 'rb') as medpar_fp:
-            medpar_bundle = pickle.load(medpar_fp)
-    else:
-        medpar_bundle = get_rdataset('medpar', 'COUNT')
-        with open(medpar_pickle, 'wb') as medpar_fp:
-            pickle.dump(medpar_bundle, medpar_fp)
-    medpar_data = medpar_bundle.data
-    logger.info('medpar data has variables %s and has %d rows' % (list(medpar_data), len(medpar_data)))
-    medpar_title = medpar_bundle.title
-    logger.info('medpar data has title %s' % medpar_title)
-
-    logger.info('loading melanoma survival data')
-    melanoma_pickle = data_folder + 'melanoma.pkl'
-    if exists(melanoma_pickle):
-        with open(melanoma_pickle, 'rb') as melanoma_fp:
-            melanoma_bundle = pickle.load(melanoma_fp)
-    else:
-        melanoma_bundle = get_rdataset('melanoma', 'boot')
-        with open(melanoma_pickle, 'wb') as melanoma_fp:
-            pickle.dump(melanoma_bundle, melanoma_fp)
-    melanoma_data = melanoma_bundle.data
-    logger.info('melanoma data has variables %s and has %d rows' % (list(melanoma_data), len(melanoma_data)))
-    melanoma_title = melanoma_bundle.title
-    logger.info('melanoma data has title %s' % melanoma_title)
-
-    logger.info('loading Canadian migration data')
-    Migration_pickle = data_folder + 'Migration.pkl'
-    if exists(Migration_pickle):
-        with open(Migration_pickle, 'rb') as Migration_fp:
-            Migration_bundle = pickle.load(Migration_fp)
-    else:
-        Migration_bundle = get_rdataset('Migration', 'carData')
-        with open(Migration_pickle, 'wb') as Migration_fp:
-            pickle.dump(Migration_bundle, Migration_fp)
-    Migration_data = Migration_bundle.data
-    logger.info(
-        'Migration data has variables %s and has %d rows' % (list(Migration_data), len(Migration_data)))
-    Migration_title = Migration_bundle.title
-    logger.info('Migration data has title %s' % Migration_title)
-
     logger.info('loading travel mode choice data')
     modechoice_pickle = data_folder + 'modechoice.pkl'
     if exists(modechoice_pickle):
@@ -648,93 +461,6 @@ if __name__ == '__main__':
     logger.info('modechoice data has %d rows ' % len(modechoice_data))
     modechoice_names = modechoice_bunch['names']
     logger.info('modechoice names: %s' % str(modechoice_names))
-
-    logger.info('loading status, authoritarianism, and conformity data')
-    Moore_pickle = data_folder + 'Moore.pkl'
-    if exists(Moore_pickle):
-        with open(Moore_pickle, 'rb') as Moore_fp:
-            Moore_bundle = pickle.load(Moore_fp)
-    else:
-        Moore_bundle = get_rdataset('Moore', 'carData')
-        with open(Moore_pickle, 'wb') as Moore_fp:
-            pickle.dump(Moore_bundle, Moore_fp)
-    Moore_data = Moore_bundle.data
-    logger.info(
-        'Moore data has variables %s and has %d rows' % (list(Moore_data), len(Moore_data)))
-    Moore_title = Moore_bundle.title
-    logger.info('Moore data has title %s' % Moore_title)
-
-    logger.info('loading simulated motorcycle accident data')
-    motor_pickle = data_folder + 'motor.pkl'
-    if exists(motor_pickle):
-        with open(motor_pickle, 'rb') as motor_fp:
-            motor_bundle = pickle.load(motor_fp)
-    else:
-        motor_bundle = get_rdataset('motor', 'boot')
-        with open(motor_pickle, 'wb') as motor_fp:
-            pickle.dump(motor_bundle, motor_fp)
-    motor_data = motor_bundle.data
-    logger.info('motor data has variables %s and has %d rows' % (list(motor_data), len(motor_data)))
-    motor_title = motor_bundle.title
-    logger.info('motor data has title %s' % motor_title)
-
-    logger.info('loading Minneapolis 2015 demographic by neighborhood data')
-    MplsDemo_pickle = data_folder + 'MplsDemo.pkl'
-    if exists(MplsDemo_pickle):
-        with open(MplsDemo_pickle, 'rb') as MplsDemo_fp:
-            MplsDemo_bundle = pickle.load(MplsDemo_fp)
-    else:
-        MplsDemo_bundle = get_rdataset('MplsDemo', 'carData')
-        with open(MplsDemo_pickle, 'wb') as MplsDemo_fp:
-            pickle.dump(MplsDemo_bundle, MplsDemo_fp)
-    MplsDemo_data = MplsDemo_bundle.data
-    logger.info(
-        'MplsDemo data has variables %s and has %d rows' % (list(MplsDemo_data), len(MplsDemo_data)))
-    MplsDemo_title = MplsDemo_bundle.title
-    logger.info('MplsDemo data has title %s' % MplsDemo_title)
-
-    logger.info('loading Minneapolis 2018 police stop data')
-    MplsStops_pickle = data_folder + 'MplsStops.pkl'
-    if exists(MplsStops_pickle):
-        with open(MplsStops_pickle, 'rb') as MplsStops_fp:
-            MplsStops_bundle = pickle.load(MplsStops_fp)
-    else:
-        MplsStops_bundle = get_rdataset('MplsStops', 'carData')
-        with open(MplsStops_pickle, 'wb') as MplsStops_fp:
-            pickle.dump(MplsStops_bundle, MplsStops_fp)
-    MplsStops_data = MplsStops_bundle.data
-    logger.info(
-        'MplsStops data has variables %s and has %d rows' % (list(MplsStops_data), len(MplsStops_data)))
-    MplsStops_title = MplsStops_bundle.title
-    logger.info('MplsStops data has title %s' % MplsStops_title)
-
-    logger.info('loading US Womens labor participation data')
-    Mroz_pickle = data_folder + 'Mroz.pkl'
-    if exists(Mroz_pickle):
-        with open(Mroz_pickle, 'rb') as Mroz_fp:
-            Mroz_bundle = pickle.load(Mroz_fp)
-    else:
-        Mroz_bundle = get_rdataset('Mroz', 'carData')
-        with open(Mroz_pickle, 'wb') as Mroz_fp:
-            pickle.dump(Mroz_bundle, Mroz_fp)
-    Mroz_data = Mroz_bundle.data
-    logger.info('Mroz data has variables %s and has %d rows' % (list(Mroz_data), len(Mroz_data)))
-    Mroz_title = Mroz_bundle.title
-    logger.info('Mroz data has title %s' % Mroz_title)
-
-    logger.info('loading neurophysiological point process data')
-    neuro_pickle = data_folder + 'neuro.pkl'
-    if exists(neuro_pickle):
-        with open(neuro_pickle, 'rb') as neuro_fp:
-            neuro_bundle = pickle.load(neuro_fp)
-    else:
-        neuro_bundle = get_rdataset('neuro', 'boot')
-        with open(neuro_pickle, 'wb') as neuro_fp:
-            pickle.dump(neuro_bundle, neuro_fp)
-    neuro_data = neuro_bundle.data
-    logger.info('neuro data has variables %s and has %d rows' % (list(neuro_data), len(neuro_data)))
-    neuro_title = neuro_bundle.title
-    logger.info('neuro data has title %s' % neuro_title)
 
     logger.info('loading newsgroups data')
     newsgroups_bunch = fetch_20newsgroups(data_home=data_folder)
@@ -758,223 +484,12 @@ if __name__ == '__main__':
     nile_names = nile_bunch['names']
     logger.info('nile names: %s' % str(nile_names))
 
-    logger.info('loading aquatic nitrofen data')
-    nitrofen_pickle = data_folder + 'nitrofen.pkl'
-    if exists(nitrofen_pickle):
-        with open(nitrofen_pickle, 'rb') as nitrofen_fp:
-            nitrofen_bundle = pickle.load(nitrofen_fp)
-    else:
-        nitrofen_bundle = get_rdataset('nitrofen', 'boot')
-        with open(nitrofen_pickle, 'wb') as nitrofen_fp:
-            pickle.dump(nitrofen_bundle, nitrofen_fp)
-    nitrofen_data = nitrofen_bundle.data
-    logger.info('nitrofen data has variables %s and has %d rows' % (list(nitrofen_data), len(nitrofen_data)))
-    nitrofen_title = nitrofen_bundle.title
-    logger.info('nitrofen data has title %s' % nitrofen_title)
-
-    logger.info('loading prostate cancer data')
-    nodal_pickle = data_folder + 'nodal.pkl'
-    if exists(nodal_pickle):
-        with open(nodal_pickle, 'rb') as nodal_fp:
-            nodal_bundle = pickle.load(nodal_fp)
-    else:
-        nodal_bundle = get_rdataset('nodal', 'boot')
-        with open(nodal_pickle, 'wb') as nodal_fp:
-            pickle.dump(nodal_bundle, nodal_fp)
-    nodal_data = nodal_bundle.data
-    logger.info('nodal data has variables %s and has %d rows' % (list(nodal_data), len(nodal_data)))
-    nodal_title = nodal_bundle.title
-    logger.info('nodal data has title %s' % nodal_title)
-
-    logger.info('loading nuclear power station construction data')
-    nuclear_pickle = data_folder + 'nuclear.pkl'
-    if exists(nuclear_pickle):
-        with open(nuclear_pickle, 'rb') as nuclear_fp:
-            nuclear_bundle = pickle.load(nuclear_fp)
-    else:
-        nuclear_bundle = get_rdataset('nuclear', 'boot')
-        with open(nuclear_pickle, 'wb') as nuclear_fp:
-            pickle.dump(nuclear_bundle, nuclear_fp)
-    nuclear_data = nuclear_bundle.data
-    logger.info('nuclear data has variables %s and has %d rows' % (list(nuclear_data), len(nuclear_data)))
-    nuclear_title = nuclear_bundle.title
-    logger.info('nuclear data has title %s' % nuclear_title)
-
-    logger.info('loading nuts data')
-    nuts_pickle = data_folder + 'nuts.pkl'
-    if exists(nuts_pickle):
-        with open(nuts_pickle, 'rb') as nuts_fp:
-            nuts_bundle = pickle.load(nuts_fp)
-    else:
-        nuts_bundle = get_rdataset('nuts', 'COUNT')
-        with open(nuts_pickle, 'wb') as nuts_fp:
-            pickle.dump(nuts_bundle, nuts_fp)
-    nuts_data = nuts_bundle.data
-    logger.info('nuts data has variables %s and has %d rows' % (list(nuts_data), len(nuts_data)))
-    nuts_title = nuts_bundle.title
-    logger.info('nuts data has title %s' % nuts_title)
-
-    logger.info('loading repeated measures data')
-    OBrienKaiser_pickle = data_folder + 'OBrienKaiser.pkl'
-    if exists(OBrienKaiser_pickle):
-        with open(OBrienKaiser_pickle, 'rb') as OBrienKaiser_fp:
-            OBrienKaiser_bundle = pickle.load(OBrienKaiser_fp)
-    else:
-        OBrienKaiser_bundle = get_rdataset('OBrienKaiser', 'carData')
-        with open(OBrienKaiser_pickle, 'wb') as OBrienKaiser_fp:
-            pickle.dump(OBrienKaiser_bundle, OBrienKaiser_fp)
-    OBrienKaiser_data = OBrienKaiser_bundle.data
-    logger.info(
-        'OBrienKaiser data has variables %s and has %d rows' % (list(OBrienKaiser_data), len(OBrienKaiser_data)))
-    OBrienKaiser_title = OBrienKaiser_bundle.title
-    logger.info('OBrienKaiser data has title %s' % OBrienKaiser_title)
-
     logger.info('loading Olivetti faces data')
     olivetti_faces = fetch_olivetti_faces(data_home=data_folder)
     olivetti_faces_data = olivetti_faces['data']
     olivetti_faces_images = olivetti_faces['images']
     olivetti_faces_target = olivetti_faces['target']
     olivetti_faces_description = olivetti_faces['DESCR']
-
-    logger.info('loading Canadian directorates data')
-    Ornstein_pickle = data_folder + 'Ornstein.pkl'
-    if exists(Ornstein_pickle):
-        with open(Ornstein_pickle, 'rb') as Ornstein_fp:
-            Ornstein_bundle = pickle.load(Ornstein_fp)
-    else:
-        Ornstein_bundle = get_rdataset('Ornstein', 'carData')
-        with open(Ornstein_pickle, 'wb') as Ornstein_fp:
-            pickle.dump(Ornstein_bundle, Ornstein_fp)
-    Ornstein_data = Ornstein_bundle.data
-    logger.info('Ornstein data has variables %s and has %d rows' % (list(Ornstein_data), len(Ornstein_data)))
-    Ornstein_title = Ornstein_bundle.title
-    logger.info('Ornstein data has title %s' % Ornstein_title)
-
-    logger.info('loading Guinea pig brain data')
-    paulsen_pickle = data_folder + 'paulsen.pkl'
-    if exists(paulsen_pickle):
-        with open(paulsen_pickle, 'rb') as paulsen_fp:
-            paulsen_bundle = pickle.load(paulsen_fp)
-    else:
-        paulsen_bundle = get_rdataset('paulsen', 'boot')
-        with open(paulsen_pickle, 'wb') as paulsen_fp:
-            pickle.dump(paulsen_bundle, paulsen_fp)
-    paulsen_data = paulsen_bundle.data
-    logger.info('paulsen data has variables %s and has %d rows' % (list(paulsen_data), len(paulsen_data)))
-    paulsen_title = paulsen_bundle.title
-    logger.info('paulsen data has title %s' % paulsen_title)
-
-    logger.info('loading plant species traits data')
-    plantTraits_pickle = data_folder + 'plantTraits.pkl'
-    if exists(plantTraits_pickle):
-        with open(plantTraits_pickle, 'rb') as plantTraits_fp:
-            plantTraits_bundle = pickle.load(plantTraits_fp)
-    else:
-        plantTraits_bundle = get_rdataset('plantTraits', 'cluster')
-        with open(plantTraits_pickle, 'wb') as plantTraits_fp:
-            pickle.dump(plantTraits_bundle, plantTraits_fp)
-    plantTraits_data = plantTraits_bundle.data
-    logger.info('plantTraits data has variables %s and has %d rows' % (list(plantTraits_data), len(plantTraits_data)))
-    plantTraits_title = plantTraits_bundle.title
-    logger.info('plantTraits data has title %s' % plantTraits_title)
-
-    logger.info('loading plant species traits data')
-    plantTraits_pickle = data_folder + 'plantTraits.pkl'
-    if exists(plantTraits_pickle):
-        with open(plantTraits_pickle, 'rb') as plantTraits_fp:
-            plantTraits_bundle = pickle.load(plantTraits_fp)
-    else:
-        plantTraits_bundle = get_rdataset('plantTraits', 'cluster')
-        with open(plantTraits_pickle, 'wb') as plantTraits_fp:
-            pickle.dump(plantTraits_bundle, plantTraits_fp)
-    plantTraits_data = plantTraits_bundle.data
-    logger.info('plantTraits data has variables %s and has %d rows' % (list(plantTraits_data), len(plantTraits_data)))
-    plantTraits_title = plantTraits_bundle.title
-    logger.info('plantTraits data has title %s' % plantTraits_title)
-
-    logger.info('loading plutonium batch data')
-    pluton_pickle = data_folder + 'pluton.pkl'
-    if exists(pluton_pickle):
-        with open(pluton_pickle, 'rb') as pluton_fp:
-            pluton_bundle = pickle.load(pluton_fp)
-    else:
-        pluton_bundle = get_rdataset('pluton', 'cluster')
-        with open(pluton_pickle, 'wb') as pluton_fp:
-            pickle.dump(pluton_bundle, pluton_fp)
-    pluton_data = pluton_bundle.data
-    logger.info('pluton data has variables %s and has %d rows' % (list(pluton_data), len(pluton_data)))
-    pluton_title = pluton_bundle.title
-    logger.info('pluton data has title %s' % pluton_title)
-
-    logger.info('loading animal poison data')
-    poisons_pickle = data_folder + 'poisons.pkl'
-    if exists(poisons_pickle):
-        with open(poisons_pickle, 'rb') as poisons_fp:
-            poisons_bundle = pickle.load(poisons_fp)
-    else:
-        poisons_bundle = get_rdataset('poisons', 'boot')
-        with open(poisons_pickle, 'wb') as poisons_fp:
-            pickle.dump(poisons_bundle, poisons_fp)
-    poisons_data = poisons_bundle.data
-    logger.info('poisons data has variables %s and has %d rows' % (list(poisons_data), len(poisons_data)))
-    poisons_title = poisons_bundle.title
-    logger.info('poisons data has title %s' % poisons_title)
-
-    logger.info('loading New Caledonian Laterites data')
-    polar_pickle = data_folder + 'polar.pkl'
-    if exists(polar_pickle):
-        with open(polar_pickle, 'rb') as polar_fp:
-            polar_bundle = pickle.load(polar_fp)
-    else:
-        polar_bundle = get_rdataset('polar', 'boot')
-        with open(polar_pickle, 'wb') as polar_fp:
-            pickle.dump(polar_bundle, polar_fp)
-    polar_data = polar_bundle.data
-    logger.info('polar data has variables %s and has %d rows' % (list(polar_data), len(polar_data)))
-    polar_title = polar_bundle.title
-    logger.info('polar data has title %s' % polar_title)
-
-    logger.info('loading chemical composition of pottery data')
-    Pottery_pickle = data_folder + 'Pottery.pkl'
-    if exists(Pottery_pickle):
-        with open(Pottery_pickle, 'rb') as Pottery_fp:
-            Pottery_bundle = pickle.load(Pottery_fp)
-    else:
-        Pottery_bundle = get_rdataset('Pottery', 'carData')
-        with open(Pottery_pickle, 'wb') as Pottery_fp:
-            pickle.dump(Pottery_bundle, Pottery_fp)
-    Pottery_data = Pottery_bundle.data
-    logger.info('Pottery data has variables %s and has %d rows' % (list(Pottery_data), len(Pottery_data)))
-    Pottery_title = Pottery_bundle.title
-    logger.info('Pottery data has title %s' % Pottery_title)
-
-    logger.info('loading Canadian occupation prestige data')
-    Prestige_pickle = data_folder + 'Prestige.pkl'
-    if exists(Prestige_pickle):
-        with open(Prestige_pickle, 'rb') as Prestige_fp:
-            Prestige_bundle = pickle.load(Prestige_fp)
-    else:
-        Prestige_bundle = get_rdataset('Prestige', 'carData')
-        with open(Prestige_pickle, 'wb') as Prestige_fp:
-            pickle.dump(Prestige_bundle, Prestige_fp)
-    Prestige_data = Prestige_bundle.data
-    logger.info('Prestige data has variables %s and has %d rows' % (list(Prestige_data), len(Prestige_data)))
-    Prestige_title = Prestige_bundle.title
-    logger.info('Prestige data has title %s' % Prestige_title)
-
-    logger.info('loading demo regression data')
-    Quartet_pickle = data_folder + 'Quartet.pkl'
-    if exists(Quartet_pickle):
-        with open(Quartet_pickle, 'rb') as Quartet_fp:
-            Quartet_bundle = pickle.load(Quartet_fp)
-    else:
-        Quartet_bundle = get_rdataset('Quartet', 'carData')
-        with open(Quartet_pickle, 'wb') as Quartet_fp:
-            pickle.dump(Quartet_bundle, Quartet_fp)
-    Quartet_data = Quartet_bundle.data
-    logger.info('Quartet data has variables %s and has %d rows' % (list(Quartet_data), len(Quartet_data)))
-    Quartet_title = Quartet_bundle.title
-    logger.info('Quartet data has title %s' % Quartet_title)
 
     logger.info('loading RAND health insurance experiment data')
     randhie_pickle = data_folder + 'randhie.pkl'
@@ -990,20 +505,6 @@ if __name__ == '__main__':
     randhie_names = randhie_bunch['names']
     logger.info('randhie names: %s' % str(randhie_names))
 
-    logger.info('loading cancer remission data')
-    remission_pickle = data_folder + 'remission.pkl'
-    if exists(remission_pickle):
-        with open(remission_pickle, 'rb') as remission_fp:
-            remission_bundle = pickle.load(remission_fp)
-    else:
-        remission_bundle = get_rdataset('remission', 'boot')
-        with open(remission_pickle, 'wb') as remission_fp:
-            pickle.dump(remission_bundle, remission_fp)
-    remission_data = remission_bundle.data
-    logger.info('remission data has variables %s and has %d rows' % (list(remission_data), len(remission_data)))
-    remission_title = remission_bundle.title
-    logger.info('remission data has title %s' % remission_title)
-
     logger.info('loading Reuters Corpus Volume I data')
     reuters_pickle = data_folder + 'reuters.pkl'
     rcv1_bunch = fetch_rcv1(subset='all', download_if_missing=True, random_state=random_state)
@@ -1013,118 +514,6 @@ if __name__ == '__main__':
     rcv1_target_names = rcv1_bunch['target_names']
     rcv1_description = rcv1_bunch['DESCR']
     logger.info('Reuters data has description %s' % str(rcv1_description).strip())
-
-    logger.info('loading fertility and contraception data')
-    Robey_pickle = data_folder + 'Robey.pkl'
-    if exists(Robey_pickle):
-        with open(Robey_pickle, 'rb') as Robey_fp:
-            Robey_bundle = pickle.load(Robey_fp)
-    else:
-        Robey_bundle = get_rdataset('Robey', 'carData')
-        with open(Robey_pickle, 'wb') as Robey_fp:
-            pickle.dump(Robey_bundle, Robey_fp)
-    Robey_data = Robey_bundle.data
-    logger.info('Robey data has variables %s and has %d rows' % (list(Robey_data), len(Robey_data)))
-    Robey_title = Robey_bundle.title
-    logger.info('Robey data has title %s' % Robey_title)
-
-    logger.info('loading Ruspini data')
-    ruspini_pickle = data_folder + 'ruspini.pkl'
-    if exists(ruspini_pickle):
-        with open(ruspini_pickle, 'rb') as ruspini_fp:
-            ruspini_bundle = pickle.load(ruspini_fp)
-    else:
-        ruspini_bundle = get_rdataset('ruspini', 'cluster')
-        with open(ruspini_pickle, 'wb') as ruspini_fp:
-            pickle.dump(ruspini_bundle, ruspini_fp)
-    ruspini_data = ruspini_bundle.data
-    logger.info('ruspini data has variables %s and has %d rows' % (list(ruspini_data), len(ruspini_data)))
-    ruspini_title = ruspini_bundle.title
-    logger.info('ruspini data has title %s' % ruspini_title)
-
-    logger.info('loading rwm data')
-    rwm_pickle = data_folder + 'rwm.pkl'
-    if exists(rwm_pickle):
-        with open(rwm_pickle, 'rb') as rwm_fp:
-            rwm_bundle = pickle.load(rwm_fp)
-    else:
-        rwm_bundle = get_rdataset('rwm', 'COUNT')
-        with open(rwm_pickle, 'wb') as rwm_fp:
-            pickle.dump(rwm_bundle, rwm_fp)
-    rwm_data = rwm_bundle.data
-    logger.info('rwm data has variables %s and has %d rows' % (list(rwm_data), len(rwm_data)))
-    rwm_title = rwm_bundle.title
-    logger.info('rwm data has title %s' % rwm_title)
-
-    logger.info('loading rwm1984 data')
-    rwm1984_pickle = data_folder + 'rwm1984.pkl'
-    if exists(rwm1984_pickle):
-        with open(rwm1984_pickle, 'rb') as rwm1984_fp:
-            rwm1984_bundle = pickle.load(rwm1984_fp)
-    else:
-        rwm1984_bundle = get_rdataset('rwm1984', 'COUNT')
-        with open(rwm1984_pickle, 'wb') as rwm1984_fp:
-            pickle.dump(rwm1984_bundle, rwm1984_fp)
-    rwm1984_data = rwm1984_bundle.data
-    logger.info('rwm1984 data has variables %s and has %d rows' % (list(rwm1984_data), len(rwm1984_data)))
-    rwm1984_title = rwm1984_bundle.title
-    logger.info('rwm1984 data has title %s' % rwm1984_title)
-
-    logger.info('loading rwm5yr data')
-    rwm5yr_pickle = data_folder + 'rwm5yr.pkl'
-    if exists(rwm5yr_pickle):
-        with open(rwm5yr_pickle, 'rb') as rwm5yr_fp:
-            rwm5yr_bundle = pickle.load(rwm5yr_fp)
-    else:
-        rwm5yr_bundle = get_rdataset('rwm5yr', 'COUNT')
-        with open(rwm5yr_pickle, 'wb') as rwm5yr_fp:
-            pickle.dump(rwm5yr_bundle, rwm5yr_fp)
-    rwm5yr_data = rwm5yr_bundle.data
-    logger.info('rwm5yr data has variables %s and has %d rows' % (list(rwm5yr_data), len(rwm5yr_data)))
-    rwm5yr_title = rwm5yr_bundle.title
-    logger.info('rwm5yr data has title %s' % rwm5yr_title)
-
-    logger.info('loading Mazulu agriculture data')
-    Sahlins_pickle = data_folder + 'Sahlins.pkl'
-    if exists(Sahlins_pickle):
-        with open(Sahlins_pickle, 'rb') as Sahlins_fp:
-            Sahlins_bundle = pickle.load(Sahlins_fp)
-    else:
-        Sahlins_bundle = get_rdataset('Sahlins', 'carData')
-        with open(Sahlins_pickle, 'wb') as Sahlins_fp:
-            pickle.dump(Sahlins_bundle, Sahlins_fp)
-    Sahlins_data = Sahlins_bundle.data
-    logger.info('Sahlins data has variables %s and has %d rows' % (list(Sahlins_data), len(Sahlins_data)))
-    Sahlins_title = Sahlins_bundle.title
-    logger.info('Sahlins data has title %s' % Sahlins_title)
-
-    logger.info('loading professor salary data')
-    Salaries_pickle = data_folder + 'Salaries.pkl'
-    if exists(Salaries_pickle):
-        with open(Salaries_pickle, 'rb') as Salaries_fp:
-            Salaries_bundle = pickle.load(Salaries_fp)
-    else:
-        Salaries_bundle = get_rdataset('Salaries', 'carData')
-        with open(Salaries_pickle, 'wb') as Salaries_fp:
-            pickle.dump(Salaries_bundle, Salaries_fp)
-    Salaries_data = Salaries_bundle.data
-    logger.info('Salaries data has variables %s and has %d rows' % (list(Salaries_data), len(Salaries_data)))
-    Salaries_title = Salaries_bundle.title
-    logger.info('Salaries data has title %s' % Salaries_title)
-
-    logger.info('loading water salinity data')
-    salinity_pickle = data_folder + 'salinity.pkl'
-    if exists(salinity_pickle):
-        with open(salinity_pickle, 'rb') as salinity_fp:
-            salinity_bundle = pickle.load(salinity_fp)
-    else:
-        salinity_bundle = get_rdataset('salinity', 'boot')
-        with open(salinity_pickle, 'wb') as salinity_fp:
-            pickle.dump(salinity_bundle, salinity_fp)
-    salinity_data = salinity_bundle.data
-    logger.info('salinity data has variables %s and has %d rows' % (list(salinity_data), len(salinity_data)))
-    salinity_title = salinity_bundle.title
-    logger.info('salinity data has title %s' % salinity_title)
 
     logger.info('loading sample images data')
     with catch_warnings():

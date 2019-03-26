@@ -164,21 +164,6 @@ if __name__ == '__main__':
     co2_raw_data = co2_bunch['raw_data']
     logger.info('CO2 raw data is %d x %d' % co2_raw_data.shape)
 
-    logger.info('loading codling moth dose data')
-    codling_pickle = data_folder + 'codling.pkl'
-    if exists(codling_pickle):
-        with open(codling_pickle, 'rb') as codling_fp:
-            codling_bundle = pickle.load(codling_fp)
-    else:
-        codling_bundle = get_rdataset('codling', 'DAAG')
-        with open(codling_pickle, 'wb') as codling_fp:
-            pickle.dump(codling_bundle, codling_fp)
-    codling_data = codling_bundle.data
-    logger.info('codling data has variables %s' % list(codling_data))
-    logger.info('codling data has %d rows and %d variables' % codling_data.shape)
-    codling_title = codling_bundle.title
-    logger.info('codling data has title %s' % codling_title)
-
     logger.info('loading committee data')
     committee_pickle = data_folder + 'committee.pkl'
     if exists(committee_pickle):

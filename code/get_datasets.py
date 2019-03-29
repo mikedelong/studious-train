@@ -74,7 +74,7 @@ if __name__ == '__main__':
     logger.info(datasets_df.shape)
     for index, row in datasets_df.iterrows():
         logger.info('loading {} / {} data'.format(row['Package'], row['Item']))
-        current_pickle = data_folder + row['Item'] + '.pkl'
+        current_pickle = data_folder + row['Package'] + '_' + row['Item'] + '.pkl'
         if exists(current_pickle):
             with open(current_pickle, 'rb') as current_fp:
                 current_bundle = pickle.load(current_fp)

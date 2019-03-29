@@ -68,28 +68,32 @@ if __name__ == '__main__':
     data_folder = '../data/'
     output_folder = '../output/'
 
+    omits = [
+        ('datasets', 'co2')
+    ]
     documentation_file = '../documentation/datasets.csv'
     datasets_usecols = ['Package', 'Item']
     datasets_df = read_csv(documentation_file, usecols=datasets_usecols)
     logger.info(datasets_df.shape)
     for index, row in datasets_df.iterrows():
-        logger.info('loading {} / {} data'.format(row['Package'], row['Item']))
-        current_pickle = data_folder + row['Package'] + '_' + row['Item'] + '.pkl'
-        if exists(current_pickle):
-            with open(current_pickle, 'rb') as current_fp:
-                current_bundle = pickle.load(current_fp)
-        else:
-            current_bundle = get_rdataset(row['Item'], row['Package'])
-            with open(current_pickle, 'wb') as current_fp:
-                pickle.dump(current_bundle, current_fp)
-        current_data = current_bundle.data
-        logger.info('{} data has variables {}'.format(row['Item'], list(current_data)))
-        if len(current_data.shape) > 1:
-            logger.info('{} data has {} rows and {} variables'.format(row['Item'], current_data.shape[0],
-                                                                      current_data.shape[1]))
-        if 'title' in current_bundle.keys():
-            current_title = current_bundle.title
-            logger.info('{} data has title {}'.format(row['Item'], current_title))
+        if (row['Package'], row['Item']) not in omits:
+            logger.info('loading {} / {} data'.format(row['Package'], row['Item']))
+            current_pickle = data_folder + row['Package'] + '_' + row['Item'] + '.pkl'
+            if exists(current_pickle):
+                with open(current_pickle, 'rb') as current_fp:
+                    current_bundle = pickle.load(current_fp)
+            else:
+                current_bundle = get_rdataset(row['Item'], row['Package'])
+                with open(current_pickle, 'wb') as current_fp:
+                    pickle.dump(current_bundle, current_fp)
+            current_data = current_bundle.data
+            logger.info('{} data has variables {}'.format(row['Item'], list(current_data)))
+            if len(current_data.shape) > 1:
+                logger.info('{} data has {} rows and {} variables'.format(row['Item'], current_data.shape[0],
+                                                                          current_data.shape[1]))
+            if 'title' in current_bundle.keys():
+                current_title = current_bundle.title
+                logger.info('{} data has title {}'.format(row['Item'], current_title))
 
     return_X_y = False
 

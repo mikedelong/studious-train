@@ -114,9 +114,15 @@ if __name__ == '__main__':
     anes96_exog = anes96_bunch['exog_name']
     logger.info('ANES96 exogengous variable is %s' % anes96_exog)
 
-    # todo add pickle file
     logger.info('loading boston data')
-    boston_bunch = load_boston(return_X_y=return_X_y)
+    boston_pickle = data_folder + 'boston.pkl'
+    if exists(boston_pickle):
+        with open(boston_pickle, 'rb') as boston_fp:
+            boston_bunch = pickle.load(boston_fp)
+    else:
+        boston_bunch = load_boston(return_X_y=return_X_y)
+        with open(boston_pickle, 'wb') as boston_fp:
+            pickle.dump(boston_bunch, boston_fp)
     boston_data = boston_bunch.data
     logger.info('boston data is %d x %d' % boston_data.shape)
     boston_target = boston_bunch.target
@@ -125,6 +131,7 @@ if __name__ == '__main__':
     boston_description = boston_bunch.DESCR
     logger.debug('boston description: %s' % boston_description)
 
+    # todo add pickle file
     logger.info('loading breast cancer data')
     breast_cancer_bunch = load_breast_cancer(return_X_y=return_X_y)
     breast_cancer_data = breast_cancer_bunch['data']

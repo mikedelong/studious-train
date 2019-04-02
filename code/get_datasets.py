@@ -482,6 +482,7 @@ if __name__ == '__main__':
     modechoice_names = modechoice_bunch['names']
     logger.info('modechoice names: %s' % str(modechoice_names))
 
+    # todo add pickle file
     logger.info('loading newsgroups data')
     newsgroups_bunch = fetch_20newsgroups(data_home=data_folder)
     newsgroups_data = newsgroups_bunch['data']

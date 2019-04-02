@@ -148,7 +148,6 @@ if __name__ == '__main__':
     breast_cancer_description = breast_cancer_bunch['DESCR']
     logger.debug('cancer description: %s' % breast_cancer_description)
 
-    # todo add pickle file
     logger.info('loading cancer data')
     cancer_pickle = data_folder + 'cancer.pkl'
     if exists(cancer_pickle):

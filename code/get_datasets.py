@@ -131,9 +131,15 @@ if __name__ == '__main__':
     boston_description = boston_bunch.DESCR
     logger.debug('boston description: %s' % boston_description)
 
-    # todo add pickle file
     logger.info('loading breast cancer data')
-    breast_cancer_bunch = load_breast_cancer(return_X_y=return_X_y)
+    breast_cancer_pickle = data_folder + 'breast_cancer.pkl'
+    if exists(breast_cancer_pickle):
+        with open(breast_cancer_pickle, 'rb') as breast_cancer_fp:
+            breast_cancer_bunch = pickle.load(breast_cancer_fp)
+    else:
+        breast_cancer_bunch = load_breast_cancer(return_X_y=return_X_y)
+        with open(breast_cancer_pickle, 'wb') as breast_cancer_fp:
+            pickle.dump(breast_cancer_bunch, breast_cancer_fp)
     breast_cancer_data = breast_cancer_bunch['data']
     logger.info('cancer data is %d x %d' % breast_cancer_data.shape)
     breast_cancer_target = breast_cancer_bunch['target']
@@ -142,6 +148,7 @@ if __name__ == '__main__':
     breast_cancer_description = breast_cancer_bunch['DESCR']
     logger.debug('cancer description: %s' % breast_cancer_description)
 
+    # todo add pickle file
     logger.info('loading cancer data')
     cancer_pickle = data_folder + 'cancer.pkl'
     if exists(cancer_pickle):

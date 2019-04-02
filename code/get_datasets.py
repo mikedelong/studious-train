@@ -266,6 +266,7 @@ if __name__ == '__main__':
     diabetes_description = diabetes_bunch['DESCR']
     logger.debug('diabetes description: %s' % diabetes_description)
 
+    # todo: add pickle
     logger.info('loading digits data')
     digits_bunch = load_digits(return_X_y=return_X_y)
     digits_data = digits_bunch['data']
@@ -430,6 +431,7 @@ if __name__ == '__main__':
     lfw_people_description = lfw_people['DESCR']
     logger.info('the LFW data is %d x %d' % lfw_people_data.shape)
 
+    # todo: add pickle file
     logger.info('loading Linnerud data')
     linnerud_bunch = load_linnerud(return_X_y=return_X_y)
     linnerud_data = linnerud_bunch['data']

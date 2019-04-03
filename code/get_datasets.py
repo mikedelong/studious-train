@@ -255,9 +255,15 @@ if __name__ == '__main__':
     cpunish_raw_data = cpunish_bunch['raw_data']
     logger.info('cpunish raw data is %d x %d' % cpunish_raw_data.shape)
 
-    # todo add pickle
     logger.info('loading diabetes data')
-    diabetes_bunch = load_diabetes(return_X_y=return_X_y)
+    diabetes_pickle = data_folder + 'diabetes.pkl'
+    if exists(diabetes_pickle):
+        with open(diabetes_pickle, 'rb') as diabetes_fp:
+            diabetes_bunch = pickle.load(diabetes_fp)
+    else:
+        diabetes_bunch = load_diabetes(return_X_y=return_X_y)
+        with open(diabetes_pickle, 'wb') as diabetes_fp:
+            pickle.dump(diabetes_bunch, diabetes_fp)
     diabetes_data = diabetes_bunch['data']
     logger.info('diabetes data is %d x %d' % diabetes_data.shape)
     diabetes_target = diabetes_bunch['target']

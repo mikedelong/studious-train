@@ -272,9 +272,15 @@ if __name__ == '__main__':
     diabetes_description = diabetes_bunch['DESCR']
     logger.debug('diabetes description: %s' % diabetes_description)
 
-    # todo: add pickle
     logger.info('loading digits data')
-    digits_bunch = load_digits(return_X_y=return_X_y)
+    digits_pickle = data_folder + 'digits.pkl'
+    if exists(digits_pickle):
+        with open(digits_pickle, 'rb') as digits_fp:
+            digits_bunch = pickle.load(digits_fp)
+    else:
+        digits_bunch = load_digits(return_X_y=return_X_y)
+        with open(digits_pickle, 'wb') as digits_fp:
+            pickle.dump(digits_bunch, digits_fp)
     digits_data = digits_bunch['data']
     logger.info('digits data is %d x %d' % digits_data.shape)
     digits_target = digits_bunch['target']

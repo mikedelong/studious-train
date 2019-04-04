@@ -394,6 +394,7 @@ if __name__ == '__main__':
     interest_inflation_names = interest_inflation_bunch['names']
     logger.info('interest_inflation names: %s' % str(interest_inflation_names))
 
+    # todo add pickle
     logger.info('loading iris data')
     iris_bunch = load_iris(return_X_y=return_X_y)
     iris_data = iris_bunch['data']

@@ -450,9 +450,15 @@ if __name__ == '__main__':
     lfw_people_description = lfw_people['DESCR']
     logger.info('the LFW data is %d x %d' % lfw_people_data.shape)
 
-    # todo: add pickle file
     logger.info('loading Linnerud data')
-    linnerud_bunch = load_linnerud(return_X_y=return_X_y)
+    linnerud_pickle = data_folder + 'linnerud.pkl'
+    if exists(linnerud_pickle):
+        with open(linnerud_pickle, 'rb') as linnerud_fp:
+            linnerud_bunch = pickle.load(linnerud_fp)
+    else:
+        linnerud_bunch = load_linnerud(return_X_y=return_X_y)
+        with open(linnerud_pickle, 'wb') as linnerud_fp:
+            pickle.dump(linnerud_bunch, linnerud_fp)
     linnerud_data = linnerud_bunch['data']
     linnerud_feature_names = linnerud_bunch['feature_names']
     linnerud_target = linnerud_bunch['target']

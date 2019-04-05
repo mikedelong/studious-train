@@ -394,9 +394,15 @@ if __name__ == '__main__':
     interest_inflation_names = interest_inflation_bunch['names']
     logger.info('interest_inflation names: %s' % str(interest_inflation_names))
 
-    # todo add pickle
     logger.info('loading iris data')
-    iris_bunch = load_iris(return_X_y=return_X_y)
+    iris_pickle = data_folder + 'iris.pkl'
+    if exists(iris_pickle):
+        with open(iris_pickle, 'rb') as iris_fp:
+            iris_bunch = pickle.load(iris_fp)
+    else:
+        iris_bunch = load_iris(return_X_y=return_X_y)
+        with open(iris_pickle, 'wb') as iris_fp:
+            pickle.dump(iris_bunch, iris_fp)
     iris_data = iris_bunch['data']
     logger.info('iris data is %d x %d' % iris_data.shape)
     iris_target = iris_bunch['target']

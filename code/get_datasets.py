@@ -140,11 +140,9 @@ if __name__ == '__main__':
         if 'names' in current_bunch.keys():
             current_names = current_bunch['names']
         if 'endog_name' in current_bunch.keys():
-            current_endog = current_bunch['endog_name']
-            logger.info('{} endogengous variable is {}'.format(key, current_endog))
+            logger.info('{} endogenous variable is {}'.format(key, current_bunch['endog_name']))
         if 'exog_name' in current_bunch.keys():
-            current_exog = current_bunch['exog_name']
-            logger.info('{} exogengous variable is %s' % current_exog)
+            logger.info('{} exogenous variable is %s' % current_bunch['exog_name'])
 
     logger.info('loading boston data')
     boston_pickle = data_folder + 'boston.pkl'

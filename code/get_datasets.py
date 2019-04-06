@@ -245,48 +245,6 @@ if __name__ == '__main__':
     engel_raw_data = engel_bunch['raw_data']
     logger.info('engel raw data is %d x %d' % engel_raw_data.shape)
 
-    logger.info('loading Grunfeld data')
-    grunfeld_pickle = data_folder + 'grunfeld.pkl'
-    if exists(grunfeld_pickle):
-        with open(grunfeld_pickle, 'rb') as grunfeld_fp:
-            grunfeld_bunch = pickle.load(grunfeld_fp)
-    else:
-        grunfeld_bunch = grunfeld.load()
-        with open(grunfeld_pickle, 'wb') as grunfeld_fp:
-            pickle.dump(grunfeld_bunch, grunfeld_fp)
-    grunfeld_data = grunfeld_bunch['data']
-    logger.info('grunfeld data has %d rows' % len(grunfeld_data))
-    grunfeld_names = grunfeld_bunch['names']
-    logger.info('grunfeld names: %s' % str(grunfeld_names))
-
-    logger.info('loading heart transplant data')
-    heart_pickle = data_folder + 'heart.pkl'
-    if exists(heart_pickle):
-        with open(heart_pickle, 'rb') as heart_fp:
-            heart_bunch = pickle.load(heart_fp)
-    else:
-        heart_bunch = heart.load()
-        with open(heart_pickle, 'wb') as heart_fp:
-            pickle.dump(heart_bunch, heart_fp)
-    heart_data = heart_bunch['data']
-    logger.info('heart data has %d rows' % len(heart_data))
-    heart_names = heart_bunch['names']
-    logger.info('heart names: %s' % str(heart_names))
-
-    logger.info('loading West German interest and inflation rate data')
-    interest_inflation_pickle = data_folder + 'interest_inflation.pkl'
-    if exists(interest_inflation_pickle):
-        with open(interest_inflation_pickle, 'rb') as interest_inflation_fp:
-            interest_inflation_bunch = pickle.load(interest_inflation_fp)
-    else:
-        interest_inflation_bunch = interest_inflation.load()
-        with open(interest_inflation_pickle, 'wb') as interest_inflation_fp:
-            pickle.dump(interest_inflation_bunch, interest_inflation_fp)
-    interest_inflation_data = interest_inflation_bunch['data']
-    logger.info('interest_inflation data has %d rows ' % len(interest_inflation_data))
-    interest_inflation_names = interest_inflation_bunch['names']
-    logger.info('interest_inflation names: %s' % str(interest_inflation_names))
-
     logger.info('loading iris data')
     iris_pickle = data_folder + 'iris.pkl'
     if exists(iris_pickle):

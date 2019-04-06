@@ -97,22 +97,54 @@ if __name__ == '__main__':
 
     return_X_y = False
 
-    logger.info('loading ANES96 data')
-    anes96_pickle = data_folder + 'anes96.pkl'
-    if exists(anes96_pickle):
-        with open(anes96_pickle, 'rb') as anes96_fp:
-            anes96_bunch = pickle.load(anes96_fp)
-    else:
-        anes96_bunch = anes96.load_pandas()
-        with open(anes96_pickle, 'wb') as anes96_fp:
-            pickle.dump(anes96_bunch, anes96_fp)
-    anes96_data = anes96_bunch['data']
-    logger.info('ANES96 data is %d x %d' % anes96_data.shape)
-    anes96_names = anes96_bunch['names']
-    anes96_endog = anes96_bunch['endog_name']
-    logger.info('ANES96 endogengous variable is %s' % anes96_endog)
-    anes96_exog = anes96_bunch['exog_name']
-    logger.info('ANES96 exogengous variable is %s' % anes96_exog)
+    for key, value in {
+        'anes96': anes96,
+        'cancer': cancer,
+        'ccard': ccard,
+        'china_smoking': china_smoking,
+        # 'co2': co2,
+        'committee': committee,
+        'copper': copper,
+        'cpunish': cpunish,
+        'elnino': elnino,
+        'engel': engel,
+        'fair': fair,
+        'fertility': fertility,
+        'grunfeld': grunfeld,
+        'heart': heart,
+        'interest_inflation': interest_inflation,
+        'longley': longley,
+        'macrodata': macrodata,
+        'modechoice': modechoice,
+        'nile': nile,
+        'randhie': randhie,
+        'scotland': scotland,
+        'spector': spector,
+        'stackloss': stackloss,
+        'star98': star98,
+        'statecrime': statecrime,
+        'strikes': strikes,
+        'sunspots': sunspots
+    }.items():
+        logger.info('loading {} data'.format(key))
+        current_pickle = data_folder + 'statsmodels_{}.pkl'.format(key)
+        if exists(current_pickle):
+            with open(current_pickle, 'rb') as current_fp:
+                current_bunch = pickle.load(current_fp)
+        else:
+            current_bunch = value.load_pandas()
+            with open(current_pickle, 'wb') as current_fp:
+                pickle.dump(current_bunch, current_fp)
+        current_data = current_bunch['data']
+        logger.info('{} data is {} x {}'.format(key, current_data.shape[0], current_data.shape[1]))
+        if 'names' in current_bunch.keys():
+            current_names = current_bunch['names']
+        if 'endog_name' in current_bunch.keys():
+            current_endog = current_bunch['endog_name']
+            logger.info('{} endogengous variable is {}'.format(key, current_endog))
+        if 'exog_name' in current_bunch.keys():
+            current_exog = current_bunch['exog_name']
+            logger.info('{} exogengous variable is %s' % current_exog)
 
     logger.info('loading boston data')
     boston_pickle = data_folder + 'boston.pkl'

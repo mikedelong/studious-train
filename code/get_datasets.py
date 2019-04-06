@@ -180,49 +180,6 @@ if __name__ == '__main__':
     breast_cancer_description = breast_cancer_bunch['DESCR']
     logger.debug('cancer description: %s' % breast_cancer_description)
 
-    logger.info('loading cancer data')
-    cancer_pickle = data_folder + 'cancer.pkl'
-    if exists(cancer_pickle):
-        with open(cancer_pickle, 'rb') as cancer_fp:
-            cancer_bunch = cancer.load()
-    else:
-        cancer_bunch = cancer.load_pandas()
-        with open(cancer_pickle, 'wb') as cancer_fp:
-            pickle.dump(cancer_bunch, cancer_fp)
-    cancer_data = cancer_bunch['data']
-    logger.info('Cancer data is 2 x %d' % len(cancer_data))
-    cancer_names = cancer_bunch['names']
-    cancer_endog = cancer_bunch['endog_name']
-    logger.info('Cancer endogenous variable is %s' % cancer_endog)
-    cancer_exog = cancer_bunch['exog_name']
-    logger.info('Cancer exogenous variable is %s' % cancer_exog)
-
-    logger.info('loading ccard data')
-    ccard_pickle = data_folder + 'ccard.pkl'
-    if exists(ccard_pickle):
-        with open(ccard_pickle, 'rb') as ccard_fp:
-            ccard_bunch = pickle.load(ccard_fp)
-    else:
-        ccard_bunch = ccard.load()
-        with open(ccard_pickle, 'wb') as ccard_fp:
-            pickle.dump(ccard_bunch, ccard_fp)
-    ccard_data = ccard_bunch['data']
-    logger.info('ccard data has %d rows' % len(ccard_data))
-    ccard_names = ccard_bunch['names']
-    logger.info('ccard names: %s' % str(ccard_names))
-
-    logger.info('loading china_smoking data')
-    china_smoking_pickle = data_folder + 'china_smoking.pkl'
-    if exists(china_smoking_pickle):
-        with open(china_smoking_pickle, 'rb') as china_smoking_fp:
-            china_smoking_bunch = pickle.load(china_smoking_fp)
-    else:
-        china_smoking_bunch = china_smoking.load()
-        with open(china_smoking_pickle, 'wb') as china_smoking_fp:
-            pickle.dump(china_smoking_bunch, china_smoking_fp)
-    china_smoking_data = china_smoking_bunch['data']
-    logger.info('china_smoking data has %d rows' % len(china_smoking_data))
-
     logger.info('loading CO2 data')
     co2_pickle = data_folder + 'co2.pkl'
     if exists(co2_pickle):

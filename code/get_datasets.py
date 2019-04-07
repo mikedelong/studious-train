@@ -2,6 +2,7 @@
 # https://www.statsmodels.org/dev/datasets/index.html
 import logging
 import pickle
+from os import mkdir
 from os.path import exists
 from time import time
 from warnings import catch_warnings
@@ -75,10 +76,16 @@ if __name__ == '__main__':
     datasets_usecols = ['Package', 'Item']
     datasets_df = read_csv(documentation_file, usecols=datasets_usecols)
     logger.info(datasets_df.shape)
+    packages = datasets_df['Package'].unique()
+    for package in packages:
+        if not exists(data_folder + package):
+            logger.info('creating output folder {}'.format(data_folder + package))
+            mkdir(data_folder + package)
+
     for index, row in datasets_df.iterrows():
         if (row['Package'], row['Item']) not in omits:
             logger.info('loading {} / {} data'.format(row['Package'], row['Item']))
-            current_pickle = data_folder + row['Package'] + '_' + row['Item'] + '.pkl'
+            current_pickle = data_folder + row['Package'] + '/' + row['Item'] + '.pkl'
             if exists(current_pickle):
                 with open(current_pickle, 'rb') as current_fp:
                     current_bundle = pickle.load(current_fp)

@@ -104,6 +104,10 @@ if __name__ == '__main__':
 
     return_X_y = False
 
+    if not exists(data_folder + 'statsmodels'):
+        logger.info('creating output folder {}'.format(data_folder + 'statsmodels'))
+        mkdir(data_folder + 'statsmodels')
+
     for key, value in {
         'anes96': anes96,
         'cancer': cancer,
@@ -134,7 +138,7 @@ if __name__ == '__main__':
         'sunspots': sunspots
     }.items():
         logger.info('loading {} data'.format(key))
-        current_pickle = data_folder + 'statsmodels_{}.pkl'.format(key)
+        current_pickle = data_folder + 'statsmodels' + '/' + '{}.pkl'.format(key)
         if exists(current_pickle):
             with open(current_pickle, 'rb') as current_fp:
                 current_bunch = pickle.load(current_fp)

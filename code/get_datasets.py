@@ -151,39 +151,31 @@ if __name__ == '__main__':
         if 'exog_name' in current_bunch.keys():
             logger.info('{} exogenous variable is %s' % current_bunch['exog_name'])
 
-    logger.info('loading boston data')
-    boston_pickle = data_folder + 'boston.pkl'
-    if exists(boston_pickle):
-        with open(boston_pickle, 'rb') as boston_fp:
-            boston_bunch = pickle.load(boston_fp)
-    else:
-        boston_bunch = load_boston(return_X_y=return_X_y)
-        with open(boston_pickle, 'wb') as boston_fp:
-            pickle.dump(boston_bunch, boston_fp)
-    boston_data = boston_bunch.data
-    logger.info('boston data is %d x %d' % boston_data.shape)
-    boston_target = boston_bunch.target
-    boston_feature_names = boston_bunch.feature_names
-    logger.info('boston feature names: %s' % boston_feature_names)
-    boston_description = boston_bunch.DESCR
-    logger.debug('boston description: %s' % boston_description)
+    if not exists(data_folder + 'sklearn'):
+        logger.info('creating output folder {}'.format(data_folder + 'sklearn'))
+        mkdir(data_folder + 'sklearn')
 
-    logger.info('loading breast cancer data')
-    breast_cancer_pickle = data_folder + 'breast_cancer.pkl'
-    if exists(breast_cancer_pickle):
-        with open(breast_cancer_pickle, 'rb') as breast_cancer_fp:
-            breast_cancer_bunch = pickle.load(breast_cancer_fp)
-    else:
-        breast_cancer_bunch = load_breast_cancer(return_X_y=return_X_y)
-        with open(breast_cancer_pickle, 'wb') as breast_cancer_fp:
-            pickle.dump(breast_cancer_bunch, breast_cancer_fp)
-    breast_cancer_data = breast_cancer_bunch['data']
-    logger.info('cancer data is %d x %d' % breast_cancer_data.shape)
-    breast_cancer_target = breast_cancer_bunch['target']
-    breast_cancer_feature_names = breast_cancer_bunch['feature_names']
-    logger.info('cancer feature names are %s' % breast_cancer_feature_names)
-    breast_cancer_description = breast_cancer_bunch['DESCR']
-    logger.debug('cancer description: %s' % breast_cancer_description)
+    for key, value in {
+        'boston' : load_boston,
+        'breast_cancer' : load_breast_cancer,
+    }.items():
+        logger.info('loading {} data'.format(key))
+        current_pickle = data_folder + '{}/{}.pkl'.format('sklearn', key)
+        if exists(current_pickle):
+            with open(current_pickle, 'rb') as current_fp:
+                current_bunch = pickle.load(current_fp)
+        else:
+            current_bunch = value(return_X_y=return_X_y)
+            with open(current_pickle, 'wb') as current_fp:
+                pickle.dump(current_bunch, current_fp)
+        current_data = current_bunch.data
+        logger.info('boston data is %d x %d' % current_data.shape)
+        current_target = current_bunch.target
+        current_feature_names = current_bunch.feature_names
+        logger.info('{} feature names: {}'.format(key, current_feature_names))
+        current_description = current_bunch.DESCR
+        logger.debug('{} description: {}'.format(key, current_description))
+
 
     logger.info('loading CO2 data')
     co2_pickle = data_folder + 'co2.pkl'

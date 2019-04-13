@@ -158,6 +158,8 @@ if __name__ == '__main__':
     for key, value in {
         'boston': load_boston,
         'breast_cancer': load_breast_cancer,
+        'diabetes': load_diabetes
+
     }.items():
         logger.info('loading {} data'.format(key))
         current_pickle = data_folder + '{}/{}.pkl'.format('sklearn', key)
@@ -192,22 +194,6 @@ if __name__ == '__main__':
     co2_raw_data = co2_bunch['raw_data']
     logger.info('CO2 raw data is %d x %d' % co2_raw_data.shape)
 
-    logger.info('loading diabetes data')
-    diabetes_pickle = data_folder + 'diabetes.pkl'
-    if exists(diabetes_pickle):
-        with open(diabetes_pickle, 'rb') as diabetes_fp:
-            diabetes_bunch = pickle.load(diabetes_fp)
-    else:
-        diabetes_bunch = load_diabetes(return_X_y=return_X_y)
-        with open(diabetes_pickle, 'wb') as diabetes_fp:
-            pickle.dump(diabetes_bunch, diabetes_fp)
-    diabetes_data = diabetes_bunch['data']
-    logger.info('diabetes data is %d x %d' % diabetes_data.shape)
-    diabetes_target = diabetes_bunch['target']
-    diabetes_feature_names = diabetes_bunch['feature_names']
-    logger.info('diabetes feature names are %s' % diabetes_feature_names)
-    diabetes_description = diabetes_bunch['DESCR']
-    logger.debug('diabetes description: %s' % diabetes_description)
 
     logger.info('loading digits data')
     digits_pickle = data_folder + 'digits.pkl'

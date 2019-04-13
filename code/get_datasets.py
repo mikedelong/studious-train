@@ -156,8 +156,8 @@ if __name__ == '__main__':
         mkdir(data_folder + 'sklearn')
 
     for key, value in {
-        'boston' : load_boston,
-        'breast_cancer' : load_breast_cancer,
+        'boston': load_boston,
+        'breast_cancer': load_breast_cancer,
     }.items():
         logger.info('loading {} data'.format(key))
         current_pickle = data_folder + '{}/{}.pkl'.format('sklearn', key)
@@ -175,7 +175,6 @@ if __name__ == '__main__':
         logger.info('{} feature names: {}'.format(key, current_feature_names))
         current_description = current_bunch.DESCR
         logger.debug('{} description: {}'.format(key, current_description))
-
 
     logger.info('loading CO2 data')
     co2_pickle = data_folder + 'co2.pkl'

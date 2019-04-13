@@ -194,7 +194,7 @@ if __name__ == '__main__':
     co2_raw_data = co2_bunch['raw_data']
     logger.info('CO2 raw data is %d x %d' % co2_raw_data.shape)
 
-
+    # todo refactor
     logger.info('loading digits data')
     digits_pickle = data_folder + 'digits.pkl'
     if exists(digits_pickle):
@@ -213,6 +213,7 @@ if __name__ == '__main__':
     digits_description = digits_bunch['DESCR']
     logger.debug('digits description: %s' % digits_description)
 
+    # todo: refactor
     logger.info('loading Engel food expenditure data')
     engel_pickle = data_folder + 'engel.pkl'
     if exists(engel_pickle):
@@ -229,6 +230,7 @@ if __name__ == '__main__':
     engel_raw_data = engel_bunch['raw_data']
     logger.info('engel raw data is %d x %d' % engel_raw_data.shape)
 
+    # todo refactor
     logger.info('loading iris data')
     iris_pickle = data_folder + 'iris.pkl'
     if exists(iris_pickle):
@@ -285,6 +287,7 @@ if __name__ == '__main__':
     lfw_people_description = lfw_people['DESCR']
     logger.info('the LFW data is %d x %d' % lfw_people_data.shape)
 
+    # todo: refactor
     logger.info('loading Linnerud data')
     linnerud_pickle = data_folder + 'linnerud.pkl'
     if exists(linnerud_pickle):
@@ -300,6 +303,7 @@ if __name__ == '__main__':
     linnerud_target_names = linnerud_bunch['target_names']
     linnerud_description = linnerud_bunch['DESCR']
 
+    # todo: refactor
     logger.info('loading Longley macroeconomic data')
     longley_pickle = data_folder + 'longley.pkl'
     if exists(longley_pickle):
@@ -314,6 +318,7 @@ if __name__ == '__main__':
     longley_names = longley_bunch['names']
     logger.info('longley names: %s' % str(longley_names))
 
+    # todo: refactor
     logger.info('loading US macroeconomic data')
     macrodata_pickle = data_folder + 'macrodata.pkl'
     if exists(macrodata_pickle):
@@ -328,6 +333,7 @@ if __name__ == '__main__':
     macrodata_names = macrodata_bunch['names']
     logger.info('macrodata names: %s' % str(macrodata_names))
 
+    # todo: refactor
     logger.info('loading travel mode choice data')
     modechoice_pickle = data_folder + 'modechoice.pkl'
     if exists(modechoice_pickle):
@@ -351,6 +357,7 @@ if __name__ == '__main__':
     newsgroups_target = newsgroups_bunch['target']
     newsgroups_filenames = newsgroups_bunch['filenames']
 
+    # todo: refactor
     logger.info('loading Nile river flows at Ashwan data')
     nile_pickle = data_folder + 'nile.pkl'
     if exists(nile_pickle):
@@ -372,6 +379,7 @@ if __name__ == '__main__':
     olivetti_faces_target = olivetti_faces['target']
     olivetti_faces_description = olivetti_faces['DESCR']
 
+    # todo: refactor
     logger.info('loading RAND health insurance experiment data')
     randhie_pickle = data_folder + 'randhie.pkl'
     if exists(randhie_pickle):
@@ -404,6 +412,7 @@ if __name__ == '__main__':
     sample_images_filenames = sample_images_bunch['filenames']
     sample_images_description = sample_images_bunch['DESCR']
 
+    # todo: refactor
     logger.info('loading Scotland taxation data')
     scotland_pickle = data_folder + 'scotland.pkl'
     if exists(scotland_pickle):
@@ -418,6 +427,7 @@ if __name__ == '__main__':
     scotland_names = scotland_bunch['names']
     logger.info('scotland names: %s' % str(scotland_names))
 
+    # todo: refactor
     logger.info('loading Spector and Mazzeo program effectiveness data')
     spector_pickle = data_folder + 'spector.pkl'
     if exists(spector_pickle):
@@ -432,6 +442,7 @@ if __name__ == '__main__':
     spector_names = spector_bunch['names']
     logger.info('spector names: %s' % str(spector_names))
 
+    # todo: refactor
     logger.info('loading stack loss data')
     stackloss_pickle = data_folder + 'stackloss.pkl'
     if exists(stackloss_pickle):
@@ -446,6 +457,7 @@ if __name__ == '__main__':
     stackloss_names = stackloss_bunch['names']
     logger.info('stackloss names: %s' % str(stackloss_names))
 
+    # todo: refactor
     logger.info('loading Star98 educational data')
     star98_pickle = data_folder + 'star98.pkl'
     if exists(star98_pickle):
@@ -460,6 +472,7 @@ if __name__ == '__main__':
     star98_names = star98_bunch['names']
     logger.info('star98 names: %s' % str(star98_names))
 
+    # todo: refactor
     logger.info('loading State Crime data')
     statecrime_pickle = data_folder + 'statecrime.pkl'
     if exists(statecrime_pickle):
@@ -474,6 +487,7 @@ if __name__ == '__main__':
     statecrime_names = statecrime_bunch['names']
     logger.info('statecrime names: %s' % str(statecrime_names))
 
+    # todo: refactor
     logger.info('loading US strike duration data')
     strikes_pickle = data_folder + 'strikes.pkl'
     if exists(strikes_pickle):
@@ -488,6 +502,7 @@ if __name__ == '__main__':
     strikes_names = strikes_bunch['names']
     logger.info('strikes names: %s' % str(strikes_names))
 
+    # todo: refactor
     logger.info('loading yearly sunspot data')
     sunspots_pickle = data_folder + 'sunspots.pkl'
     if exists(sunspots_pickle):
@@ -502,6 +517,7 @@ if __name__ == '__main__':
     sunspots_names = sunspots_bunch['names']
     logger.info('sunspots names: %s' % str(sunspots_names))
 
+    # todo: refactor
     logger.info('loading wine data')
     wine_bunch = load_wine(return_X_y=return_X_y)
     wine_data = wine_bunch['data']

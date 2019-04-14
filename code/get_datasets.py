@@ -158,8 +158,8 @@ if __name__ == '__main__':
     for key, value in {
         'boston': load_boston,
         'breast_cancer': load_breast_cancer,
-        'diabetes': load_diabetes
-
+        'diabetes': load_diabetes,
+        'digits': load_digits
     }.items():
         logger.info('loading {} data'.format(key))
         current_pickle = data_folder + '{}/{}.pkl'.format('sklearn', key)
@@ -173,8 +173,9 @@ if __name__ == '__main__':
         current_data = current_bunch.data
         logger.info('boston data is %d x %d' % current_data.shape)
         current_target = current_bunch.target
-        current_feature_names = current_bunch.feature_names
-        logger.info('{} feature names: {}'.format(key, current_feature_names))
+        if 'feature_names' in current_bunch.keys():
+            current_feature_names = current_bunch.feature_names
+            logger.info('{} feature names: {}'.format(key, current_feature_names))
         current_description = current_bunch.DESCR
         logger.debug('{} description: {}'.format(key, current_description))
 
@@ -193,25 +194,6 @@ if __name__ == '__main__':
     logger.info('CO2 names: %s' % str(co2_names))
     co2_raw_data = co2_bunch['raw_data']
     logger.info('CO2 raw data is %d x %d' % co2_raw_data.shape)
-
-    # todo refactor
-    logger.info('loading digits data')
-    digits_pickle = data_folder + 'digits.pkl'
-    if exists(digits_pickle):
-        with open(digits_pickle, 'rb') as digits_fp:
-            digits_bunch = pickle.load(digits_fp)
-    else:
-        digits_bunch = load_digits(return_X_y=return_X_y)
-        with open(digits_pickle, 'wb') as digits_fp:
-            pickle.dump(digits_bunch, digits_fp)
-    digits_data = digits_bunch['data']
-    logger.info('digits data is %d x %d' % digits_data.shape)
-    digits_target = digits_bunch['target']
-    digits_target_names = digits_bunch['target_names']
-    logger.debug('digits target names are %s' % digits_target_names)
-    digits_images = digits_bunch['images']
-    digits_description = digits_bunch['DESCR']
-    logger.debug('digits description: %s' % digits_description)
 
     # todo: refactor
     logger.info('loading Engel food expenditure data')

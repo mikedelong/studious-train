@@ -159,7 +159,8 @@ if __name__ == '__main__':
         'boston': load_boston,
         'breast_cancer': load_breast_cancer,
         'diabetes': load_diabetes,
-        'digits': load_digits
+        'digits': load_digits,
+        'iris': load_iris
     }.items():
         logger.info('loading {} data'.format(key))
         current_pickle = data_folder + '{}/{}.pkl'.format('sklearn', key)
@@ -194,26 +195,6 @@ if __name__ == '__main__':
     logger.info('CO2 names: %s' % str(co2_names))
     co2_raw_data = co2_bunch['raw_data']
     logger.info('CO2 raw data is %d x %d' % co2_raw_data.shape)
-
-    # todo refactor
-    logger.info('loading iris data')
-    iris_pickle = data_folder + 'iris.pkl'
-    if exists(iris_pickle):
-        with open(iris_pickle, 'rb') as iris_fp:
-            iris_bunch = pickle.load(iris_fp)
-    else:
-        iris_bunch = load_iris(return_X_y=return_X_y)
-        with open(iris_pickle, 'wb') as iris_fp:
-            pickle.dump(iris_bunch, iris_fp)
-    iris_data = iris_bunch['data']
-    logger.info('iris data is %d x %d' % iris_data.shape)
-    iris_target = iris_bunch['target']
-    iris_target_names = iris_bunch['target_names']
-    logger.info('iris target names: %s' % iris_target_names)
-    iris_feature_names = iris_bunch['feature_names']
-    logger.info('iris feature names: %s' % iris_feature_names)
-    iris_description = iris_bunch['DESCR']
-    logger.debug('iris description: %s' % iris_description)
 
     logger.info('loading KDD data')
     random_state = 1

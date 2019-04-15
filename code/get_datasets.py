@@ -195,23 +195,6 @@ if __name__ == '__main__':
     co2_raw_data = co2_bunch['raw_data']
     logger.info('CO2 raw data is %d x %d' % co2_raw_data.shape)
 
-    # todo: refactor
-    logger.info('loading Engel food expenditure data')
-    engel_pickle = data_folder + 'engel.pkl'
-    if exists(engel_pickle):
-        with open(engel_pickle, 'rb') as engel_fp:
-            engel_bunch = pickle.load(engel_fp)
-    else:
-        engel_bunch = engel.load()
-        with open(engel_pickle, 'wb') as engel_fp:
-            pickle.dump(engel_bunch, engel_fp)
-    engel_data = engel_bunch['data']
-    logger.info('engel data has %d rows' % len(engel_data))
-    engel_names = engel_bunch['names']
-    logger.info('engel names: %s' % str(engel_names))
-    engel_raw_data = engel_bunch['raw_data']
-    logger.info('engel raw data is %d x %d' % engel_raw_data.shape)
-
     # todo refactor
     logger.info('loading iris data')
     iris_pickle = data_folder + 'iris.pkl'

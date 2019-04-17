@@ -160,7 +160,8 @@ if __name__ == '__main__':
         'breast_cancer': load_breast_cancer,
         'diabetes': load_diabetes,
         'digits': load_digits,
-        'iris': load_iris
+        'iris': load_iris,
+        'linnerud': load_linnerud
     }.items():
         logger.info('loading {} data'.format(key))
         current_pickle = data_folder + '{}/{}.pkl'.format('sklearn', key)
@@ -232,22 +233,6 @@ if __name__ == '__main__':
     lfw_people_target_names = lfw_people['target_names']
     lfw_people_description = lfw_people['DESCR']
     logger.info('the LFW data is %d x %d' % lfw_people_data.shape)
-
-    # todo: refactor
-    logger.info('loading Linnerud data')
-    linnerud_pickle = data_folder + 'linnerud.pkl'
-    if exists(linnerud_pickle):
-        with open(linnerud_pickle, 'rb') as linnerud_fp:
-            linnerud_bunch = pickle.load(linnerud_fp)
-    else:
-        linnerud_bunch = load_linnerud(return_X_y=return_X_y)
-        with open(linnerud_pickle, 'wb') as linnerud_fp:
-            pickle.dump(linnerud_bunch, linnerud_fp)
-    linnerud_data = linnerud_bunch['data']
-    linnerud_feature_names = linnerud_bunch['feature_names']
-    linnerud_target = linnerud_bunch['target']
-    linnerud_target_names = linnerud_bunch['target_names']
-    linnerud_description = linnerud_bunch['DESCR']
 
     # todo: refactor
     logger.info('loading Longley macroeconomic data')

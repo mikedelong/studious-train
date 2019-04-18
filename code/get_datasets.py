@@ -234,51 +234,6 @@ if __name__ == '__main__':
     lfw_people_description = lfw_people['DESCR']
     logger.info('the LFW data is %d x %d' % lfw_people_data.shape)
 
-    # todo: refactor
-    logger.info('loading Longley macroeconomic data')
-    longley_pickle = data_folder + 'longley.pkl'
-    if exists(longley_pickle):
-        with open(longley_pickle, 'rb') as longley_fp:
-            longley_bunch = pickle.load(longley_fp)
-    else:
-        longley_bunch = longley.load()
-        with open(longley_pickle, 'wb') as longley_fp:
-            pickle.dump(longley_bunch, longley_fp)
-    longley_data = longley_bunch['data']
-    logger.info('longley data has %d rows ' % len(longley_data))
-    longley_names = longley_bunch['names']
-    logger.info('longley names: %s' % str(longley_names))
-
-    # todo: refactor
-    logger.info('loading US macroeconomic data')
-    macrodata_pickle = data_folder + 'macrodata.pkl'
-    if exists(macrodata_pickle):
-        with open(macrodata_pickle, 'rb') as macrodata_fp:
-            macrodata_bunch = pickle.load(macrodata_fp)
-    else:
-        macrodata_bunch = macrodata.load()
-        with open(macrodata_pickle, 'wb') as macrodata_fp:
-            pickle.dump(macrodata_bunch, macrodata_fp)
-    macrodata_data = macrodata_bunch['data']
-    logger.info('macrodata data has %d rows ' % len(macrodata_data))
-    macrodata_names = macrodata_bunch['names']
-    logger.info('macrodata names: %s' % str(macrodata_names))
-
-    # todo: refactor
-    logger.info('loading travel mode choice data')
-    modechoice_pickle = data_folder + 'modechoice.pkl'
-    if exists(modechoice_pickle):
-        with open(modechoice_pickle, 'rb') as modechoice_fp:
-            modechoice_bunch = pickle.load(modechoice_fp)
-    else:
-        modechoice_bunch = modechoice.load()
-        with open(modechoice_pickle, 'wb') as modechoice_fp:
-            pickle.dump(modechoice_bunch, modechoice_fp)
-    modechoice_data = modechoice_bunch['data']
-    logger.info('modechoice data has %d rows ' % len(modechoice_data))
-    modechoice_names = modechoice_bunch['names']
-    logger.info('modechoice names: %s' % str(modechoice_names))
-
     # todo add pickle file
     logger.info('loading newsgroups data')
     newsgroups_bunch = fetch_20newsgroups(data_home=data_folder)
@@ -288,42 +243,12 @@ if __name__ == '__main__':
     newsgroups_target = newsgroups_bunch['target']
     newsgroups_filenames = newsgroups_bunch['filenames']
 
-    # todo: refactor
-    logger.info('loading Nile river flows at Ashwan data')
-    nile_pickle = data_folder + 'nile.pkl'
-    if exists(nile_pickle):
-        with open(nile_pickle, 'rb') as nile_fp:
-            nile_bunch = pickle.load(nile_fp)
-    else:
-        nile_bunch = nile.load()
-        with open(nile_pickle, 'wb') as nile_fp:
-            pickle.dump(nile_bunch, nile_fp)
-    nile_data = nile_bunch['data']
-    logger.info('nile data has %d rows ' % len(nile_data))
-    nile_names = nile_bunch['names']
-    logger.info('nile names: %s' % str(nile_names))
-
     logger.info('loading Olivetti faces data')
     olivetti_faces = fetch_olivetti_faces(data_home=data_folder)
     olivetti_faces_data = olivetti_faces['data']
     olivetti_faces_images = olivetti_faces['images']
     olivetti_faces_target = olivetti_faces['target']
     olivetti_faces_description = olivetti_faces['DESCR']
-
-    # todo: refactor
-    logger.info('loading RAND health insurance experiment data')
-    randhie_pickle = data_folder + 'randhie.pkl'
-    if exists(randhie_pickle):
-        with open(randhie_pickle, 'rb') as randhie_fp:
-            randhie_bunch = pickle.load(randhie_fp)
-    else:
-        randhie_bunch = randhie.load()
-        with open(randhie_pickle, 'wb') as randhie_fp:
-            pickle.dump(randhie_bunch, randhie_fp)
-    randhie_data = randhie_bunch['data']
-    logger.info('randhie data has %d rows ' % len(randhie_data))
-    randhie_names = randhie_bunch['names']
-    logger.info('randhie names: %s' % str(randhie_names))
 
     logger.info('loading Reuters Corpus Volume I data')
     reuters_pickle = data_folder + 'reuters.pkl'
@@ -342,111 +267,6 @@ if __name__ == '__main__':
     sample_images = sample_images_bunch['images']
     sample_images_filenames = sample_images_bunch['filenames']
     sample_images_description = sample_images_bunch['DESCR']
-
-    # todo: refactor
-    logger.info('loading Scotland taxation data')
-    scotland_pickle = data_folder + 'scotland.pkl'
-    if exists(scotland_pickle):
-        with open(scotland_pickle, 'rb') as scotland_fp:
-            scotland_bunch = pickle.load(scotland_fp)
-    else:
-        scotland_bunch = scotland.load()
-        with open(scotland_pickle, 'wb') as scotland_fp:
-            pickle.dump(scotland_bunch, scotland_fp)
-    scotland_data = scotland_bunch['data']
-    logger.info('scotland data has %d rows ' % len(scotland_data))
-    scotland_names = scotland_bunch['names']
-    logger.info('scotland names: %s' % str(scotland_names))
-
-    # todo: refactor
-    logger.info('loading Spector and Mazzeo program effectiveness data')
-    spector_pickle = data_folder + 'spector.pkl'
-    if exists(spector_pickle):
-        with open(spector_pickle, 'rb') as spector_fp:
-            spector_bunch = pickle.load(spector_fp)
-    else:
-        spector_bunch = spector.load()
-        with open(spector_pickle, 'wb') as spector_fp:
-            pickle.dump(spector_bunch, spector_fp)
-    spector_data = spector_bunch['data']
-    logger.info('spector data has %d rows ' % len(spector_data))
-    spector_names = spector_bunch['names']
-    logger.info('spector names: %s' % str(spector_names))
-
-    # todo: refactor
-    logger.info('loading stack loss data')
-    stackloss_pickle = data_folder + 'stackloss.pkl'
-    if exists(stackloss_pickle):
-        with open(stackloss_pickle, 'rb') as stackloss_fp:
-            stackloss_bunch = pickle.load(stackloss_fp)
-    else:
-        stackloss_bunch = stackloss.load()
-        with open(stackloss_pickle, 'wb') as stackloss_fp:
-            pickle.dump(stackloss_bunch, stackloss_fp)
-    stackloss_data = stackloss_bunch['data']
-    logger.info('stackloss data has %d rows ' % len(stackloss_data))
-    stackloss_names = stackloss_bunch['names']
-    logger.info('stackloss names: %s' % str(stackloss_names))
-
-    # todo: refactor
-    logger.info('loading Star98 educational data')
-    star98_pickle = data_folder + 'star98.pkl'
-    if exists(star98_pickle):
-        with open(star98_pickle, 'rb') as star98_fp:
-            star98_bunch = pickle.load(star98_fp)
-    else:
-        star98_bunch = star98.load()
-        with open(star98_pickle, 'wb') as star98_fp:
-            pickle.dump(star98_bunch, star98_fp)
-    star98_data = star98_bunch['data']
-    logger.info('star98 data has %d rows ' % len(star98_data))
-    star98_names = star98_bunch['names']
-    logger.info('star98 names: %s' % str(star98_names))
-
-    # todo: refactor
-    logger.info('loading State Crime data')
-    statecrime_pickle = data_folder + 'statecrime.pkl'
-    if exists(statecrime_pickle):
-        with open(statecrime_pickle, 'rb') as statecrime_fp:
-            statecrime_bunch = pickle.load(statecrime_fp)
-    else:
-        statecrime_bunch = statecrime.load()
-        with open(statecrime_pickle, 'wb') as statecrime_fp:
-            pickle.dump(statecrime_bunch, statecrime_fp)
-    statecrime_data = statecrime_bunch['data']
-    logger.info('statecrime data has %d rows ' % len(statecrime_data))
-    statecrime_names = statecrime_bunch['names']
-    logger.info('statecrime names: %s' % str(statecrime_names))
-
-    # todo: refactor
-    logger.info('loading US strike duration data')
-    strikes_pickle = data_folder + 'strikes.pkl'
-    if exists(strikes_pickle):
-        with open(strikes_pickle, 'rb') as strikes_fp:
-            strikes_bunch = pickle.load(strikes_fp)
-    else:
-        strikes_bunch = strikes.load()
-        with open(strikes_pickle, 'wb') as strikes_fp:
-            pickle.dump(strikes_bunch, strikes_fp)
-    strikes_data = strikes_bunch['data']
-    logger.info('strikes data has %d rows ' % len(strikes_data))
-    strikes_names = strikes_bunch['names']
-    logger.info('strikes names: %s' % str(strikes_names))
-
-    # todo: refactor
-    logger.info('loading yearly sunspot data')
-    sunspots_pickle = data_folder + 'sunspots.pkl'
-    if exists(sunspots_pickle):
-        with open(sunspots_pickle, 'rb') as sunspots_fp:
-            sunspots_bunch = pickle.load(sunspots_fp)
-    else:
-        sunspots_bunch = sunspots.load()
-        with open(sunspots_pickle, 'wb') as sunspots_fp:
-            pickle.dump(sunspots_bunch, sunspots_fp)
-    sunspots_data = sunspots_bunch['data']
-    logger.info('sunspots data has %d rows ' % len(sunspots_data))
-    sunspots_names = sunspots_bunch['names']
-    logger.info('sunspots names: %s' % str(sunspots_names))
 
     # todo: refactor
     logger.info('loading wine data')

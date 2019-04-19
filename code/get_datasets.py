@@ -161,7 +161,8 @@ if __name__ == '__main__':
         'diabetes': load_diabetes,
         'digits': load_digits,
         'iris': load_iris,
-        'linnerud': load_linnerud
+        'linnerud': load_linnerud,
+        'wine': load_wine
     }.items():
         logger.info('loading {} data'.format(key))
         current_pickle = data_folder + '{}/{}.pkl'.format('sklearn', key)
